@@ -1,8 +1,24 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Manrope, Roboto, Roboto_Flex } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const manrope = Manrope({
+  subsets: ["cyrillic"],
+  weight: ["400", "600", "700"],
+  variable: "--font-manrope",
+});
+const roboto = Roboto({
+  subsets: ["cyrillic"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
+});
+const robotoFlex = Roboto_Flex({
+  subsets: ["cyrillic"],
+  weight: ["400", "500", "600"],
+  variable: "--font-roboto-flex",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +31,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="ua">
+      <body
+        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable}`}
+      >
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
