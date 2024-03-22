@@ -31,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ua">
+    <html lang="ua" className=" w-full h-full">
       <body
-        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable}`}
+        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} h-full`}
       >
         <Header />
         {children}
