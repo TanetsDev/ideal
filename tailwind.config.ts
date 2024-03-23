@@ -39,11 +39,7 @@ const config: Config = {
         cardGrey: "#F1F1F1",
       },
     },
-    screens: {
-      sm: "375px",
-      md: "720px",
-      lg: "1440px",
-    },
+
     transitionDuration: {
       DEFAULT: "300ms",
     },
