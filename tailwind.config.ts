@@ -37,6 +37,9 @@ const config: Config = {
         blackFooter: "#101010",
         secondaryGrey: "#3F3F3F",
         cardGrey: "#F1F1F1",
+        hero: "rgba(29, 29, 29, 0.55)",
+        heroTablet: "rgba(29, 29, 29, 0.4)",
+        heroDesc: "transparent",
       },
     },
 
