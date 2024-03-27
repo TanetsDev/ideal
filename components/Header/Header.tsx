@@ -10,10 +10,14 @@ import {
   userIcon,
   burgerIcon,
 } from "@/public/icons";
+import MobNavBar from "../NavBar/MobNavBar";
+import { useState } from "react";
 
 const Header = () => {
   const pathname = usePathname();
   const headerBgC = pathname === "/" ? "bg-transparent" : "bg-blackFooter";
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className={`${headerBgC} h-[64px]  md:h-[80px] w-full fixed z-50`}>
       <div className="flex items-center justify-between px-[16px] md:px-5 lg:px-[72px] w-full h-full">
@@ -22,6 +26,7 @@ const Header = () => {
             src={burgerIcon}
             alt="Бургер меню"
             className=" size-[40px] md:size-[50px]"
+            onClick={() => setIsOpen((prev) => !prev)}
           />
         </div>
         <Image
@@ -30,7 +35,9 @@ const Header = () => {
           className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] lg:w-[133px] lg:h-[33px]"
         />
         <div className=" flex gap-[72px]">
-          <NavBar />
+          <div className=" hidden lg:block">
+            <NavBar />
+          </div>
           <div className="flex gap-[14px] md:gap-4 lg:gap-[18px]">
             <span className=" hidden lg:inline">
               <LangSwitcher />
@@ -48,6 +55,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <MobNavBar isOpen={isOpen} />
     </header>
   );
 };

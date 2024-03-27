@@ -1,3 +1,4 @@
 import heroBg from "./heroPhoto.jpg";
+import boxImg from "./Box-image.jpg";
 
-export { heroBg };
+export { heroBg, boxImg };

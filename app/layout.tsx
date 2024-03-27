@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ua" className=" w-full h-full">
       <body
-        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} h-full`}
+        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} h-full bg-cardGrey`}
       >
         <Header />
         {children}
