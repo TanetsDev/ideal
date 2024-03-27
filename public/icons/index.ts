@@ -9,6 +9,7 @@ import personIcon from "./Vector.svg";
 import fbIcon from "./фейсьук.svg";
 import instaIcon from "./інстаграм.svg";
 import iconUp from "./Icon (1).svg";
+import uah from "./UAH.svg";
 
 export {
   arrowDownIcon,
@@ -22,4 +23,5 @@ export {
   fbIcon,
   instaIcon,
   iconUp,
+  uah,
 };

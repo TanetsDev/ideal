@@ -23,7 +23,7 @@ const config: Config = {
         manrope: ["var(--font-manrope)"],
       },
       colors: {
-        basicBlack: "#14141414",
+        basicBlack: "#141414",
         blackBtn: "#282727",
         basicGreen: "#216509",
         basicViolet: "#A60CA9",
