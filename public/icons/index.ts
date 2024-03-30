@@ -10,6 +10,10 @@ import fbIcon from "./фейсьук.svg";
 import instaIcon from "./інстаграм.svg";
 import iconUp from "./Icon (1).svg";
 import uah from "./UAH.svg";
+import b1 from "./Frame 26083890.svg";
+import b2 from "./Frame 26083891.svg";
+import b3 from "./Frame 26083892.svg";
+import b4 from "./Frame 26083893.svg";
 
 export {
   arrowDownIcon,
@@ -24,4 +28,8 @@ export {
   instaIcon,
   iconUp,
   uah,
+  b1,
+  b2,
+  b3,
+  b4,
 };
