@@ -1,13 +1,20 @@
+"use client";
+
+import { IBox } from "@/types/products.types";
 import MainContainer from "../Containers/MainContainer";
 import BoxList from "../Products/BoxList";
+import MainGoldBtn from "../Buttons/MainGoldBtn";
+import Title from "../Common/Title";
+import MainSectionsBox from "../Common/MainSectionsBox";
 
-const boxes = [
+const boxes: IBox[] = [
   {
     id: 1,
     title: "Супер бокс",
     price: 160,
     person: 4,
     imageUrl: "",
+    type: "normal",
   },
   {
     id: 2,
@@ -15,26 +22,47 @@ const boxes = [
     price: 160,
     person: 4,
     imageUrl: "",
+    type: "hit",
   },
   {
-    id: 3,
+    id: 4,
     title: "Супер бокс",
     price: 160,
     person: 4,
     imageUrl: "",
+    type: "top",
+  },
+  {
+    id: 6,
+    title: "Супер бокс",
+    price: 160,
+    person: 4,
+    imageUrl: "",
+    type: "new",
+  },
+  {
+    id: 7,
+    title: "Супер бокс",
+    price: 160,
+    person: 4,
+    imageUrl: "",
+    type: "normal",
   },
 ];
 
 const IdealProposition = () => {
   return (
-    <section className=" pt-[50px]">
-      <MainContainer>
-        <h2 className=" text-basicBlack text-[26px] font-manrope text-center">
-          {"Ідеальна пропозиція"}
-        </h2>
+    <MainSectionsBox>
+      <MainContainer className="flex flex-col items-center">
+        <Title align="center">Ідеальна пропозиція</Title>
         <BoxList boxes={boxes} />
+        <MainGoldBtn
+          text={"Дивитись більше"}
+          handleClick={() => console.log("Button click")}
+          blockName="ideal"
+        />
       </MainContainer>
-    </section>
+    </MainSectionsBox>
   );
 };
 

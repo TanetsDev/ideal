@@ -19,7 +19,9 @@ const Header = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <header className={`${headerBgC} h-[64px]  md:h-[80px] w-full fixed z-50`}>
+    <header
+      className={`${headerBgC} h-[64px]  md:h-[80px] w-full absolute lg:fixed z-50`}
+    >
       <div className="flex items-center justify-between px-[16px] md:px-5 lg:px-[72px] w-full h-full">
         <div className=" pr-5 lg:hidden">
           <Image

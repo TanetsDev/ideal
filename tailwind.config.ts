@@ -21,6 +21,7 @@ const config: Config = {
         roboto: ["var(--font-roboto)"],
         robotoFlex: ["var(--font-roboto-flex)"],
         manrope: ["var(--font-manrope)"],
+        julius: ["var(--font-julius-sans-one)"],
       },
       colors: {
         basicBlack: "#141414",

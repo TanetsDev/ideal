@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Manrope, Roboto, Roboto_Flex } from "next/font/google";
+import {
+  Manrope,
+  Roboto,
+  Roboto_Flex,
+  Julius_Sans_One,
+} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -19,6 +24,11 @@ const robotoFlex = Roboto_Flex({
   weight: ["400", "500", "600"],
   variable: "--font-roboto-flex",
 });
+const juliusSans = Julius_Sans_One({
+  weight: ["400"],
+  variable: "--font-julius-sans-one",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -31,9 +41,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ua" className=" w-full h-full">
+    <html lang="ua" className=" w-full h-full ">
       <body
-        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} h-full bg-cardGrey`}
+        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} ${juliusSans.variable} h-full bg-[#F9F9F9]`}
       >
         <Header />
         {children}

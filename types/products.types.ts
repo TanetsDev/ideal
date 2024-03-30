@@ -4,4 +4,7 @@ export interface IBox {
   price: number;
   person: number;
   imageUrl: string;
+  type: BoxMarkerType;
 }
+
+export type BoxMarkerType = "new" | "hit" | "top" | "normal";
