@@ -1,8 +1,14 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import NavBar from "./NavBar";
 import MobLangSwitcher from "../LangSwitcher/MobLangSwitcher";
 
-const MobNavBar = ({ isOpen }: { isOpen: boolean }) => {
+const MobNavBar = ({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   return (
     <div
       className={` h-[100vh] relative overflow-hidden border-t border-white lg:hidden ${
@@ -14,7 +20,7 @@ const MobNavBar = ({ isOpen }: { isOpen: boolean }) => {
           isOpen ? "top-o" : "-translate-y-full"
         } `}
       >
-        <NavBar />
+        <NavBar setIsOpen={setIsOpen} />
         <MobLangSwitcher />
       </div>
     </div>

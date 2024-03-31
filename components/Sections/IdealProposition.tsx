@@ -54,8 +54,8 @@ const IdealProposition = () => {
   return (
     <MainSectionsBox>
       <MainContainer className="flex flex-col items-center">
-        <Title align="center">Ідеальна пропозиція</Title>
-        <BoxList boxes={boxes} />
+        <Title className="text-center">Ідеальна пропозиція</Title>
+        <BoxList boxes={boxes} section="idealProposition" />
         <MainGoldBtn
           text={"Дивитись більше"}
           handleClick={() => console.log("Button click")}
