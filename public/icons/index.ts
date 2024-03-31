@@ -14,6 +14,13 @@ import b1 from "./Frame 26083890.svg";
 import b2 from "./Frame 26083891.svg";
 import b3 from "./Frame 26083892.svg";
 import b4 from "./Frame 26083893.svg";
+import brCrump from "./arrow-down.svg";
+import filterIcon from "./mingcute_filter-line.svg";
+import arrUp from "./стрелка вверх.svg";
+import arrDown from "./стрелка вниз.svg";
+import checkBox from "./ion_checkbox-outline.svg";
+import checkBoxChecked from "./ion_checkbox-outline 2.svg";
+import rangeBublle from "./Ellipse 5.svg";
 
 export {
   arrowDownIcon,
@@ -32,4 +39,11 @@ export {
   b2,
   b3,
   b4,
+  brCrump,
+  filterIcon,
+  arrUp,
+  arrDown,
+  checkBox,
+  checkBoxChecked,
+  rangeBublle,
 };

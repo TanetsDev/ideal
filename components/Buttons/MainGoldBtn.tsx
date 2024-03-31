@@ -29,6 +29,9 @@ const getBtnSize = (blockName: string) => {
     case "ideal":
       return "w-[343px] h-[45px] md:w-[162px] md:h-[40px]";
 
+    case "footer":
+      return "w-[126px] lg:w-[144px] h-[40px] lg:h-[44px]";
+
     default:
       return "";
   }
@@ -39,6 +42,7 @@ interface IProps {
   blockName: string;
   bordered?: boolean;
   handleClick: () => void;
+  className?: string;
 }
 
 const MainGoldBtn = ({
@@ -46,6 +50,7 @@ const MainGoldBtn = ({
   blockName,
   bordered = false,
   handleClick,
+  className,
 }: IProps) => {
   if (bordered)
     return (
@@ -70,7 +75,7 @@ const MainGoldBtn = ({
       onClick={handleClick}
       className={`${getBtnSize(
         blockName
-      )}  flex items-center justify-center bg-goldPrimaryBtn text-sm font-robotoFlex text-basicBlack rounded`}
+      )}  flex items-center justify-center bg-goldPrimaryBtn text-sm font-robotoFlex text-basicBlack rounded ${className}`}
     >
       {text}
     </button>

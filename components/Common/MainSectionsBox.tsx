@@ -1,8 +1,16 @@
 import React, { ReactNode } from "react";
 
-const MainSectionsBox = ({ children }: { children: ReactNode }) => {
+const MainSectionsBox = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   return (
-    <section className=" pt-[50px] md:pt-[70px] bg-#F9F9F9">{children}</section>
+    <section className={`pt-[50px] md:pt-[70px] bg-#F9F9F9 ${className}`}>
+      {children}
+    </section>
   );
 };
 
