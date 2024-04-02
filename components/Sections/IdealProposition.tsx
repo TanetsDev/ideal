@@ -12,7 +12,7 @@ const boxes: IBox[] = [
   {
     id: 1,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -20,7 +20,7 @@ const boxes: IBox[] = [
   {
     id: 2,
     title: "Супер бокс",
-    price: 160,
+    price: 1606,
     person: 4,
     imageUrl: "",
     type: "hit",
@@ -28,7 +28,7 @@ const boxes: IBox[] = [
   {
     id: 4,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "top",
@@ -36,7 +36,7 @@ const boxes: IBox[] = [
   {
     id: 6,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "new",
@@ -44,7 +44,7 @@ const boxes: IBox[] = [
   {
     id: 7,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "normal",

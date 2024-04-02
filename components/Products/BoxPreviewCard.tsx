@@ -64,7 +64,7 @@ const BoxPreviewCard = ({ box }: { box: IBox }) => {
             <span className=" text-base md:text-lg font-manrope text-basicBlack inline-flex items-center mr-[28px]">
               1680 <span className=" text-sm">гр</span>
             </span>
-            <span className=" text-xl md:text-3xl font-medium font-manrope inline-flex items-center">
+            <span className=" text-2xl md:text-3xl font-medium font-manrope inline-flex items-center">
               1600
               <Image src={uah} alt="іконка гривні" className="  size-4" />
             </span>
