@@ -42,11 +42,16 @@ const BoxPreviewCard = ({ box }: { box: IBox }) => {
         <h3 className="text-left text-base font-semibold font-manrope mt-6 text-basicBlack">
           Наповнення боксу
         </h3>
-        <p className="mt-[12px] text-sm md:text-base font-robotoFlex text-basicBlack lg:max-w-[526px]">
-          Сендвіч з соковитою качкою, карамелізованою грушею та сиром
-          Філадельфія. З телятиною, соусом венігрет, шпинатом та сиром З куркою,
-          соусом айолі, салат ромен і сиром З рваною свининою та салатом коул
-          слоу Можна обрати ті начинки які подобаються саме вам
+        <p className="mt-[12px] text-sm md:text-base font-robotoFlex text-basicBlack lg:max-w-[526px] flex flex-col gap-[6px]">
+          <span>
+            {" "}
+            Сендвіч з соковитою качкою, карамелізованою грушею та сиром
+            Філадельфія.
+          </span>
+          <span> З телятиною, соусом венігрет, шпинатом та сиром</span>
+          <span>З куркою, соусом айолі, салат ромен і сиром</span>
+          <span> З рваною свининою та салатом коул слоу</span>
+          <span>Можна обрати ті начинки які подобаються саме вам</span>
         </p>
         <div className="md:flex items-center justify-between md:mt-8 lg:mt-11">
           <div className="flex items-center mt-5 mb-[44px] md:m-0">
@@ -56,10 +61,10 @@ const BoxPreviewCard = ({ box }: { box: IBox }) => {
             <span className=" text-xs  md:text-sm font-manrope text-basicBlack md:-ml-[12px] mr-[32px]">
               | 4 персони
             </span>
-            <span className=" text-base md:text-lg font-manrope text-basicBlack inline-flex items-baseline mr-[28px]">
+            <span className=" text-base md:text-lg font-manrope text-basicBlack inline-flex items-center mr-[28px]">
               1680 <span className=" text-sm">гр</span>
             </span>
-            <span className=" text-xl md:text-3xl font-medium font-manrope inline-flex items-baseline">
+            <span className=" text-xl md:text-3xl font-medium font-manrope inline-flex items-center">
               1600
               <Image src={uah} alt="іконка гривні" className="  size-4" />
             </span>
@@ -98,7 +103,7 @@ const Marker = ({ type }: { type: BoxMarkerType }) => {
 
   return (
     <span
-      className={`absolute -left-[2px] top-[22px] md:left-4 md:top-7 w-[107px] lg:w-[107px] h-[27px] lg:h-[27px] rounded-[1px] flex justify-start items-center pl-[12px] text-sm font-manrope text-cardBacsic ${color} `}
+      className={`absolute -left-[2px] top-[22px] md:left-4 md:top-7 lg:top-9 w-[107px] lg:w-[107px] h-[27px] lg:h-[27px] rounded-[1px] flex justify-start items-center pl-[12px] text-sm font-manrope text-cardBacsic ${color} `}
     >
       {title}
     </span>

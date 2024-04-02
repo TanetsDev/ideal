@@ -7,15 +7,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { IBox } from "@/types/products.types";
-import BoxCard from "../Products/BoxCard";
 import Image from "next/image";
 import { arrowLeft, arrowRight } from "@/public/icons";
+import SuggestionsBox from "../Products/SuggestionsBoxCard";
 
 const boxes: IBox[] = [
   {
     id: 1,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -23,7 +23,7 @@ const boxes: IBox[] = [
   {
     id: 2,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "hit",
@@ -31,7 +31,7 @@ const boxes: IBox[] = [
   {
     id: 4,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "top",
@@ -39,7 +39,7 @@ const boxes: IBox[] = [
   {
     id: 6,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "new",
@@ -47,7 +47,7 @@ const boxes: IBox[] = [
   {
     id: 7,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -55,7 +55,7 @@ const boxes: IBox[] = [
   {
     id: 8,
     title: "Супер бокс",
-    price: 160,
+    price: 1600,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -64,7 +64,7 @@ const boxes: IBox[] = [
 
 const SuggeschionsSwiper = () => {
   return (
-    <div className="md:w-[690px] lg:w-full mx-auto">
+    <div className="w-[350px] md:w-[690px] lg:w-full mx-auto">
       <div className="flex gap-6 justify-end px-5 mb-5">
         <Image src={arrowLeft} alt="Стрілка вліво" width={18} />
         <Image src={arrowRight} alt="Стрілка вправо" width={18} />
@@ -90,7 +90,7 @@ const SuggeschionsSwiper = () => {
         {boxes.map((box, i) => {
           return (
             <SwiperSlide key={i}>
-              <BoxCard box={box} isSuggestions={true} />
+              <SuggestionsBox box={box} />
             </SwiperSlide>
           );
         })}

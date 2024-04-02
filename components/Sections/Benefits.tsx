@@ -30,7 +30,7 @@ const Benefits = () => {
                 <Image
                   src={icons[i]}
                   alt="Іконка цифри"
-                  className=" w-[31px] lg:w-[40px] h-[23px] lg:h-[27px]"
+                  className=" w-[35px] lg:w-[40px] h-[28px] lg:h-[27px]"
                 />
                 <p className=" pt-[14px]">{b}</p>
               </li>

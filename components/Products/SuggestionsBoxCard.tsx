@@ -5,22 +5,32 @@ import BoxBtn from "../Buttons/BoxBtn";
 import { BoxMarkerType, IBox } from "@/types/products.types";
 import Link from "next/link";
 
-const BoxCard = ({ box }: { box: IBox }) => {
+const SuggestionsBox = ({
+  box,
+  isSuggestions,
+}: {
+  box: IBox;
+  isSuggestions?: boolean;
+}) => {
   return (
     <div
-      className={`relative p-[9px] lg:p-2 pb-4 lg:pb-[14px] rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] lg:w-[306px] `}
+      className={`relative p-[9px]  pb-4 lg:p-2 rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] lg:w-[240px]  `}
     >
       {box.type !== "normal" && <Marker type={box.type} />}
       <Link href={"/boxes/123"}>
         <Image
           src={boxImg}
           alt="Зображення боксу"
-          className={`h-[302px] md:h-[290px] lg:h-[270px] w-[325px] md:w-[310px] lg:w-[290px] rounded `}
+          className={`h-[302px] md:h-[290px] lg:h-[208px] w-[325px] md:w-[310px] lg:w-[224px] rounded `}
         />
       </Link>
-      <h4 className={`text-center text-xl font-roboto mt-4 `}>{box.title}</h4>
-      <div className={`flex justify-between mt-5 pr-[21px] pl-1 w-full `}>
-        <span className="flex gap-1 items-center font-roboto text-[22px] font-bold ">
+      <h4 className={`text-center text-xl font-roboto mt-4 lg:mt-2`}>
+        {box.title}
+      </h4>
+      <div
+        className={`flex justify-between mt-5 pr-[21px] pl-1 w-full lg:mt-3 lg:p-0`}
+      >
+        <span className="flex gap-1 items-center font-roboto text-[22px] lg:text-xl lg:items-baseline font-bold ">
           <Image
             src={personIcon}
             alt="Іконка людини"
@@ -28,9 +38,11 @@ const BoxCard = ({ box }: { box: IBox }) => {
           />
           {box.person}
         </span>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center lg:ml-auto">
           <span
-            className={`font-manrope text-[22px] font-medium flex items-baseline `}
+            className={`font-manrope text-[22px] lg:text-xl font-medium flex items-baseline ${
+              isSuggestions ? "lg:text-base" : ""
+            }`}
           >
             {box.price}
             <Image src={uah} alt="Знак гривні" className=" size-[14px]" />
@@ -42,9 +54,15 @@ const BoxCard = ({ box }: { box: IBox }) => {
   );
 };
 
-export default BoxCard;
+export default SuggestionsBox;
 
-const Marker = ({ type }: { type: BoxMarkerType }) => {
+const Marker = ({
+  type,
+  isSuggestions,
+}: {
+  type: BoxMarkerType;
+  isSuggestions?: boolean;
+}) => {
   let color: string;
   let title: string;
   switch (type) {
@@ -65,7 +83,9 @@ const Marker = ({ type }: { type: BoxMarkerType }) => {
 
   return (
     <span
-      className={`absolute -left-[3px] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} `}
+      className={`absolute -left-[3px] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} ${
+        isSuggestions ? "lg:left-[2px]" : ""
+      }`}
     >
       {title}
     </span>

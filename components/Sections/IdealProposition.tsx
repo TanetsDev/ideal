@@ -6,6 +6,7 @@ import BoxList from "../Products/BoxList";
 import MainGoldBtn from "../Buttons/MainGoldBtn";
 import Title from "../Common/Title";
 import MainSectionsBox from "../Common/MainSectionsBox";
+import Link from "next/link";
 
 const boxes: IBox[] = [
   {
@@ -56,11 +57,13 @@ const IdealProposition = () => {
       <MainContainer className="flex flex-col items-center">
         <Title className="text-center">Ідеальна пропозиція</Title>
         <BoxList boxes={boxes} section="idealProposition" />
-        <MainGoldBtn
-          text={"Дивитись більше"}
-          handleClick={() => console.log("Button click")}
-          blockName="ideal"
-        />
+        <Link href={"/boxes"}>
+          <MainGoldBtn
+            text={"Дивитись більше"}
+            handleClick={() => null}
+            blockName="ideal"
+          />
+        </Link>
       </MainContainer>
     </MainSectionsBox>
   );

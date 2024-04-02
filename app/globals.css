@@ -23,7 +23,7 @@ body {
 }
 .swiper-button-prev,
 .swiper-button-next {
-  height: 30px !important;
+  height: 40px !important;
   width: 20px !important;
   color: #fff !important;
   opacity: 0.5 !important;

@@ -66,7 +66,7 @@ const Footer = () => {
             </p>
             <MainGoldBtn
               blockName="footer"
-              text="Зв`язатись"
+              text="Зв'язатись"
               handleClick={() => console.log("Click--")}
               className="hidden md:block"
             />

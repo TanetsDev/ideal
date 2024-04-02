@@ -20,7 +20,7 @@ const boxes: IBox[] = [
   {
     id: 1,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -28,7 +28,7 @@ const boxes: IBox[] = [
   {
     id: 2,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "hit",
@@ -36,7 +36,7 @@ const boxes: IBox[] = [
   {
     id: 4,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "top",
@@ -44,7 +44,7 @@ const boxes: IBox[] = [
   {
     id: 6,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "new",
@@ -52,7 +52,7 @@ const boxes: IBox[] = [
   {
     id: 7,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -60,7 +60,7 @@ const boxes: IBox[] = [
   {
     id: 8,
     title: "Супер бокс",
-    price: 160,
+    price: 1660,
     person: 4,
     imageUrl: "",
     type: "normal",
@@ -82,11 +82,11 @@ const ShopPage = () => {
             {isFiltersOpen && (
               <BoxFilters setIsFiltersOpen={setIsFiltersOpen} />
             )}
-            <div className="flex flex-col md:flex-row md:justify-center md:mt-[46px] gap-[28px]">
+            <div className="flex flex-col md:flex-row md:justify-center md:mt-[46px] gap-[24px]">
               {!isFiltersOpen && (
                 <button
                   type="button"
-                  className="flex items-center justify-center gap-1 text-darkViolet md:text-basicBlack lg:hidden"
+                  className="flex items-center justify-center gap-1 text-darkViolet md:text-basicBlack lg:hidden text-xl font-manrope font-medium"
                   onClick={() => setIsFiltersOpen((prev) => !prev)}
                 >
                   Фільтри
@@ -98,7 +98,7 @@ const ShopPage = () => {
                 </button>
               )}
 
-              <div className=" flex gap-[26px] md:gap-[15px] justify-center md:flex-grow md:justify-end md:mr-20">
+              <div className=" flex gap-[26px] md:gap-[15px] justify-center md:flex-grow md:justify-end md:mr-20 text-base font-robotoFlex">
                 <button type="button">Скинути</button>
                 <button type="button" className="flex items-center gap-[1px]">
                   Ціна
