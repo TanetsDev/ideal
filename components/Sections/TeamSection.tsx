@@ -3,7 +3,7 @@ import MainSectionsBox from "../Common/MainSectionsBox";
 import MainContainer from "../Containers/MainContainer";
 import Title from "../Common/Title";
 import Image from "next/image";
-import { heroBg } from "@/public/images";
+import { teamPhoto } from "@/public/images";
 
 const TeamSection = () => {
   return (
@@ -15,7 +15,7 @@ const TeamSection = () => {
         <div className="relative w-full h-[230px] md:h-[456px] lg:h-[590px]  bg-cardGrey  md:rounded-r-[2px]">
           <div className=" absolute top-[23px] md:top-[57px] lg:top-[100px] lg:left-[52px] px-[18px] md:pl-5 md:pr-[88px] lg:pr-[44px]">
             <Image
-              src={heroBg}
+              src={teamPhoto}
               alt="Фото команди"
               className="rounded h-[280px] md:h-[516px] lg:h-[630px] md:w-[592px] lg:w-[722px]"
             />

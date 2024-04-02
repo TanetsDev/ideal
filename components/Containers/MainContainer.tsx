@@ -9,7 +9,7 @@ const MainContainer = ({
 }) => {
   return (
     <div
-      className={`px-[16px] md:px-5 lg:px-[72px] w-full h-full ${className}`}
+      className={`px-[16px] md:px-5 lg:px-[72px] w-full h-full ${className} `}
     >
       {children}
     </div>
