@@ -11,7 +11,7 @@ const NavBar = ({
       <Link href="/" onClick={() => setIsOpen(false)}>
         Головна
       </Link>
-      <Link href="/shop" onClick={() => setIsOpen(false)}>
+      <Link href="/boxes" onClick={() => setIsOpen(false)}>
         Boxes
       </Link>
       <Link href="/" onClick={() => setIsOpen(false)}>

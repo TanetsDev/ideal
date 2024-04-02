@@ -4,6 +4,7 @@ import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
 import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
+import BoxDesktopFilters from "@/components/Products/BoxDesktopFilters";
 import BoxFilters from "@/components/Products/BoxFilters";
 import BoxList from "@/components/Products/BoxList";
 import { arrDown, arrUp, filterIcon } from "@/public/icons";
@@ -13,7 +14,7 @@ import Image from "next/image";
 import { useState } from "react";
 const crmbs: IBreadCrumb[] = [
   { name: "Головна", path: "/" },
-  { name: "Shop", path: "/shop" },
+  { name: "Shop", path: "/boxes" },
 ];
 const boxes: IBox[] = [
   {
@@ -56,69 +57,66 @@ const boxes: IBox[] = [
     imageUrl: "",
     type: "normal",
   },
+  {
+    id: 8,
+    title: "Супер бокс",
+    price: 160,
+    person: 4,
+    imageUrl: "",
+    type: "normal",
+  },
 ];
 const ShopPage = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-  const [isClean, setIsClean] = useState<boolean>(false);
 
   return (
     <main>
       <MainSectionsBox className=" pt-[64px] pb-[50px]">
         <MainContainer className="flex flex-col justify-center">
           <BreadCrumbs crumps={crumbs} />
-          <div className="flex flex-col gap-[28px] mb-6">
-            <Title isMain className="text-center mt-[36px]">
+          <div className="flex flex-col gap-[28px] md:gap-0 mb-6 md:mb-[20px] mt-[36px] md:mt-[22px]">
+            <Title isMain className="text-center ">
               Ідеальні бокси
             </Title>
-            {!isFiltersOpen ? (
-              <button
-                type="button"
-                className="flex items-center justify-center gap-1 text-darkViolet"
-                onClick={() => setIsFiltersOpen((prev) => !prev)}
-              >
-                Фільтри
-                <Image
-                  src={filterIcon}
-                  alt="Іконка фільтру"
-                  className=" fill-darkViolet size-[18px]"
-                />
-              </button>
-            ) : (
-              <div className="flex  gap-6 justify-center text-lg font-manrope font-medium">
-                <span>Фільтри</span>
+            {isFiltersOpen && (
+              <BoxFilters setIsFiltersOpen={setIsFiltersOpen} />
+            )}
+            <div className="flex flex-col md:flex-row md:justify-center md:mt-[46px] gap-[28px]">
+              {!isFiltersOpen && (
                 <button
                   type="button"
-                  className=" text-darkViolet"
-                  onClick={() => setIsClean(true)}
-                >
-                  Скинути всі
-                </button>
-                <button
-                  type="button"
-                  className=" text-darkViolet"
+                  className="flex items-center justify-center gap-1 text-darkViolet md:text-basicBlack lg:hidden"
                   onClick={() => setIsFiltersOpen((prev) => !prev)}
                 >
-                  Закрити
+                  Фільтри
+                  <Image
+                    src={filterIcon}
+                    alt="Іконка фільтру"
+                    className="size-[18px]  fill-darkViolet md:fill-black "
+                  />
                 </button>
+              )}
+
+              <div className=" flex gap-[26px] md:gap-[15px] justify-center md:flex-grow md:justify-end md:mr-20">
+                <button type="button">Скинути</button>
+                <button type="button" className="flex items-center gap-[1px]">
+                  Ціна
+                  <Image src={arrDown} alt="Стрілка вниз" height={14} />
+                </button>
+                <button type="button" className="flex items-center gap-[1px]">
+                  Ціна
+                  <Image src={arrUp} alt="Стрілка вгору" height={14} />
+                </button>
+                <button type="button">Популярне</button>
               </div>
-            )}
-            {isFiltersOpen && <BoxFilters isClean={isClean} />}
-            <div className="flex gap-[26px]">
-              <button type="button">Скинути</button>
-              <button type="button" className="flex items-center gap-[1px]">
-                Ціна
-                <Image src={arrDown} alt="Стрілка вниз" height={14} />
-              </button>
-              <button type="button" className="flex items-center gap-[1px]">
-                Ціна
-                <Image src={arrUp} alt="Стрілка вгору" height={14} />
-              </button>
-              <button type="button">Популярне</button>
             </div>
           </div>
 
-          <BoxList boxes={boxes} section="shop" />
+          <div className="lg:flex">
+            <BoxDesktopFilters />
+            <BoxList boxes={boxes} section="shop" />
+          </div>
         </MainContainer>
       </MainSectionsBox>
     </main>

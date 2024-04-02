@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import UnderlineGold from "../UnderlineGold/UnderlineGold";
 import Image from "next/image";
 import { checkBox, checkBoxChecked } from "@/public/icons";
@@ -13,19 +13,13 @@ const filters: string[] = [
   "Коктейль бокс",
 ];
 
-const BoxFilters = ({
-  setIsFiltersOpen,
-}: {
-  setIsFiltersOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
+const BoxDesktopFilters = () => {
   const [isAntipastiChecked, setAntipastiIsChecked] = useState<boolean>(false);
   const [isFurChecked, setFurIsChecked] = useState<boolean>(false);
   const [isCoffChecked, setCoffIsChecked] = useState<boolean>(false);
   const [isBbqChecked, setBbqIsChecked] = useState<boolean>(false);
   const [isCandChecked, setCandIsChecked] = useState<boolean>(false);
   const [isCoctChecked, setCoctIsChecked] = useState<boolean>(false);
-
-  const [isClean, setIsClean] = useState<boolean>(false);
 
   const checkers = [
     isAntipastiChecked,
@@ -49,45 +43,17 @@ const BoxFilters = ({
     setters[i]((prev) => !prev);
   };
 
-  const cleanCheckers = () => {
-    setIsClean((prev) => !prev);
-    setAntipastiIsChecked(false);
-    setFurIsChecked(false);
-    setCoffIsChecked(false);
-    setBbqIsChecked(false);
-    setCandIsChecked(false);
-    setCoctIsChecked(false);
-  };
-
   return (
-    <div className="flex flex-col gap-6 md:gap-0 py-[16px] md:pt-[22px] md:pb-[32px]  bg-white md:mt-[31px] md:mb-[74px]">
-      <div className="flex px-3 md:px-[27px] md:mb-[46px] gap-6 md:gap-[14px] justify-center text-lg md:text-2xl font-manrope font-medium lg:hidden">
-        <span>Фільтри</span>
-        <button
-          type="button"
-          className=" text-darkViolet"
-          onClick={() => cleanCheckers()}
-        >
-          Скинути всі
-        </button>
-        <button
-          type="button"
-          className=" text-darkViolet"
-          onClick={() => setIsFiltersOpen((prev) => !prev)}
-        >
-          Закрити
-        </button>
-      </div>
-      <div>
+    <div className=" flex-col gap-[30px] hidden lg:flex">
+      <div className="pt-[14px] pb-6 bg-white">
         <FiltersTitle>Тип боксу</FiltersTitle>
         <UnderlineGold />
-        <ul className="flex flex-col  px-3 md:px-[27px] gap-3 mt-[22px] md:mt-[14px] text-sm md:text-base font-manrope">
+        <ul className="flex flex-col px-[24px] gap-[10px] mt-[24px] text-base font-manrope">
           {filters.map((f, i) => (
             <li
               key={i}
-              className=" flex justify-between items-center text-basicBlack"
+              className=" flex items-center gap-[8px] text-basicBlack"
             >
-              <span>{f}</span>
               {!checkers[i] ? (
                 <Image
                   src={checkBox}
@@ -103,24 +69,24 @@ const BoxFilters = ({
                   className=" size-[22px]"
                 />
               )}
+              <span>{f}</span>
             </li>
           ))}
         </ul>
       </div>
-      <div className=" md:mt-8">
+      <div className="pt-[14px] pb-6 bg-white">
         <FiltersTitle>Ціна</FiltersTitle>
-        <UnderlineGold />
+        <UnderlineGold isGrey />
 
-        <RangeInput from="1" to="100" isClean={isClean} />
+        <RangeInput from="1" to="100" />
       </div>
-      <div className=" pt-3 md:mt-[43px]">
+      <div className=" pt-[14px] pb-6 bg-white">
         <FiltersTitle>Персон</FiltersTitle>
-        <UnderlineGold />
-
-        <RangeInput from="1" to="8" isClean={isClean} />
+        <UnderlineGold isGrey={true} />
+        <RangeInput from="1" to="8" />
       </div>
     </div>
   );
 };
 
-export default BoxFilters;
+export default BoxDesktopFilters;
