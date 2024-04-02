@@ -32,6 +32,9 @@ const getBtnSize = (blockName: string) => {
     case "footer":
       return "w-[126px] lg:w-[144px] h-[40px] lg:h-[44px]";
 
+    case "boxDetails":
+      return "w-[343px]  h-[40px] md:w-[144px] ";
+
     default:
       return "";
   }

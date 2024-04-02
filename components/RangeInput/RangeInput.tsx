@@ -7,7 +7,7 @@ const RangeInput = ({
 }: {
   from: string;
   to: string;
-  isClean: boolean;
+  isClean?: boolean;
 }) => {
   const [fromValue, setFromValue] = useState<string>(from);
   const [toValue, setToValue] = useState<string>(to);
@@ -21,8 +21,8 @@ const RangeInput = ({
   }, [from, isClean, to]);
 
   return (
-    <div>
-      <div className="mt-[22px] mb-[30px] px-3  flex items-center">
+    <div className="px-3 md:px-[27px] lg:px-[24px] mt-[22px] md:mt-[20px]">
+      <div className=" mb-[30px] flex items-center ">
         <input
           type="text"
           value={fromValue}

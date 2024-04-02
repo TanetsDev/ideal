@@ -21,6 +21,8 @@ import arrDown from "./стрелка вниз.svg";
 import checkBox from "./ion_checkbox-outline.svg";
 import checkBoxChecked from "./ion_checkbox-outline 2.svg";
 import rangeBublle from "./Ellipse 5.svg";
+import arrowLeft from "./стрелка в лево.svg";
+import arrowRight from "./стрелка в право.svg";
 
 export {
   arrowDownIcon,
@@ -46,4 +48,6 @@ export {
   checkBox,
   checkBoxChecked,
   rangeBublle,
+  arrowLeft,
+  arrowRight,
 };
