@@ -1,16 +1,12 @@
 "use client";
 
 import BreadCrumbs from "@/components/BreadCrumbs/BreadCrumbs";
-import MainGoldBtn from "@/components/Buttons/MainGoldBtn";
 import MainSectionsBox from "@/components/Common/MainSectionsBox";
-import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
 import BoxPreviewCard from "@/components/Products/BoxPreviewCard";
 import SuggeschionsSwiper from "@/components/Swipers/SuggeschionsSwiper";
-import { uah } from "@/public/icons";
 import { IBreadCrumb } from "@/types/market.types";
 import { BoxMarkerType } from "@/types/products.types";
-import Image from "next/image";
 import React from "react";
 const crmbs: IBreadCrumb[] = [
   { name: "Головна", path: "/" },
