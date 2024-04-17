@@ -3,8 +3,11 @@ import MainContainer from "../Containers/MainContainer";
 import Image from "next/image";
 import { fbIcon, goldLogo, instaIcon } from "@/public/icons";
 import MainGoldBtn from "../Buttons/MainGoldBtn";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+  if (pathname.includes("/studio")) return null;
   return (
     <footer className=" bg-blackFooter pt-[30px] md:pt-[44px] pb-[26px] md:pb-[46px] lg:pb-[74px]">
       <MainContainer className=" flex flex-col justify-center">

@@ -23,6 +23,11 @@ import checkBoxChecked from "./ion_checkbox-outline 2.svg";
 import rangeBublle from "./Ellipse 5.svg";
 import arrowLeft from "./стрелка в лево.svg";
 import arrowRight from "./стрелка в право.svg";
+import closeIcon from "./bitcoin-icons_cross-filled.svg";
+import plusIcon from "./плюс.svg";
+import minusIcon from "./минус.svg";
+import downSelect from "./arrow-down-1.svg";
+import upSelect from "./arrow-down.svg";
 
 export {
   arrowDownIcon,
@@ -50,4 +55,9 @@ export {
   rangeBublle,
   arrowLeft,
   arrowRight,
+  closeIcon,
+  plusIcon,
+  minusIcon,
+  downSelect,
+  upSelect,
 };
