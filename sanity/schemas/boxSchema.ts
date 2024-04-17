@@ -4,40 +4,55 @@ export const boxSchema = {
   type: "document",
   fields: [
     {
-      name: "title",
-      title: "Название",
+      name: "name",
+      title: "Название для работы",
       type: "string",
+    },
+    {
+      name: "title",
+      title: "Название для отрисовки",
+      type: "internationalizedArrayString",
+      description: "Название бокса на трех языках",
     },
     {
       name: "dishes",
-      title: "Блюда, которые входят",
+      title: "Наполнение бокса",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "reference", to: [{ type: "boxComponents" }] }],
+      description:
+        "Выбираем наполнение или создаем блюдо, оно сохраниться и потом можно его переиспользовать",
     },
     {
       name: "boxType",
-      title: "Box Type",
+      title: "Тип бокса",
       type: "array",
       of: [{ type: "reference", to: [{ type: "boxTypes" }] }],
       description:
-        "Боксы могут быть только известных программе типов, ели мы создаем новый тип- то обязательно добавляем его в модель Типов!!",
+        "Боксы могут быть только известных программе типов, ели тип не создан- создаем его и добавляем",
     },
-    { name: "dishCount", title: "Dish count", type: "number" },
-    { name: "personCount", title: "Person count", type: "number" },
+    { name: "dishCount", title: "Колличество закусок в боксе", type: "number" },
+    {
+      name: "personCount",
+      title: "На сколько персон расчитан",
+      type: "number",
+    },
     { name: "weight", title: "Выход", type: "number" },
-    { name: "price", title: "Price", type: "number" },
+    { name: "price", title: "Цена", type: "number" },
     {
       name: "images",
-      title: "Images",
+      title: "Фото бокса",
       type: "array",
       of: [{ type: "image" }],
+      description:
+        "Загружаем сюда по 4 фотографии на каждый бокс. ВАЖНО: первой фотографией загружаем ту что будет основной",
     },
-
     {
       name: "extraType",
-      title: "Extra type",
-      type: "string",
-      description: "Принимаеться: Новинка, Бестселлер, Хит сезона",
+      title: "Экстра тип",
+      type: "reference",
+      to: [{ type: "boxExtraTypes" }],
+      description:
+        "Принимается: Новинка, Бестселлер, Хит сезона, выбираем из списка или добавляем новый",
     },
   ],
 };

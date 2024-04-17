@@ -1,4 +1,4 @@
-export const boxFiltersSchema = {
+export const boxTypesSchema = {
   name: "boxTypes",
   title: "Типы боксов",
   type: "document",
@@ -7,11 +7,14 @@ export const boxFiltersSchema = {
       name: "name",
       title: "Название",
       type: "string",
+      description:
+        "Здесь создаем типы боксов- Антипасти, гриль и т.д. Название для работы",
     },
     {
       name: "value",
       title: "Значение",
       type: "internationalizedArrayString",
+      description: "Название на трех языках. Это поле для переводов",
     },
   ],
 };
