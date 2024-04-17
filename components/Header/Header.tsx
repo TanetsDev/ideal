@@ -13,11 +13,14 @@ import {
 } from "@/public/icons";
 import MobNavBar from "../NavBar/MobNavBar";
 import { useState } from "react";
+import Link from "next/link";
 
 const Header = () => {
   const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  if (pathname.includes("/studio")) return null;
+
   return (
     <header
       className={`bg-blackFooter h-[64px]  md:h-[80px] w-full absolute lg:fixed z-50`}
@@ -52,11 +55,13 @@ const Header = () => {
             <span className=" hidden lg:inline">
               <LangSwitcher />
             </span>
-            <Image
-              src={bucketIcon}
-              alt="іконка корзини"
-              className=" size-[26px] md:size-[30px]"
-            />
+            <Link href={"/cart"}>
+              <Image
+                src={bucketIcon}
+                alt="іконка корзини"
+                className=" size-[26px] md:size-[30px]"
+              />
+            </Link>
             <Image
               src={userIcon}
               alt="Особистий кабінет"

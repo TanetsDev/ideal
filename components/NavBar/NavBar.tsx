@@ -14,7 +14,7 @@ const NavBar = ({
       <Link href="/boxes" onClick={() => setIsOpen(false)}>
         Boxes
       </Link>
-      <Link href="/" onClick={() => setIsOpen(false)}>
+      <Link href="/shipment-payment" onClick={() => setIsOpen(false)}>
         Доставка і оплата{" "}
       </Link>
       <Link href="/" onClick={() => setIsOpen(false)}>

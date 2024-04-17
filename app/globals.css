@@ -80,3 +80,40 @@ input[type="range"] {
   background-color: #af4fb0;
   pointer-events: none;
 }
+
+.formInput {
+  display: flex;
+  justify-items: baseline;
+  padding-bottom: 5px;
+
+  outline: none;
+  border: none;
+  color: #2e2e2e;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.formLabel {
+  position: absolute;
+  bottom: 5px;
+  color: #2e2e2e;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.activeLabel {
+  bottom: 26px;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.imputEfrror {
+  position: absolute;
+  right: 0;
+  bottom: -24px;
+  color: red;
+}
+
+.userStatusActive {
+  border-bottom: 1px solid #141414;
+}

@@ -6,7 +6,7 @@ const Title = ({
   isMain,
 }: {
   children?: ReactNode;
-  className: any;
+  className?: string;
   isMain?: boolean;
 }) => {
   if (isMain) {

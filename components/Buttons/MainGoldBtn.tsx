@@ -1,5 +1,7 @@
 "use client";
 
+import { ReactNode } from "react";
+
 const getBtnSize = (blockName: string) => {
   switch (blockName) {
     case "ideal":
@@ -11,17 +13,21 @@ const getBtnSize = (blockName: string) => {
     case "boxDetails":
       return "w-[343px]  h-[40px] md:w-[144px] ";
 
+    case "CartModal":
+      return "w-full  h-[54px]  md:w-[182px] md:h-[40px]";
+
     default:
       return "";
   }
 };
 
 interface IProps {
-  text: string;
+  text?: string;
   blockName: string;
   bordered?: boolean;
   handleClick: () => void;
   className?: string;
+  children?: ReactNode;
 }
 
 const MainGoldBtn = ({
@@ -30,20 +36,22 @@ const MainGoldBtn = ({
   bordered = false,
   handleClick,
   className,
+  children,
 }: IProps) => {
   if (bordered)
     return (
       <div
         className={`${getBtnSize(
           blockName
-        )} flex items-center justify-center bg-goldPrimaryBtn rounded p-[2px]`}
+        )} flex items-center justify-center bg-goldPrimaryBtn rounded p-[1px]`}
       >
         <button
           type="button"
           onClick={handleClick}
           className={`w-full h-full flex items-center justify-center bg-cardBacsic text-sm font-robotoFlex text-basicBlack rounded`}
         >
-          {text}
+          {text && text}
+          {children && children}
         </button>
       </div>
     );
@@ -56,7 +64,8 @@ const MainGoldBtn = ({
         blockName
       )}  flex items-center justify-center bg-goldPrimaryBtn text-sm font-robotoFlex text-basicBlack rounded ${className}`}
     >
-      {text}
+      {text && text}
+      {children && children}
     </button>
   );
 };
