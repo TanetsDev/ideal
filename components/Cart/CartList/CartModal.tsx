@@ -9,7 +9,7 @@ import Image from "next/image";
 import MainGoldBtn from "@/components/Buttons/MainGoldBtn";
 
 const CartModal = () => {
-  const [total, setTotal] = useState<number>(2800);
+  const [total] = useState<number>(2800);
   return (
     <Modal>
       <h2 className=" text-xl text-basicBlack font-manrope pl-3 mb-4">Кошик</h2>
