@@ -62,11 +62,14 @@ const Header = () => {
                 className=" size-[26px] md:size-[30px]"
               />
             </Link>
-            <Image
-              src={userIcon}
-              alt="Особистий кабінет"
-              className=" size-[26px] md:size-[30px]"
-            />
+
+            <Link href={"/sign_in"}>
+              <Image
+                src={userIcon}
+                alt="Особистий кабінет"
+                className=" size-[26px] md:size-[30px]"
+              />
+            </Link>
           </div>
         </div>
       </div>
