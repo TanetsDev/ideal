@@ -6,7 +6,7 @@ import MainContainer from "../Containers/MainContainer";
 import { usePathname } from "next/navigation";
 
 // import { LocalizationProvider } from "@mui/x-date-pickers";
-import SingInForm from "../SingInForm/SingInForm";
+import SingInForm from "../Form/SingInForm";
 
 const SingIn = () => {
   const pathname = usePathname();
@@ -34,6 +34,9 @@ const SingIn = () => {
           </Link>
         </div>
         <SingInForm />
+        <p className="max-w-[375px] mx-auto md:w-[350px] pt-[20px] text-sm leading-[16px]">
+          Або за допомогою
+        </p>
       </MainContainer>
     </section>
   );

@@ -122,9 +122,6 @@ const SingInForm = () => {
           <input type="submit" value="Увійти" />
         </MainGoldBtn>
       </form>
-      <p className="max-w-[375px] mx-auto md:w-[350px] pt-[20px] text-sm leading-[16px]">
-        Або за допомогою
-      </p>
     </>
   );
 };
