@@ -4,11 +4,11 @@ import Link from "next/link";
 
 import MainContainer from "../Containers/MainContainer";
 import { usePathname } from "next/navigation";
-import MainGoldBtn from "../Buttons/MainGoldBtn";
 import UnderlineGold from "../UnderlineGold/UnderlineGold";
 import { useState } from "react";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import GoldBtn from "../Buttons/GoldBtn";
 
 type Inputs = {
   name: string;
@@ -330,13 +330,14 @@ const Registration = () => {
             <UnderlineGold />
           </div>
 
-          <MainGoldBtn
-            blockName="CartModal"
+          <GoldBtn
+            blockName="EditForm"
             handleClick={() => onSubmit}
-            className="mx-auto "
+            type="submit"
+            className="mx-auto  md:w-[234px] "
           >
-            <input type="submit" value="Зареєструватись" />
-          </MainGoldBtn>
+            Зареєструватись
+          </GoldBtn>
         </form>
       </MainContainer>
     </section>
