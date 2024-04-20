@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Users" ALTER COLUMN "discount" SET DEFAULT 0,
+ALTER COLUMN "bonus" SET DEFAULT 0;
