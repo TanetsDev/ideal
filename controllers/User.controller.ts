@@ -4,17 +4,6 @@ import prisma from "@/config/prisma";
 class UserController {
   constructor() {}
 
-  public createUser = async (data: Prisma.UsersCreateInput): Promise<Users> => {
-    try {
-      const newUser = await prisma.users.create({
-        data,
-      });
-      return newUser;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
-
   public getUserByPhone = async (phone: number | bigint) => {
     try {
       const user = await prisma.users.findFirst({
