@@ -14,18 +14,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { IDeliveryInfo } from '@/types/order.types';
 
-type Inputs = {
-  name: string;
-  lastName: string;
-  phone: number;
-  deliveryMethod: "кур'єром" | "самовивіз";
-  city: string;
-  address: string;
-  date: Date;
-  time: string;
-  paymentMethod: "кур'єру" | "онлайн";
-};
+
 
 const CartForm = () => {
   const [isNameActive, setIsNameActive] = useState<boolean>(false);
@@ -44,14 +35,14 @@ const CartForm = () => {
   const [phone, setPhone] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [delivery, setDelivery] =
-    useState<Inputs["deliveryMethod"]>("кур'єром");
+    useState<IDeliveryInfo["deliveryMethod"]>("кур'єром");
   const [address, setAddress] = useState<string>("");
   const [date, setDate] = useState<Date>(dayjs().toDate());
   const [time, setTime] = useState(
     dayjs("Mon Apr 15 2024 10:00:01 GMT+0300 (Eastern European Summer Time)")
   );
   const [paymentMethod, setPaymentMethod] =
-    useState<Inputs["paymentMethod"]>("кур'єру");
+    useState<IDeliveryInfo["paymentMethod"]>("кур'єру");
 
   const ref = useOutsideClick(() => setIsTimePickerOpen(false));
 
@@ -59,8 +50,8 @@ const CartForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  } = useForm<IDeliveryInfo>();
+  const onSubmit: SubmitHandler<IDeliveryInfo> = (data) => console.log(data);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
