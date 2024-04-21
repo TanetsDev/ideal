@@ -6,7 +6,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 // import { LocalizationProvider } from "@mui/x-date-pickers";
 import { useState } from "react";
-import MainGoldBtn from "../Buttons/MainGoldBtn";
+
+import GoldBtn from "../Buttons/GoldBtn";
 
 type Inputs = {
   phone: number;
@@ -114,17 +115,16 @@ const SingInForm = () => {
           )}
           <UnderlineGold />
         </div>
-        <MainGoldBtn
-          blockName="CartModal"
+
+        <GoldBtn
+          blockName="EditForm"
           handleClick={() => onSubmit}
-          className="mx-auto "
+          type="submit"
+          className="mx-auto  md:w-[234px] "
         >
-          <input type="submit" value="Увійти" />
-        </MainGoldBtn>
+          Увійти
+        </GoldBtn>
       </form>
-      <p className="max-w-[375px] mx-auto md:w-[350px] pt-[20px] text-sm leading-[16px]">
-        Або за допомогою
-      </p>
     </>
   );
 };
