@@ -5,43 +5,63 @@ import Link from "next/link";
 import MainContainer from "../Containers/MainContainer";
 import { usePathname } from "next/navigation";
 import UnderlineGold from "../UnderlineGold/UnderlineGold";
-import { useState } from "react";
 
-import { useForm, SubmitHandler } from "react-hook-form";
 import GoldBtn from "../Buttons/GoldBtn";
+
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+
+import { useEffect, useRef, useState } from "react";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const RegistrationFormSchema = yup.object().shape({
+  name: yup.string().required("Обов'язкове поле"),
+  lastName: yup.string().required("Обов'язкове поле"),
+  phone: yup
+    .string()
+    .required("Обов'язкове поле")
+    .matches(
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      "Невірний формат номера"
+    ),
+  email: yup
+    .string()
+    .required("Обов'язкове поле")
+    .email("Невірний формат email"),
+  address: yup.string().required("Обов'язкове поле"),
+  password: yup.string().required("Обов'язкове поле"),
+  confirmPassword: yup
+    .string()
+    .required("Обов'язкове поле")
+    .oneOf([yup.ref("password")], "Паролі не співпадають"),
+});
 
 type Inputs = {
   name: string;
   lastName: string;
-  phone: number;
+  phone: string;
   email: string;
   address: string;
   password: string;
   confirmPassword: string;
 };
 
+const defaultValues = {
+  name: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  address: "",
+  password: "",
+  confirmPassword: "",
+  rememberMe: false,
+};
+
 const Registration = () => {
   const pathname = usePathname();
-
-  const [isNameActive, setIsNameActive] = useState<boolean>(false);
-  const [isLastNameActive, setIsLastNameActive] = useState<boolean>(false);
-  const [isAddressActive, setIsAddressActive] = useState<boolean>(false);
-  const [isPhoneActive, setIsPhoneActive] = useState<boolean>(false);
-  const [isEmailActive, setIsEmailActive] = useState<boolean>(false);
-
-  const [isPasswordActive, setIsPasswordActive] = useState<boolean>(false);
-  const [isConfirmPasswordActive, setIsConfirmPasswordActive] =
-    useState<boolean>(false);
-
-  const [phone, setPhone] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isActive, setIsActive] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -56,22 +76,34 @@ const Registration = () => {
     );
   };
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const handleInputClick = (value: string) => {
+    setIsActive(value);
+  };
+
   const {
-    register,
-    handleSubmit,
+    trigger,
     formState: { errors },
+    control,
+    handleSubmit,
     reset,
-  } = useForm<Inputs>();
+    setValue,
+    getValues,
+  } = useForm<Inputs>({
+    defaultValues,
+    resolver: yupResolver(RegistrationFormSchema),
+  });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (data.password !== data.confirmPassword) {
-      setPasswordError("Паролі не співпадають");
-    } else {
-      console.log(data);
-      setPasswordError("");
-      reset();
-    }
+    console.log(data);
+    reset();
   };
+
   return (
     <section className=" pt-[114px] md:pt-[136px] lg:pt-[161px] pb-[50px]  ">
       <MainContainer className="  lg:gap-[27px]  justify-center  ">
@@ -100,23 +132,32 @@ const Registration = () => {
         >
           <div
             className="flex flex-col relative"
-            onFocus={() => setIsNameActive(true)}
-            onBlur={() => setIsNameActive(false)}
+            onClick={() => handleInputClick("name")}
+            ref={inputRef}
           >
             <label
               htmlFor="name"
               className={`formLabel transition-all ${
-                (isNameActive || name !== "") && "activeLabel"
+                isActive === "name" || getValues("name") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Ім’я *
             </label>
-            <input
-              {...register("name", {
-                required: "Обов'язкове поле",
-                onChange: (e) => setName(e.currentTarget.value),
-              })}
-              className="bg-transparent formInput"
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  className="bg-transparent formInput  pl-[10px] pr-[10px]"
+                  onBlur={(e) => {
+                    setValue("name", e.target.value.trim());
+                    trigger("name");
+                  }}
+                />
+              )}
             />
             {errors.name && (
               <span className="imputEfrror">{errors.name.message}</span>
@@ -126,23 +167,32 @@ const Registration = () => {
 
           <div
             className="flex flex-col relative"
-            onFocus={() => setIsLastNameActive(true)}
-            onBlur={() => setIsLastNameActive(false)}
+            ref={inputRef}
+            onClick={() => handleInputClick("lastName")}
           >
             <label
               htmlFor="lastName"
               className={`formLabel transition-all ${
-                (isLastNameActive || lastName !== "") && "activeLabel"
+                isActive === "lastName" || getValues("lastName") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Прізвище *
             </label>
-            <input
-              {...register("lastName", {
-                required: "Обов'язкове поле",
-                onChange: (e) => setLastName(e.currentTarget.value),
-              })}
-              className="bg-transparent formInput"
+            <Controller
+              control={control}
+              name="lastName"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  className="bg-transparent formInput  pl-[10px] pr-[10px]"
+                  onBlur={(e) => {
+                    setValue("lastName", e.target.value.trim());
+                    trigger("lastName");
+                  }}
+                />
+              )}
             />
             {errors.lastName && (
               <span className="imputEfrror">{errors.lastName.message}</span>
@@ -152,28 +202,32 @@ const Registration = () => {
 
           <div
             className="flex flex-col relative"
-            onFocus={() => setIsPhoneActive(true)}
-            onBlur={() => setIsPhoneActive(false)}
+            onClick={() => handleInputClick("phone")}
+            ref={inputRef}
           >
             <label
               htmlFor="phone"
               className={`formLabel transition-all ${
-                (isPhoneActive || phone !== "") && "activeLabel"
+                isActive === "phone" || getValues("phone") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Телефон *
             </label>
-            <input
-              {...register("phone", {
-                required: "Обов'язкове поле",
-                onChange: (e) => setPhone(e.currentTarget.value),
-                pattern: {
-                  value:
-                    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-                  message: "Невірний формат номера",
-                },
-              })}
-              className="bg-transparent formInput"
+            <Controller
+              control={control}
+              name="phone"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  className="bg-transparent formInput  pl-[10px] pr-[10px]"
+                  onBlur={(e) => {
+                    setValue("phone", e.target.value.trim());
+                    trigger("phone");
+                  }}
+                />
+              )}
             />
             {errors.phone && (
               <span className="imputEfrror">{errors.phone.message}</span>
@@ -183,28 +237,32 @@ const Registration = () => {
 
           <div
             className="flex flex-col relative"
-            onFocus={() => setIsEmailActive(true)}
-            onBlur={() => setIsEmailActive(false)}
+            onClick={() => handleInputClick("email")}
+            ref={inputRef}
           >
             <label
               htmlFor="email"
               className={`formLabel transition-all ${
-                (isEmailActive || email !== "") && "activeLabel"
+                isActive === "email" || getValues("email") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Пошта *
             </label>
-            <input
-              id="email"
-              {...register("email", {
-                required: "Обов'язкове поле",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Невірний формат email",
-                },
-                onChange: (e) => setEmail(e.currentTarget.value),
-              })}
-              className="bg-transparent formInput "
+            <Controller
+              control={control}
+              name="email"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  className="bg-transparent formInput  pl-[10px] pr-[10px]"
+                  onBlur={(e) => {
+                    setValue("email", e.target.value.trim());
+                    trigger("email");
+                  }}
+                />
+              )}
             />
             {errors.email && (
               <span className="imputEfrror">{errors.email.message}</span>
@@ -214,24 +272,32 @@ const Registration = () => {
 
           <div
             className="flex flex-col relative"
-            onFocus={() => setIsAddressActive(true)}
-            onBlur={() => setIsAddressActive(false)}
+            onClick={() => handleInputClick("address")}
+            ref={inputRef}
           >
             <label
               htmlFor="address"
               className={`formLabel transition-all ${
-                (isAddressActive || address !== "") && "activeLabel"
+                isActive === "address" || getValues("address") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Адреса *
             </label>
-            <input
-              id="address"
-              {...register("address", {
-                required: "Обов'язкове поле",
-                onChange: (e) => setAddress(e.currentTarget.value),
-              })}
-              className="bg-transparent formInput "
+            <Controller
+              control={control}
+              name="address"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  className="bg-transparent formInput  pl-[10px] pr-[10px]"
+                  onBlur={(e) => {
+                    setValue("address", e.target.value.trim());
+                    trigger("address");
+                  }}
+                />
+              )}
             />
             {errors.address && (
               <span className="imputEfrror">{errors.address.message}</span>
@@ -240,40 +306,49 @@ const Registration = () => {
           </div>
 
           <div
-            className="flex flex-col relative"
-            onFocus={() => setIsPasswordActive(true)}
-            onBlur={() => setIsPasswordActive(false)}
+            ref={inputRef}
+            onClick={() => handleInputClick("password")}
+            className="flex flex-col relative xl:w-full "
           >
             <label
               htmlFor="password"
-              className={`formLabel transition-all flex w-full justify-between  ${
-                (isPasswordActive || password !== "") && "activeLabel"
+              className={`formLabel transition-all ${
+                isActive === "password" || getValues("password") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Пароль *
-              <svg
-                onClick={togglePasswordVisibility}
-                width="22px"
-                height="22px"
-                className="fill-[#535252] hover:cursor-pointer"
-              >
-                <use
-                  href={
-                    showPassword
-                      ? "/symbol-defs.svg#eye"
-                      : "/symbol-defs.svg#eye-slash"
-                  }
-                ></use>
-              </svg>
             </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              {...register("password", {
-                required: "Обов'язкове поле",
-                onChange: (e) => setPassword(e.currentTarget.value),
-              })}
-              className="bg-transparent formInput"
+            <svg
+              onClick={togglePasswordVisibility}
+              width="22px"
+              height="22px"
+              className="fill-[#535252] hover:cursor-pointer absolute  top-0 right-[5px]"
+            >
+              <use
+                href={
+                  showPassword
+                    ? "/symbol-defs.svg#eye"
+                    : "/symbol-defs.svg#eye-slash"
+                }
+              ></use>
+            </svg>
+
+            <Controller
+              control={control}
+              name="password"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type={showPassword ? "text" : "password"}
+                  className="bg-transparent formInput pl-[10px] pr-[35px]"
+                  onBlur={(e) => {
+                    setValue("password", e.target.value.trim());
+                    trigger("password");
+                  }}
+                />
+              )}
             />
             {errors.password && (
               <span className="imputEfrror">{errors.password.message}</span>
@@ -282,51 +357,56 @@ const Registration = () => {
           </div>
 
           <div
-            className="flex flex-col relative"
-            onFocus={() => setIsConfirmPasswordActive(true)}
-            onBlur={() => setIsConfirmPasswordActive(false)}
+            ref={inputRef}
+            onClick={() => handleInputClick("confirmPassword")}
+            className="flex flex-col relative xl:w-full "
           >
             <label
               htmlFor="confirmPassword"
-              className={`formLabel transition-all flex w-full justify-between  ${
-                (isConfirmPasswordActive || confirmPassword !== "") &&
-                "activeLabel"
+              className={`formLabel transition-all ${
+                isActive === "confirmPassword" ||
+                getValues("confirmPassword") !== ""
+                  ? "activeLabel"
+                  : ""
               }`}
             >
               Підтвердіть пароль *
-              <svg
-                onClick={toggleConfirmPasswordVisibility}
-                width="22px"
-                height="22px"
-                className="fill-[#535252] hover:cursor-pointer"
-              >
-                <use
-                  href={
-                    showConfirmPassword
-                      ? "/symbol-defs.svg#eye"
-                      : "/symbol-defs.svg#eye-slash"
-                  }
-                ></use>
-              </svg>
             </label>
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              id="confirmPassword"
-              {...register("confirmPassword", {
-                required: "Обов'язкове поле",
-                onChange: (e) => setConfirmPassword(e.currentTarget.value),
-              })}
-              className="bg-transparent formInput"
+            <svg
+              onClick={toggleConfirmPasswordVisibility}
+              width="22px"
+              height="22px"
+              className="fill-[#535252] hover:cursor-pointer absolute  top-0 right-[5px]"
+            >
+              <use
+                href={
+                  showConfirmPassword
+                    ? "/symbol-defs.svg#eye"
+                    : "/symbol-defs.svg#eye-slash"
+                }
+              ></use>
+            </svg>
+
+            <Controller
+              control={control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type={showConfirmPassword ? "text" : "password"}
+                  className="bg-transparent formInput pl-[10px] pr-[35px]"
+                  onBlur={(e) => {
+                    setValue("confirmPassword", e.target.value.trim());
+                    trigger("confirmPassword");
+                  }}
+                />
+              )}
             />
             {errors.confirmPassword && (
               <span className="imputEfrror">
                 {errors.confirmPassword.message}
               </span>
             )}
-            {passwordError && (
-              <span className="imputEfrror">{passwordError}</span>
-            )}
-
             <UnderlineGold />
           </div>
 
