@@ -5,9 +5,11 @@ import {
   Roboto_Flex,
   Julius_Sans_One,
 } from "next/font/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import config from "@/config";
 
 const manrope = Manrope({
   subsets: ["cyrillic"],
@@ -45,9 +47,13 @@ export default function RootLayout({
       <body
         className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} ${juliusSans.variable} h-full bg-[#F9F9F9]`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <GoogleOAuthProvider clientId={config.google.CLIENT_ID}>
+          <main>
+            <Header />
+            {children}
+            <Footer />
+          </main>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );

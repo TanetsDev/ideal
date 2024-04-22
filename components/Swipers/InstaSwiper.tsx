@@ -26,7 +26,6 @@ const InstaSwiper = () => {
     <Swiper
       spaceBetween={4}
       slidesPerView={2}
-      onSlideChange={() => console.log("slide change")}
       onSwiper={(swiper) => console.log(swiper)}
       modules={[Autoplay]}
       autoplay={{ delay: 3000 }}
