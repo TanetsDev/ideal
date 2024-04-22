@@ -23,10 +23,10 @@ const Header = () => {
 
   return (
     <header
-      className={`bg-blackFooter h-[64px]  md:h-[80px] w-full absolute lg:fixed z-50`}
+      className={`bg-blackFooter h-[64px]  md:h-[80px] w-full absolute xl:fixed z-50`}
     >
-      <div className="flex items-center justify-between px-[16px] md:px-5 lg:px-[72px] w-full h-full">
-        <div className=" pr-5 lg:hidden">
+      <div className="flex items-center justify-between px-[16px] md:px-5 xl:px-[72px] w-full h-full">
+        <div className=" pr-5 xl:hidden">
           <Image
             src={burgerIcon}
             alt="Бургер меню"
@@ -38,21 +38,21 @@ const Header = () => {
           <Image
             src={headerWhiteLogo}
             alt="Лого компанії"
-            className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] lg:w-[133px] lg:h-[33px]"
+            className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] xl:w-[133px] xl:h-[33px]"
           />
         ) : (
           <Image
             src={goldLogo}
             alt="Лого компанії"
-            className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] lg:w-[133px] lg:h-[33px]"
+            className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] xl:w-[133px] xl:h-[33px]"
           />
         )}
         <div className=" flex gap-[72px]">
-          <div className=" hidden lg:block">
+          <div className=" hidden xl:block">
             <NavBar setIsOpen={setIsOpen} />
           </div>
-          <div className="flex gap-[14px] md:gap-4 lg:gap-[18px]">
-            <span className=" hidden lg:inline">
+          <div className="flex gap-[14px] md:gap-4 xl:gap-[18px]">
+            <span className=" hidden xl:inline">
               <LangSwitcher />
             </span>
             <Link href={"/cart"}>

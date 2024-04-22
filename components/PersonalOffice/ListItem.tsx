@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 interface ListItemProps {
   title: string;
@@ -25,21 +26,19 @@ const ListItem: React.FC<ListItemProps> = ({
       >
         {title}
       </h3>
-      <svg width="20px" height="20px" className="fill-[#141414]  xl:hidden">
-        <use
-          href={
-            isOpen ? "/symbol-defs.svg#arrow_up" : "/symbol-defs.svg#arrow_down"
-          }
-        ></use>
-      </svg>
+      {isOpen ? (
+        <IoIosArrowUp className="fill-[#141414]  xl:hidden" />
+      ) : (
+        <IoIosArrowDown className="fill-[#141414]  xl:hidden" />
+      )}
     </div>
 
     {isOpen && (
-      <ul
-        className={`pt-[15px] pb-[15px] md:max-w-[350px] xl:absolute top-[96px] left-[430px] xl:w-[830px] xl:max-w-[830px]`}
+      <div
+        className={`pt-[15px] pb-[15px]  xl:absolute top-[96px] left-[430px]  xl:w-[830px] xl:max-w-[830px]`}
       >
         {children}
-      </ul>
+      </div>
     )}
   </li>
 );

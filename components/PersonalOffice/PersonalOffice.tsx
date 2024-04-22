@@ -6,6 +6,8 @@ import { useState } from "react";
 import EditLoginForm from "../Form/EditLoginForm";
 import ListItem from "./ListItem";
 import PersonalDataForm from "../Form/PersonalDataForm";
+import MyOrders from "./MyOrders";
+import BonusAccount from "./BonusAccount";
 
 const PersonalOffice = () => {
   const [openList, setOpenList] = useState<number | null>(null);
@@ -13,8 +15,13 @@ const PersonalOffice = () => {
     setOpenList((prevListId) => (prevListId === listId ? null : listId));
   };
   return (
-    <section className=" pt-[114px]  pb-[50px]  xl:pb-[120px] xl:h-full ">
-      <div className=" h-full border-l  xl:border-[#ECE7E7] absolute inset-y-0 left-[370px] hidden xl:block"></div>
+    <section className=" pt-[114px]  pb-[150px]  xl:pb-[400px]  ">
+      <div
+        className=" border-l  xl:border-[#ECE7E7] absolute inset-y-0  left-[370px] hidden xl:block   
+      // 
+      z-[-1]
+      "
+      ></div>
 
       <MainContainer className="  lg:gap-[27px]  justify-center    ">
         <div className="xl:max-w-[300px] xl:flex xl:flex-col xl:justify-center   ">
@@ -41,18 +48,14 @@ const PersonalOffice = () => {
               isOpen={openList === 1}
               toggleList={() => toggleList(1)}
             >
-              <li>product</li>
-              <li>product</li>
-              <li>product</li>
+              <MyOrders />
             </ListItem>
             <ListItem
               title="Бонусний рахунок"
               isOpen={openList === 2}
               toggleList={() => toggleList(2)}
             >
-              <li>product</li>
-              <li>product</li>
-              <li>product</li>
+              <BonusAccount />
             </ListItem>
             <ListItem
               title="Особисті данні"
