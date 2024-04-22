@@ -48,11 +48,9 @@ export default function RootLayout({
         className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} ${juliusSans.variable} h-full bg-[#F9F9F9]`}
       >
         <GoogleOAuthProvider clientId={config.google.CLIENT_ID}>
-          <main>
-            <Header />
-            {children}
-            <Footer />
-          </main>
+          <Header />
+          <main>{children}</main>
+          <Footer />
         </GoogleOAuthProvider>
       </body>
     </html>
