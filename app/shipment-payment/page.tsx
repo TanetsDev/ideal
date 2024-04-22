@@ -6,7 +6,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <main>
+    <>
       <MainContainer className="pt-[60px] md:pt-[76px]">
         <BreadCrumbs
           crumps={[
@@ -60,7 +60,7 @@ const page = () => {
           </div>
         </MainContainer>
       </MainSectionsBox>
-    </main>
+    </>
   );
 };
 

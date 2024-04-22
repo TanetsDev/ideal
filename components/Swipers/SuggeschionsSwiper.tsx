@@ -72,7 +72,6 @@ const SuggeschionsSwiper = () => {
       <Swiper
         spaceBetween={4}
         slidesPerView={1}
-        onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
         modules={[Autoplay]}
         autoplay={{ delay: 3000 }}
