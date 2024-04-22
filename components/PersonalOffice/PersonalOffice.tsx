@@ -5,6 +5,7 @@ import MainContainer from "../Containers/MainContainer";
 import { useState } from "react";
 import EditLoginForm from "../Form/EditLoginForm";
 import ListItem from "./ListItem";
+import PersonalDataForm from "../Form/PersonalDataForm";
 
 const PersonalOffice = () => {
   const [openList, setOpenList] = useState<number | null>(null);
@@ -12,9 +13,11 @@ const PersonalOffice = () => {
     setOpenList((prevListId) => (prevListId === listId ? null : listId));
   };
   return (
-    <section className=" pt-[114px]  pb-[50px]  ">
-      <MainContainer className="  lg:gap-[27px]  justify-center   ">
-        <div className="xl:max-w-[300px] xl:flex xl:flex-col xl:justify-center xl:border-r xl:border-[#ECE7E7] ">
+    <section className=" pt-[114px]  pb-[50px]  xl:pb-[120px] xl:h-full ">
+      <div className=" h-full border-l  xl:border-[#ECE7E7] absolute inset-y-0 left-[370px] hidden xl:block"></div>
+
+      <MainContainer className="  lg:gap-[27px]  justify-center    ">
+        <div className="xl:max-w-[300px] xl:flex xl:flex-col xl:justify-center   ">
           <div className="flex justify-center md:justify-start items-center gap-[8px] xl:justify-center ">
             <Image
               src="/images/avatar.png"
@@ -56,9 +59,7 @@ const PersonalOffice = () => {
               isOpen={openList === 3}
               toggleList={() => toggleList(3)}
             >
-              <li>product</li>
-              <li>product</li>
-              <li>product</li>
+              <PersonalDataForm />
             </ListItem>
             <ListItem
               title="Логін та пароль"
