@@ -20,14 +20,19 @@ const MyOrders = () => {
   };
 
   return (
-    <div className="xl:overflow-auto xl:h-[650px] xl:pr-[10px]">
+    <div
+      className="scrollbar-hidden 
+      xl:overflow-auto xl:h-[600px] 
+    xl:pr-[10px]"
+    >
       <h2 className="hidden xl:block text-[24px] leading-[33px] pb-[30px]">
         Мої замовлення
       </h2>
+      {/* фільтр */}
       <div className="flex gap-[10px] flex-wrap pb-[15px]">
         <label
           onClick={() => handleChange("all")}
-          className={`text-basicBlack text-[16px] font-manrope leading-[22px] ${
+          className={`text-basicBlack text-[16px] font-manrope leading-[22px] cursor-pointer hover:text-[#733774] focus:text-[#733774]  ${
             selectedOption === "all" ? "text-[#733774]" : ""
           }`}
         >
@@ -43,7 +48,7 @@ const MyOrders = () => {
         </label>
         <label
           onClick={() => handleChange("thisMonth")}
-          className={`text-basicBlack text-[16px] font-manrope leading-[22px]  ${
+          className={`text-basicBlack text-[16px] cursor-pointer font-manrope leading-[22px] hover:text-[#733774] focus:text-[#733774]  ${
             selectedOption === "thisMonth" ? "text-[#733774]" : ""
           }`}
         >
@@ -59,7 +64,7 @@ const MyOrders = () => {
         </label>
         <label
           onClick={() => handleChange("last6Months")}
-          className={`text-basicBlack text-[16px] font-manrope leading-[22px]  ${
+          className={`text-basicBlack text-[16px] cursor-pointer font-manrope leading-[22px] hover:text-[#733774] focus:text-[#733774]  ${
             selectedOption === "last6Months" ? "text-[#733774]" : ""
           }`}
         >
@@ -75,7 +80,7 @@ const MyOrders = () => {
         </label>
         <label
           onClick={() => handleChange("last12Months")}
-          className={`text-basicBlack text-[16px] font-manrope leading-[22px]  ${
+          className={`text-basicBlack text-[16px] cursor-pointer font-manrope leading-[22px] hover:text-[#733774] focus:text-[#733774]  ${
             selectedOption === "last12Months" ? "text-[#733774]" : ""
           }`}
         >
@@ -90,8 +95,11 @@ const MyOrders = () => {
           />
         </label>
       </div>
-
-      <ul>
+      {/* список замовлень */}
+      <ul
+        className="flex flex-col gap-[10px]
+      "
+      >
         {list_orders.map(
           ({
             orderNumber,
@@ -102,10 +110,13 @@ const MyOrders = () => {
             totalCost,
             products,
           }) => (
-            <li key={orderNumber}>
+            <li
+              key={orderNumber}
+              className="border-y-[1px] border-solid border-[#ECE7E7]"
+            >
               <div
                 onClick={() => toggleList(orderNumber)}
-                className="md:flex items-center md:justify-between py-[15px] border-y-[1px] border-solid border-[#ECE7E7]"
+                className="md:flex gap-[20px]  items-center md:justify-between py-[15px] "
               >
                 <div className="flex justify-between items-start">
                   <div>
@@ -118,7 +129,7 @@ const MyOrders = () => {
                   </div>
 
                   <div className="md:hidden flex  items-center gap-[10px] ">
-                    <span className="">Доставлено</span>
+                    {/* <span className="">Доставлено</span> */}
                     {openList === orderNumber ? (
                       <IoIosArrowUp />
                     ) : (
@@ -133,7 +144,7 @@ const MyOrders = () => {
                       alt="product"
                       width="60"
                       height="60"
-                      className="w-[60px] h-[60px]"
+                      className="w-[60px] h-[60px] rounded"
                     />
                     <BsXLg className="text-[#A6A0A0] text-[14px] " />
                     <span className="text-[18px] text-basicBlack font-roboto">
@@ -148,9 +159,9 @@ const MyOrders = () => {
 
                 <div className="hidden md:flex items-center">
                   <div className="md:flex flex-col">
-                    <span className="pb-[10px] text-[16px] leading-[24px] text-basicBlack font-roboto">
+                    {/* <span className="pb-[10px] text-[16px] leading-[24px] text-basicBlack font-roboto">
                       Доставлено
-                    </span>
+                    </span> */}
 
                     <span className="text-[18px] leading-[27px] text-basicBlack font-roboto">
                       {totalCost}₴
@@ -164,7 +175,7 @@ const MyOrders = () => {
                 </div>
               </div>
               {openList === orderNumber && (
-                <div className="md:flex  justify-between pb-[30px] pt-[30px]">
+                <div className="md:flex   justify-between pb-[30px] pt-[30px]">
                   <ul className=" flex flex-col gap-[15px] ">
                     {products.map(
                       ({
@@ -188,8 +199,8 @@ const MyOrders = () => {
                               <h3 className="font-semibold text-[18px] leading-[25px] text-basicBlack font-manrope">
                                 {productName}
                               </h3>
-                              <p className="text-[14px] leading-[19px] text-basicBlack font-manrope">
-                                {weight}
+                              <p className="text-[14px] leading-[19px] text-basicBlack font-manrope pt-[5px] pb-[5px]">
+                                Вага {weight} гр
                               </p>
                               <p className="font-medium text-[18px] leading-[25px] text-basicBlack font-manrope">
                                 {price} ₴

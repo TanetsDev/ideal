@@ -14,14 +14,14 @@ const ListItem: React.FC<ListItemProps> = ({
   toggleList,
   children,
 }) => (
-  <li className="pb-[10px]">
+  <li className="pb-[10px]  gap-[15px] ">
     <div
       onClick={toggleList}
       className="flex items-center justify-between font-manrope  hover:cursor-pointer"
     >
       <h3
         className={`text-[16px] leading-[22px] hover:text-darkViolet hover:cursor-pointer ${
-          isOpen ? "text-darkViolet text-[18px] leading-[25px]" : ""
+          isOpen ? "text-darkViolet " : ""
         }`}
       >
         {title}
@@ -35,7 +35,10 @@ const ListItem: React.FC<ListItemProps> = ({
 
     {isOpen && (
       <div
-        className={`pt-[15px] pb-[15px]  xl:absolute top-[96px] left-[430px]  xl:w-[830px] xl:max-w-[830px]`}
+        className={`pt-[15px] pb-[15px]  
+      
+        xl:absolute  top-[96px] left-[430px]  xl:w-full xl:max-w-[830px]
+      `}
       >
         {children}
       </div>
