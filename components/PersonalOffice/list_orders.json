@@ -11,7 +11,7 @@
         "id": 1,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 1",
-        "weight": "200 г",
+        "weight": "200 ",
         "price": 50,
         "quantity": 10
       },
@@ -19,7 +19,7 @@
         "id": 2,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 2",
-        "weight": "150 г",
+        "weight": "150 ",
         "price": 30,
         "quantity": 20
       },
@@ -27,7 +27,7 @@
         "id": 3,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 3",
-        "weight": "300 г",
+        "weight": "300 ",
         "price": 70,
         "quantity": 15
       }
@@ -45,7 +45,7 @@
         "id": 4,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 1",
-        "weight": "200 г",
+        "weight": "200 ",
         "price": 50,
         "quantity": 10
       },
@@ -53,7 +53,7 @@
         "id": 5,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 2",
-        "weight": "150 г",
+        "weight": "150 ",
         "price": 30,
         "quantity": 20
       },
@@ -61,7 +61,7 @@
         "id": 6,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 3",
-        "weight": "300 г",
+        "weight": "300 ",
         "price": 70,
         "quantity": 15
       }
@@ -79,7 +79,7 @@
         "id": 7,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 1",
-        "weight": "200 г",
+        "weight": "200 ",
         "price": 50,
         "quantity": 10
       },
@@ -87,7 +87,7 @@
         "id": 8,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 2",
-        "weight": "150 г",
+        "weight": "150 ",
         "price": 30,
         "quantity": 20
       },
@@ -95,7 +95,7 @@
         "id": 9,
         "image1": "/images/slidersImages/aboutBox/Rectangle 18.jpg",
         "productName": "Продукт 3",
-        "weight": "300 г",
+        "weight": "300 ",
         "price": 70,
         "quantity": 15
       }

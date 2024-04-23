@@ -15,7 +15,7 @@ const PersonalOffice = () => {
     setOpenList((prevListId) => (prevListId === listId ? null : listId));
   };
   return (
-    <section className=" pt-[114px]  pb-[150px]  xl:pb-[400px]  ">
+    <section className=" pt-[114px]  pb-[150px]   xl:h-[90vh]  ">
       <div
         className=" border-l  xl:border-[#ECE7E7] absolute inset-y-0  left-[370px] hidden xl:block   
       // 
@@ -25,7 +25,7 @@ const PersonalOffice = () => {
 
       <MainContainer className="  lg:gap-[27px]  justify-center    ">
         <div className="xl:max-w-[300px] xl:flex xl:flex-col xl:justify-center   ">
-          <div className="flex justify-center md:justify-start items-center gap-[8px] xl:justify-center ">
+          <div className="flex  md:justify-start items-center gap-[8px] xl:justify-center ">
             <Image
               src="/images/avatar.png"
               alt="Особистий кабінет"
@@ -82,7 +82,7 @@ const PersonalOffice = () => {
               </div>
             </li>
 
-            <li className="pb-[10px]">
+            <li className="pt-[20px]">
               <div className="flex items-center justify-between font-manrope  ">
                 <h3
                   className={`"text-[14px] text-[#3F3F3F]  leading-[19px] hover:text-darkViolet hover:cursor-pointer " `}
