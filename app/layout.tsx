@@ -43,9 +43,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ua" className=" w-full h-full ">
+    <html lang="ua" className=" w-full min-h-full ">
       <body
-        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} ${juliusSans.variable} h-full bg-[#F9F9F9]`}
+        className={`${manrope.variable} ${roboto.variable} ${robotoFlex.variable} ${juliusSans.variable} min-h-full bg-[#F9F9F9]`}
       >
         <GoogleOAuthProvider clientId={config.google.CLIENT_ID}>
           <Header />

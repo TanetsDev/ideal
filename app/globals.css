@@ -15,13 +15,29 @@
 
 body {
 }
-
+/* 
 .scrollbar-hidden::-webkit-scrollbar {
   width: 0 !important;
 }
 
 .scrollbar-hidden::-webkit-scrollbar-track {
   background: transparent;
+} */
+
+.my__height {
+  @media screen and (min-width: 320px) {
+    min-height: calc(100vh - 372px);
+  }
+
+  @media screen and (min-width: 768px) {
+    min-height: calc(100vh - 285px);
+  }
+  @media screen and (min-width: 1024px) {
+    min-height: calc(100vh - 344px);
+  }
+  @media screen and (min-width: 1280px) {
+    min-height: calc(100vh - 368px);
+  }
 }
 
 @layer utilities {
@@ -87,6 +103,14 @@ input[type="range"] {
   height: 2px;
   background-color: #af4fb0;
   pointer-events: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
 }
 
 .formInput {

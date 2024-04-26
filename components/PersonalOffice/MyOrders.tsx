@@ -3,7 +3,6 @@ import { useState } from "react";
 import list_orders from "./list_orders.json";
 import Image from "next/image";
 import { BsXLg } from "react-icons/bs";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import GoldBtn from "../Buttons/GoldBtn";
 
 const MyOrders = () => {
@@ -21,8 +20,8 @@ const MyOrders = () => {
 
   return (
     <div
-      className="scrollbar-hidden 
-      xl:overflow-auto xl:h-[600px] 
+      className="
+     
     xl:pr-[10px]"
     >
       <h2 className="hidden xl:block text-[24px] leading-[33px] pb-[30px]">
@@ -131,9 +130,27 @@ const MyOrders = () => {
                   <div className="md:hidden flex  items-center gap-[10px] ">
                     {/* <span className="">Доставлено</span> */}
                     {openList === orderNumber ? (
-                      <IoIosArrowUp />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="stroke-[#141414]  xl:hidden w-5 h-5"
+                      >
+                        <path d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                      </svg>
                     ) : (
-                      <IoIosArrowDown />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="stroke-[#141414]  xl:hidden w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                      >
+                        <path d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                      </svg>
                     )}
                   </div>
                 </div>
@@ -159,18 +176,32 @@ const MyOrders = () => {
 
                 <div className="hidden md:flex items-center">
                   <div className="md:flex flex-col">
-                    {/* <span className="pb-[10px] text-[16px] leading-[24px] text-basicBlack font-roboto">
-                      Доставлено
-                    </span> */}
-
                     <span className="text-[18px] leading-[27px] text-basicBlack font-roboto">
                       {totalCost}₴
                     </span>
                   </div>
                   {openList === orderNumber ? (
-                    <IoIosArrowUp className="ml-[100px]" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="stroke-[#141414]   w-5 h-5 ml-[100px]"
+                    >
+                      <path d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                    </svg>
                   ) : (
-                    <IoIosArrowDown className="ml-[100px]" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="stroke-[#141414]   w-5 h-5 ml-[100px]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                    >
+                      <path d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
                   )}
                 </div>
               </div>

@@ -32,6 +32,8 @@ const Header = () => {
             alt="Бургер меню"
             className=" size-[40px] md:size-[50px]"
             onClick={() => setIsOpen((prev) => !prev)}
+            width="50"
+            height="50"
           />
         </div>
         {pathname === "/" ? (
@@ -39,12 +41,16 @@ const Header = () => {
             src={headerWhiteLogo}
             alt="Лого компанії"
             className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] xl:w-[133px] xl:h-[33px]"
+            width="122"
+            height="30"
           />
         ) : (
           <Image
             src={goldLogo}
             alt="Лого компанії"
             className=" w-[122px] h-[29px] md:w-[160px] md:h-[41px] xl:w-[133px] xl:h-[33px]"
+            width="122"
+            height="30"
           />
         )}
         <div className=" flex gap-[72px]">
@@ -60,6 +66,8 @@ const Header = () => {
                 src={bucketIcon}
                 alt="іконка корзини"
                 className=" size-[26px] md:size-[30px]"
+                width="50"
+                height="50"
               />
             </Link>
             {/* <Link href={"/sign_in"}>
@@ -75,6 +83,8 @@ const Header = () => {
                 src={userIcon}
                 alt="Особистий кабінет"
                 className=" size-[26px] md:size-[30px]"
+                width="50"
+                height="50"
               />
             </Link>
           </div>
