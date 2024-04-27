@@ -8,7 +8,9 @@ type Props = {
 const Modal = ({ children }: Props) => {
   return (
     <Backdrop>
-      <div className=" bg-[#F9F9F9] rounded pt-4 pb-5">{children}</div>
+      <div className=" relative bg-[#F9F9F9] rounded py-[28px] px-[12px] md:pt-[40px] md:pb-[57px]  md:px-[40px] max-w-[468px] w-[83%] ">
+        {children}
+      </div>
     </Backdrop>
   );
 };
