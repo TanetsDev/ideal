@@ -15,12 +15,12 @@ const NavBar = ({
         Boxes
       </Link>
       <Link href="/shipment-payment" onClick={() => setIsOpen(false)}>
-        Доставка і оплата{" "}
+        Доставка і оплата
       </Link>
       <Link href="/" onClick={() => setIsOpen(false)}>
         Про компанію
       </Link>
-      <Link href="/" onClick={() => setIsOpen(false)}>
+      <Link href="/contact" onClick={() => setIsOpen(false)}>
         Контакти
       </Link>
     </nav>
