@@ -8,10 +8,11 @@ import BoxDesktopFilters from "@/components/Products/BoxDesktopFilters";
 import BoxFilters from "@/components/Products/BoxFilters";
 import BoxList from "@/components/Products/BoxList";
 import { arrDown, arrUp, filterIcon } from "@/public/icons";
+import { IBoxFilters } from "@/types/filters.types";
 import { IBreadCrumb } from "@/types/market.types";
 import { IBox } from "@/types/products.types";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const crmbs: IBreadCrumb[] = [
   { name: "Головна", path: "/" },
   { name: "Shop", path: "/boxes" },
@@ -69,6 +70,14 @@ const boxes: IBox[] = [
 const ShopPage = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const filters: IBoxFilters = { price: "asc", types: "all" };
+    fetch("/api/boxes?limit=10&page=0&type=all", {
+      method: "POST",
+      body: JSON.stringify(filters),
+    }).then((data) => console.log("DATA FROM FETCH", data.json()));
+  }, []);
 
   return (
     <MainSectionsBox className=" pt-[64px] pb-[50px]">

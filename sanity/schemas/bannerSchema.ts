@@ -19,10 +19,9 @@ export const bannerSchema = {
       type: "internationalizedArrayString",
     },
     {
-      name: "images",
+      name: "image",
       title: "Картинки",
-      type: "array",
-      of: [{ type: "image" }],
+      type: "image",
     },
   ],
 };
