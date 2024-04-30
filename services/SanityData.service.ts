@@ -37,7 +37,8 @@ class SanityDataService {
       price,
       "imageUrls": images[].asset->url,
       extraType->{
-        title
+        title,
+        value
       },
       dishes[]->{
         title,

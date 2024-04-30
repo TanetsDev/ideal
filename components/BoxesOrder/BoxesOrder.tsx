@@ -12,6 +12,7 @@ import { arrDown, arrUp, filterIcon } from "@/public/icons";
 import { IBoxFilters } from "@/types/filters.types";
 import { IBreadCrumb } from "@/types/market.types";
 import { IBox } from "@/types/products.types";
+import { BoxDTO } from "@/types/sanityData.types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 const crmbs: IBreadCrumb[] = [
@@ -71,27 +72,31 @@ const boxes: IBox[] = [
 const BoxesOrder = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-  //   const { data, error, isLoading } = useGetBoxesQuery({
-  //     limit: 10,
-  //     page: 1,
-  //     type: "all",
-  //   });
+  // const { data, error, isLoading } = useGetBoxesQuery({
+  //   limit: 10,
+  //   page: 1,
+  //   type: "all",
+  // });
 
-  //   if (isLoading) return <div>Loading...</div>;
-  //   if (error) {
-  //     console.error("Error fetching boxes:", error);
-  //     return <div>Error fetching boxes. Please try again later.</div>;
-  //   }
-  //   console.log("DATA FROM RTK QUERY", data);
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) {
+  //   console.error("Error fetching boxes:", error);
+  //   return <div>Error fetching boxes. Please try again later.</div>;
+  // }
+  // console.log("DATA FROM RTK QUERY", data);
 
   //   //   console.log(data);
 
   useEffect(() => {
-    const filters: IBoxFilters = { price: "asc", types: "all" };
-    fetch("/api/boxes?limit=10&page=0&type=all", {
-      method: "POST",
-      body: JSON.stringify(filters),
-    }).then((data) => console.log("DATA FROM FETCH", data));
+    (async () => {
+      const filters: IBoxFilters = { price: "asc", types: "all" };
+      const res = await fetch("/api/boxes?limit=10&page=0", {
+        method: "POST",
+        body: JSON.stringify(filters),
+      });
+      const boxes: BoxDTO = await res.json();
+      console.log("Boxes", boxes);
+    })();
   }, []);
 
   return (

@@ -4,10 +4,14 @@ export const boxesApi = createApi({
   reducerPath: "boxesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
-    getBoxes: builder.query({
-      query: ({ page, limit }) => `/boxes?page=${page}&limit=${limit}&type=all`,
+    getBoxes: builder.mutation({
+      query: ({ page, limit, filters }) => ({
+        url: `/boxes?page=${page}&limit=${limit}`,
+        method: "POST",
+        body: filters,
+      }),
     }),
   }),
 });
 
-export const { useGetBoxesQuery } = boxesApi;
+export const { useGetBoxesMutation } = boxesApi;
