@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
 interface ListItemProps {
   title: string;
@@ -27,9 +26,29 @@ const ListItem: React.FC<ListItemProps> = ({
         {title}
       </h3>
       {isOpen ? (
-        <IoIosArrowUp className="fill-[#141414]  xl:hidden" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="stroke-[#141414]  xl:hidden w-5 h-5"
+        >
+          <path d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+        </svg>
       ) : (
-        <IoIosArrowDown className="fill-[#141414]  xl:hidden" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="stroke-[#141414]  xl:hidden w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+        >
+          <path d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+        </svg>
+
+        // <IoIosArrowDown className="fill-[#141414]  xl:hidden" />
       )}
     </div>
 

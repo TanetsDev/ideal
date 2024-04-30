@@ -71,9 +71,9 @@ const SingInForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-[46px]  text-sm font-robotoFlex max-w-[375px] mx-auto  md:w-[350px] xl:w-full xl:max-w-[830px]"
+        className="flex flex-col gap-[46px]  text-sm font-robotoFlex max-w-[375px] mx-auto  md:w-[350px]"
       >
-        <div className="flex flex-col gap-[46px] xl:flex-row ">
+        <div className="flex flex-col gap-[46px] ">
           <div
             onClick={() => handleInputClick("phone")}
             ref={inputRef}
