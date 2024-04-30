@@ -126,8 +126,12 @@ const Footer = () => {
               >
                 <path d="M6 18 18 6M6 6l12 12" />
               </svg>
-
-              <ContactForm />
+              <div className="w-full flex flex-col items-center ">
+                <h2 className=" text-[24px] text-center leading-[33px] pb-[30px]">
+                  Зв`язатись
+                </h2>
+                <ContactForm />
+              </div>
             </Modal>
             {/* <div className="bg-white  relative flex justify-center rounded px-[40px]"></div> */}
           </Backdrop>
