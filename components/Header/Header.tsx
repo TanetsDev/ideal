@@ -70,15 +70,7 @@ const Header = () => {
                 height="50"
               />
             </Link>
-            {/* <Link href={"/sign_in"}>
-              <Image
-                src={userIcon}
-                alt="Особистий кабінет"
-                className=" size-[26px] md:size-[30px]"
-              />
-            </Link> */}
-
-            <Link href={"/personal_office"}>
+            <Link href={"/sign_in"}>
               <Image
                 src={userIcon}
                 alt="Особистий кабінет"
@@ -87,6 +79,16 @@ const Header = () => {
                 height="50"
               />
             </Link>
+
+            {/* <Link href={"/personal_office"}>
+              <Image
+                src={userIcon}
+                alt="Особистий кабінет"
+                className=" size-[26px] md:size-[30px]"
+                width="50"
+                height="50"
+              />
+            </Link> */}
           </div>
         </div>
       </div>
