@@ -14,6 +14,7 @@ import {
 } from "redux-persist";
 import { boxesApi } from "./boxes/boxesApi";
 import boxesReducer from "./boxes/boxesSlice";
+import boxesSlice from "./boxes/boxesSlice";
 
 const persistConfig = {
   key: "root",
@@ -21,15 +22,15 @@ const persistConfig = {
   whitelist: ["boxes"],
 };
 
-const persistedReducer = persistReducer(persistConfig, boxesReducer);
-
 const rootReducer = combineReducers({
-  boxes: persistedReducer,
+  boxes: boxesSlice,
   [boxesApi.reducerPath]: boxesApi.reducer,
 });
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

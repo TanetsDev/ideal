@@ -37,7 +37,7 @@ const BoxPreviewCard = ({ box }: { box: IBox }) => {
       </div>
       <div className="lg:max-w-[636px]">
         <Title className="text-left" isMain={true}>
-          {box.title}
+          {/* {box.title}  */} поправку
         </Title>
         <h3 className="text-left text-base font-semibold font-manrope mt-6 text-basicBlack">
           Наповнення боксу

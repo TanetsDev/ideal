@@ -5,7 +5,11 @@ export const boxesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
     getBoxes: builder.query({
-      query: ({ page, limit }) => `/boxes?page=${page}&limit=${limit}&type=all`,
+      query: ({ filters }) => ({
+        url: "/boxes?limit=10&page=0",
+        method: "POST",
+        body: filters,
+      }),
     }),
   }),
 });

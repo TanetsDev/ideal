@@ -1,11 +1,11 @@
 import { StaticImageData } from "next/image";
 
 export interface IBox {
-  id: number;
-  title: string;
+  _id: string;
+  title: { _key: string; value: string }[];
   price: number;
   person: number;
-  imageUrl: string | StaticImageData;
+  imageUrls: string | StaticImageData[];
   type: BoxMarkerType;
 }
 

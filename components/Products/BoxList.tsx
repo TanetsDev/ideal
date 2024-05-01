@@ -17,9 +17,7 @@ const BoxList = ({
   return (
     <ul className={`${styles[section]}`}>
       {boxes.map((box) => (
-        <li key={box.id} className="flex justify-center ">
-          <BoxCard box={box} />
-        </li>
+        <BoxCard key={box._id} box={box} />
       ))}
     </ul>
   );
