@@ -10,69 +10,40 @@ import { IBox } from "@/types/products.types";
 import Image from "next/image";
 import { arrowLeft, arrowRight } from "@/public/icons";
 import SuggestionsBox from "../Products/SuggestionsBoxCard";
-
-const boxes: IBox[] = [
-  {
-    id: 1,
-    title: "Супер бокс",
-    price: 1600,
-    person: 4,
-    imageUrl: "",
-    type: "normal",
-  },
-  {
-    id: 2,
-    title: "Супер бокс",
-    price: 1600,
-    person: 4,
-    imageUrl: "",
-    type: "hit",
-  },
-  {
-    id: 4,
-    title: "Супер бокс",
-    price: 1600,
-    person: 4,
-    imageUrl: "",
-    type: "top",
-  },
-  {
-    id: 6,
-    title: "Супер бокс",
-    price: 1600,
-    person: 4,
-    imageUrl: "",
-    type: "new",
-  },
-  {
-    id: 7,
-    title: "Супер бокс",
-    price: 1600,
-    person: 4,
-    imageUrl: "",
-    type: "normal",
-  },
-  {
-    id: 8,
-    title: "Супер бокс",
-    price: 1600,
-    person: 4,
-    imageUrl: "",
-    type: "normal",
-  },
-];
+import { useSelector } from "react-redux";
+import { selectBoxesState } from "@/redux/boxes/boxesSelector";
+import { useRouter } from "next/navigation";
 
 const SuggeschionsSwiper = () => {
+  const { data: boxes, error, isLoading } = useSelector(selectBoxesState);
+
+  const router = useRouter();
+
+  if (!boxes) {
+    router.push("/");
+    return null;
+  }
+
+  if (isLoading)
+    return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
+  if (error) {
+    console.error("Error fetching boxes:", error);
+    return (
+      <div className=" pt-[200px] pb-[200px]">
+        Error fetching boxes. Please try again later.
+      </div>
+    );
+  }
   return (
     <div className="w-[350px] md:w-[690px] lg:w-full mx-auto">
       <div className="flex gap-6 justify-end px-5 mb-5">
-        <Image src={arrowLeft} alt="Стрілка вліво" width={18} />
-        <Image src={arrowRight} alt="Стрілка вправо" width={18} />
+        <Image src={arrowLeft} alt="Стрілка вліво" width={18} height={18} />
+        <Image src={arrowRight} alt="Стрілка вправо" width={18} height={18} />
       </div>
       <Swiper
         spaceBetween={4}
         slidesPerView={1}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={(swiper) => swiper}
         modules={[Autoplay]}
         autoplay={{ delay: 3000 }}
         loop={true}
@@ -86,9 +57,9 @@ const SuggeschionsSwiper = () => {
           },
         }}
       >
-        {boxes.map((box, i) => {
+        {boxes.map((box: IBox) => {
           return (
-            <SwiperSlide key={i}>
+            <SwiperSlide key={box._id}>
               <SuggestionsBox box={box} />
             </SwiperSlide>
           );

@@ -9,6 +9,17 @@ export interface IBox {
   type: BoxMarkerType;
 }
 
+// cart
+export interface IBoxCart {
+  _id: string;
+  title: string;
+  price: number;
+  person: number;
+  imageUrls: string | StaticImageData[];
+  type: BoxMarkerType;
+}
+//
+
 export type BoxMarkerType = "new" | "hit" | "top" | "normal";
 
 export interface ICartBox extends Omit<IBox, "type"> {

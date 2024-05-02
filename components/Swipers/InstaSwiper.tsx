@@ -18,15 +18,19 @@ import {
   i7,
   i8,
 } from "@/public/images/slidersImages/insta";
+import { useGetInstaQuery } from "@/redux/insta/instaApi";
 
 const InstaSwiper = () => {
   const images = [i1, i2, i3, i4, i5, i6, i7, i8];
+  const { data } = useGetInstaQuery({});
+
+  console.log("Insta", data);
 
   return (
     <Swiper
       spaceBetween={4}
       slidesPerView={2}
-      onSwiper={(swiper) => console.log(swiper)}
+      onSwiper={(swiper) => swiper}
       modules={[Autoplay]}
       autoplay={{ delay: 3000 }}
       loop={true}
@@ -44,6 +48,8 @@ const InstaSwiper = () => {
           <SwiperSlide key={i}>
             <Image
               src={img}
+              // height="200"
+              // width="200"
               alt="Фото з інстаграм"
               className=" rounded size-[184] lg:h-[280px] lg:w-[306px]"
             />

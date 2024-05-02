@@ -13,18 +13,25 @@ import {
   REGISTER,
 } from "redux-persist";
 import { boxesApi } from "./boxes/boxesApi";
-import boxesReducer from "./boxes/boxesSlice";
 import boxesSlice from "./boxes/boxesSlice";
+import { instaApi } from "./insta/instaApi";
+import instaSlice from "./insta/instaSlice";
+import { bannerAPi } from "./banner/bannerAPi";
+import bannerSlice from "./banner/bannerSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["boxes"],
+  whitelist: ["boxes", "insta", "banner"],
 };
 
 const rootReducer = combineReducers({
+  banner: bannerSlice,
   boxes: boxesSlice,
+  insta: instaSlice,
   [boxesApi.reducerPath]: boxesApi.reducer,
+  [bannerAPi.reducerPath]: bannerAPi.reducer,
+  [instaApi.reducerPath]: instaApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -36,7 +43,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(boxesApi.middleware),
+    }).concat(boxesApi.middleware, instaApi.middleware, bannerAPi.middleware),
 });
 
 export const persistor = persistStore(store);

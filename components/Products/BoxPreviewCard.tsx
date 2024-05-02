@@ -1,13 +1,13 @@
 import { boxImg } from "@/public/images";
 import React from "react";
 
-import { BoxMarkerType, IBox } from "@/types/products.types";
+import { BoxMarkerType, IBoxCart } from "@/types/products.types";
 import Image from "next/image";
 import Title from "../Common/Title";
 import { uah } from "@/public/icons";
 import MainGoldBtn from "../Buttons/MainGoldBtn";
 
-const BoxPreviewCard = ({ box }: { box: IBox }) => {
+const BoxPreviewCard = ({ box }: { box: IBoxCart }) => {
   return (
     <div className="w-[344px] md:w-[636px] lg:w-full mx-auto lg:flex gap-[31px] lg:mt-[86px]">
       <div className=" relative  mt-[36px] lg:mt-0  pb-[30px] md:p-[22px] rounded bg-cardBacsic  flex flex-col gap-[20px] md:gap-6  w-[344px] md:w-[636px] lg:w-[520px]  mb-5 lg:mb-0">
@@ -20,24 +20,30 @@ const BoxPreviewCard = ({ box }: { box: IBox }) => {
         <div className="flex gap-4">
           <Image
             src={boxImg}
+            height={100}
+            width={100}
             alt="Зображення боксу"
             className="h-[60px] md:h-[70px] w-[60px]   rounded"
           />
           <Image
             src={boxImg}
+            height={100}
+            width={100}
             alt="Зображення боксу"
             className="h-[60px] md:h-[70px] w-[60px] md:w-[70px]  rounded"
           />
           <Image
             src={boxImg}
             alt="Зображення боксу"
+            height={100}
+            width={100}
             className="h-[60px] md:h-[70px]  w-[60px] md:w-[70px]  rounded"
           />
         </div>
       </div>
       <div className="lg:max-w-[636px]">
         <Title className="text-left" isMain={true}>
-          {/* {box.title}  */} поправку
+          {box.title}
         </Title>
         <h3 className="text-left text-base font-semibold font-manrope mt-6 text-basicBlack">
           Наповнення боксу
