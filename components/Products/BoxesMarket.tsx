@@ -8,96 +8,35 @@ import BoxDesktopFilters from "@/components/Products/BoxDesktopFilters";
 import BoxFilters from "@/components/Products/BoxFilters";
 import BoxList from "@/components/Products/BoxList";
 import { arrDown, arrUp, filterIcon } from "@/public/icons";
-// import { useGetBoxesQuery } from "@/redux/boxes/boxesApi";
-import { IBoxFilters } from "@/types/filters.types";
+import { selectBoxesState } from "@/redux/boxes/boxesSelector";
+
 import { IBreadCrumb } from "@/types/market.types";
-import { IBox } from "@/types/products.types";
-import { BoxDTO } from "@/types/sanityData.types";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
 const crmbs: IBreadCrumb[] = [
   { name: "Головна", path: "/" },
   { name: "Shop", path: "/boxes" },
 ];
-const boxes: IBox[] = [
-  {
-    id: 1,
-    title: "Супер бокс",
-    price: 1660,
-    person: 4,
-    imageUrl: "",
-    type: "normal",
-  },
-  {
-    id: 2,
-    title: "Супер бокс",
-    price: 1660,
-    person: 4,
-    imageUrl: "",
-    type: "hit",
-  },
-  {
-    id: 4,
-    title: "Супер бокс",
-    price: 1660,
-    person: 4,
-    imageUrl: "",
-    type: "top",
-  },
-  {
-    id: 6,
-    title: "Супер бокс",
-    price: 1660,
-    person: 4,
-    imageUrl: "",
-    type: "new",
-  },
-  {
-    id: 7,
-    title: "Супер бокс",
-    price: 1660,
-    person: 4,
-    imageUrl: "",
-    type: "normal",
-  },
-  {
-    id: 8,
-    title: "Супер бокс",
-    price: 1660,
-    person: 4,
-    imageUrl: "",
-    type: "normal",
-  },
-];
-const BoxesOrder = () => {
+
+const BoxesMarket = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-  // const { data, error, isLoading } = useGetBoxesQuery({
-  //   limit: 10,
-  //   page: 1,
-  //   type: "all",
-  // });
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) {
-  //   console.error("Error fetching boxes:", error);
-  //   return <div>Error fetching boxes. Please try again later.</div>;
-  // }
-  // console.log("DATA FROM RTK QUERY", data);
+  const { data, error, isLoading } = useSelector(selectBoxesState);
 
-  //   //   console.log(data);
-
-  useEffect(() => {
-    (async () => {
-      const filters: IBoxFilters = { price: "asc", types: "all" };
-      const res = await fetch("/api/boxes?limit=10&page=0", {
-        method: "POST",
-        body: JSON.stringify(filters),
-      });
-      const boxes: BoxDTO = await res.json();
-      console.log("Boxes", boxes);
-    })();
-  }, []);
+  if (isLoading)
+    return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
+  if (error) {
+    console.error("Error fetching boxes:", error);
+    return (
+      <div className=" pt-[200px] pb-[200px]">
+        Error fetching boxes. Please try again later.
+      </div>
+    );
+  }
+  console.log("DATA FROM RTK QUERY", data);
 
   return (
     <MainSectionsBox className=" pt-[64px] pb-[50px]">
@@ -141,11 +80,11 @@ const BoxesOrder = () => {
 
         <div className="lg:flex">
           <BoxDesktopFilters />
-          <BoxList boxes={boxes} section="shop" />
+          <BoxList boxes={data} section="shop" />
         </div>
       </MainContainer>
     </MainSectionsBox>
   );
 };
 
-export default BoxesOrder;
+export default BoxesMarket;

@@ -1,32 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Box {
-  id: string;
-  name: string;
-  price: number;
-  type: string;
+interface BoxesState {
+  data: any;
+  error: string | null;
+  isLoading: boolean;
 }
 
-export interface BoxesState {
-  boxes: Box[];
-}
-
-export const initialState: BoxesState = {
-  boxes: [],
+const initialState: BoxesState = {
+  data: null,
+  error: null,
+  isLoading: false,
 };
 
 export const boxesSlice = createSlice({
   name: "boxes",
   initialState,
   reducers: {
-    addBox: (state, action: PayloadAction<Box>) => {
-      state.boxes.push(action.payload);
+    setData: (state, action: PayloadAction<any>) => {
+      state.data = action.payload;
     },
-    deleteBox: (state, action: PayloadAction<{ id: string }>) => {
-      state.boxes = state.boxes.filter((box) => box.id !== action.payload.id);
+    setError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const { addBox, deleteBox } = boxesSlice.actions;
+export const { setData, setError, setLoading } = boxesSlice.actions;
+
 export default boxesSlice.reducer;

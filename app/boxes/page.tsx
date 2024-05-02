@@ -1,5 +1,5 @@
-import BoxesOrder from "@/components/BoxesOrder/BoxesOrder";
+import BoxesMarket from "@/components/Products/BoxesMarket";
 
-const Boxes = () => <BoxesOrder />;
+const Boxes = () => <BoxesMarket />;
 
 export default Boxes;

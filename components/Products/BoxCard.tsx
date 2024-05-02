@@ -1,44 +1,85 @@
 import { personIcon, uah } from "@/public/icons";
-import { boxImg } from "@/public/images";
+// import { boxImg } from "@/public/images";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
 import { BoxMarkerType, IBox } from "@/types/products.types";
 import Link from "next/link";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+
 const BoxCard = ({ box }: { box: IBox }) => {
+  // console.log(box);
+
   return (
-    <div
-      className={`relative p-[9px] lg:p-2 pb-4 lg:pb-[14px] rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] lg:w-[306px] `}
-    >
-      {box.type !== "normal" && <Marker type={box.type} />}
-      <Link href={"/boxes/123"}>
-        <Image
-          src={boxImg}
-          alt="Зображення боксу"
-          className={`h-[302px] md:h-[290px] lg:h-[270px] w-[325px] md:w-[310px] lg:w-[290px] rounded `}
-        />
-      </Link>
-      <h4 className={`text-center text-xl font-roboto mt-4 `}>{box.title}</h4>
-      <div className={`flex justify-between mt-5 pr-[21px] pl-1 w-full `}>
-        <span className="flex gap-1 items-center font-roboto text-[22px] font-bold ">
-          <Image
-            src={personIcon}
-            alt="Іконка людини"
-            className=" h-[26px] w-[10px]"
-          />
-          {box.person}
-        </span>
-        <div className="flex gap-2 items-center">
-          <span
-            className={`font-manrope text-[22px] font-medium flex items-baseline `}
-          >
-            {box.price}
-            <Image src={uah} alt="Знак гривні" className=" size-[14px]" />
+    <li key={box._id} className="flex justify-center ">
+      <div
+        className={`relative p-[9px] lg:p-2 pb-4 lg:pb-[14px] rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] lg:w-[306px] `}
+      >
+        {box.type !== "normal" && <Marker type={box.type} />}
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          loop={true}
+          style={{ width: "300px" }}
+        >
+          {Array.isArray(box.imageUrls) ? (
+            box.imageUrls.map((imageUrl, index) => (
+              <SwiperSlide key={index}>
+                <Link key={index} href={"/boxes/123"} passHref>
+                  <Image
+                    src={imageUrl}
+                    alt={`Зображення боксу ${index + 1}`}
+                    className={`h-[302px] md:h-[290px] lg:h-[270px] w-[325px] md:w-[310px] lg:w-[290px] rounded `}
+                    width={200}
+                    height={200}
+                  />
+                </Link>
+              </SwiperSlide>
+            ))
+          ) : (
+            <SwiperSlide>
+              <Link href={"/boxes/123"} passHref>
+                <Image
+                  src={box.imageUrls}
+                  alt="Зображення боксу"
+                  className={`h-[302px] md:h-[290px] lg:h-[270px] w-[325px] md:w-[310px] lg:w-[290px] rounded `}
+                  width={200}
+                  height={200}
+                />
+              </Link>
+            </SwiperSlide>
+          )}
+        </Swiper>
+        <h4 className={`text-center text-xl font-roboto mt-4 `}>
+          {/* {box.title
+            ? box.title?.find((title) => title._key === "ukr")?.value || " "
+            : " "} */}
+        </h4>
+        <div className={`flex justify-between mt-5 pr-[21px] pl-1 w-full `}>
+          <span className="flex gap-1 items-center font-roboto text-[22px] font-bold ">
+            <Image
+              src={personIcon}
+              alt="Іконка людини"
+              className=" h-[26px] w-[10px]"
+              width={200}
+              height={200}
+            />
+            {box.person}
           </span>
-          <BoxBtn />
+          <div className="flex gap-2 items-center">
+            <span
+              className={`font-manrope text-[22px] font-medium flex items-baseline `}
+            >
+              {box.price}
+              <Image src={uah} alt="Знак гривні" className=" size-[14px]" />
+            </span>
+            <BoxBtn />
+          </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 
@@ -65,7 +106,7 @@ const Marker = ({ type }: { type: BoxMarkerType }) => {
 
   return (
     <span
-      className={`absolute -left-[3px] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} `}
+      className={`absolute left-[3px] z-[2] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} `}
     >
       {title}
     </span>
