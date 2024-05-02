@@ -13,17 +13,13 @@ export interface BoxDTO {
   personCount: number;
   weight: number;
   price: number;
-  images: string[];
+  imageUrls: string[];
   extraType: {
     title: string;
+    value: InterValue;
   };
-  dishes:{};
+  dishes: {};
 }
-
-type Obj = {
-  title: string;
-  value: InterValue[];
-};
 
 type InterValue = {
   value: string;
