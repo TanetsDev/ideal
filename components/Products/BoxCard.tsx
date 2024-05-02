@@ -1,5 +1,4 @@
 import { personIcon, uah } from "@/public/icons";
-// import { boxImg } from "@/public/images";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
 import { BoxMarkerType, IBox } from "@/types/products.types";
@@ -10,8 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 const BoxCard = ({ box }: { box: IBox }) => {
-  // console.log(box);
-
   return (
     <li key={box._id} className="flex justify-center ">
       <div
@@ -53,9 +50,9 @@ const BoxCard = ({ box }: { box: IBox }) => {
           )}
         </Swiper>
         <h4 className={`text-center text-xl font-roboto mt-4 `}>
-          {/* {box.title
+          {box.title
             ? box.title?.find((title) => title._key === "ukr")?.value || " "
-            : " "} */}
+            : " "}
         </h4>
         <div className={`flex justify-between mt-5 pr-[21px] pl-1 w-full `}>
           <span className="flex gap-1 items-center font-roboto text-[22px] font-bold ">

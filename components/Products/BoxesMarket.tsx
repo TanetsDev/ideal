@@ -12,6 +12,7 @@ import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 
 import { IBreadCrumb } from "@/types/market.types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -23,8 +24,14 @@ const crmbs: IBreadCrumb[] = [
 const BoxesMarket = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-
   const { data, error, isLoading } = useSelector(selectBoxesState);
+
+  const router = useRouter();
+
+  if (!data) {
+    router.push("/");
+    return null;
+  }
 
   if (isLoading)
     return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
@@ -36,7 +43,6 @@ const BoxesMarket = () => {
       </div>
     );
   }
-  console.log("DATA FROM RTK QUERY", data);
 
   return (
     <MainSectionsBox className=" pt-[64px] pb-[50px]">

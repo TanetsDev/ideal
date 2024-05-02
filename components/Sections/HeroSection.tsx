@@ -1,10 +1,16 @@
+"use client";
+
 import { goldLogo, goldArrowDown } from "@/public/icons";
 import { heroBg } from "@/public/images";
 import React from "react";
 import MainContainer from "../Containers/MainContainer";
 import Image from "next/image";
+import { useGetBannerQuery } from "@/redux/banner/bannerAPi";
 
 const HeroSection = () => {
+  const { data, error, isLoading } = useGetBannerQuery({});
+  console.log("Banner", data);
+
   return (
     <section className=" h-[740px] md:h-[1133px] lg:h-[960px] relative">
       <h1 className=" invisible absolute">

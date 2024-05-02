@@ -14,11 +14,11 @@ const crmbs: IBreadCrumb[] = [
 ];
 
 const box = {
-  id: 1,
+  _id: "1",
   title: "Супер бокс",
   price: 160,
   person: 4,
-  imageUrl: "",
+  imageUrls: "",
   type: "hit" as BoxMarkerType,
 };
 

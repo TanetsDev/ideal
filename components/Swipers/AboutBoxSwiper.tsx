@@ -21,7 +21,7 @@ const AboutBoxSwiper = () => {
     <Swiper
       spaceBetween={0}
       slidesPerView={1}
-      onSwiper={(swiper) => console.log(swiper)}
+      onSwiper={(swiper) => swiper}
       modules={[Navigation, Pagination, Autoplay]}
       navigation
       pagination={{ clickable: true, bulletClass: "bg-white" }}
@@ -32,7 +32,11 @@ const AboutBoxSwiper = () => {
       {images.map((img, i) => {
         return (
           <SwiperSlide key={i}>
-            <Image src={img} alt="Фото їжі" className=" w-ful h-full rounded" />
+            <Image
+              src={img}
+              alt="Фото їжі"
+              className=" w-ful h-full rounded "
+            />
           </SwiperSlide>
         );
       })}

@@ -25,7 +25,9 @@ const SuggestionsBox = ({
         />
       </Link>
       <h4 className={`text-center text-xl font-roboto mt-4 lg:mt-2`}>
-        {box.title}
+        {box.title
+          ? box.title?.find((title) => title._key === "ukr")?.value || " "
+          : " "}
       </h4>
       <div
         className={`flex justify-between mt-5 pr-[21px] pl-1 w-full lg:mt-3 lg:p-0`}

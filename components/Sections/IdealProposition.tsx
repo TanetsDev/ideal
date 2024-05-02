@@ -6,35 +6,10 @@ import MainGoldBtn from "../Buttons/MainGoldBtn";
 import Title from "../Common/Title";
 import MainSectionsBox from "../Common/MainSectionsBox";
 import Link from "next/link";
-import { useGetBoxesQuery } from "@/redux/boxes/boxesApi";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { setData, setError, setLoading } from "@/redux/boxes/boxesSlice";
+import useBoxesData from "@/hooks/useBoxesData";
 
 const IdealProposition = () => {
-  const dispatch = useDispatch();
-  const { data, error, isLoading } = useGetBoxesQuery({
-    filters: { types: "all" },
-  });
-
-  useEffect(() => {
-    if (data) {
-      dispatch(setData(data));
-      dispatch(setLoading(false));
-    }
-    if (error) {
-      if ("status" in error && "data" in error) {
-        // Якщо це FetchBaseQueryError
-        console.error("Error fetching boxes:", error.status, error.data);
-        dispatch(setError("Error fetching boxes. Please try again later."));
-      } else {
-        // Якщо це SerializedError
-        console.error("Error fetching boxes:", error);
-        dispatch(setError("Error fetching boxes. Please try again later."));
-      }
-      dispatch(setLoading(false));
-    }
-  }, [data, error, dispatch]);
+  const { data, error, isLoading } = useBoxesData();
 
   if (isLoading)
     return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
