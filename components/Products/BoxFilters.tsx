@@ -60,8 +60,8 @@ const BoxFilters = ({
   };
 
   return (
-    <div className="flex flex-col gap-6 md:gap-0 py-[16px] md:pt-[22px] md:pb-[32px]  bg-white md:mt-[31px] md:mb-[74px]">
-      <div className="flex px-3 md:px-[27px] md:mb-[46px] gap-6 md:gap-[14px] justify-center text-lg md:text-2xl font-manrope font-medium lg:hidden">
+    <div className="xl:hidden flex flex-col gap-6 md:gap-0 py-[16px] md:pt-[22px] md:pb-[32px]  bg-white md:mt-[31px] md:mb-[74px]">
+      <div className="flex px-3 md:px-[27px] md:mb-[46px] gap-6 md:gap-[14px] justify-center text-lg md:text-2xl font-manrope font-medium xl:hidden">
         <span>Фільтри</span>
         <button
           type="button"

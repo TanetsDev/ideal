@@ -51,7 +51,7 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId={config.google.CLIENT_ID}>
           <ReduxProvider>
             <Header />
-            <main>{children}</main>
+            <main className="my__height">{children}</main>
             <Footer />
           </ReduxProvider>
         </GoogleOAuthProvider>

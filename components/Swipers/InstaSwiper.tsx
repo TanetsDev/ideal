@@ -1,34 +1,32 @@
-"use client"; // <===== REQUIRED
+"use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Image from "next/image";
-import {
-  i1,
-  i2,
-  i3,
-  i4,
-  i5,
-  i6,
-  i7,
-  i8,
-} from "@/public/images/slidersImages/insta";
 import { useGetInstaQuery } from "@/redux/insta/instaApi";
 
 const InstaSwiper = () => {
-  const images = [i1, i2, i3, i4, i5, i6, i7, i8];
-  const { data } = useGetInstaQuery({});
+  const { data, isLoading, error } = useGetInstaQuery({});
 
-  console.log("Insta", data);
+  if (isLoading)
+    return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
+
+  if (error) {
+    console.error("Error fetching boxes:", error);
+    return (
+      <div className=" pt-[200px] pb-[200px]">
+        Error fetching boxes. Please try again later.
+      </div>
+    );
+  }
 
   return (
     <Swiper
-      spaceBetween={4}
+      spaceBetween={10}
       slidesPerView={2}
       onSwiper={(swiper) => swiper}
       modules={[Autoplay]}
@@ -38,20 +36,20 @@ const InstaSwiper = () => {
         640: {
           slidesPerView: 4,
         },
-        1000: {
+        1280: {
           slidesPerView: 5,
         },
       }}
     >
-      {images.map((img, i) => {
+      {data?.map((img: string, i: number) => {
         return (
           <SwiperSlide key={i}>
             <Image
               src={img}
-              // height="200"
-              // width="200"
+              height={281}
+              width={306}
               alt="Фото з інстаграм"
-              className=" rounded size-[184] lg:h-[280px] lg:w-[306px]"
+              className=" rounded h-[184px] w-[184px] xl:h-[281px] xl:w-[306px]"
             />
           </SwiperSlide>
         );

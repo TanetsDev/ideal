@@ -15,7 +15,7 @@ import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 import { useRouter } from "next/navigation";
 
 const SuggeschionsSwiper = () => {
-  const { data: boxes, error, isLoading } = useSelector(selectBoxesState);
+  const { data: boxes } = useSelector(selectBoxesState);
 
   const router = useRouter();
 
@@ -24,16 +24,6 @@ const SuggeschionsSwiper = () => {
     return null;
   }
 
-  if (isLoading)
-    return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
-  if (error) {
-    console.error("Error fetching boxes:", error);
-    return (
-      <div className=" pt-[200px] pb-[200px]">
-        Error fetching boxes. Please try again later.
-      </div>
-    );
-  }
   return (
     <div className="w-[350px] md:w-[690px] lg:w-full mx-auto">
       <div className="flex gap-6 justify-end px-5 mb-5">

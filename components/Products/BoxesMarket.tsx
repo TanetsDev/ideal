@@ -24,24 +24,13 @@ const crmbs: IBreadCrumb[] = [
 const BoxesMarket = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-  const { data, error, isLoading } = useSelector(selectBoxesState);
+  const { data } = useSelector(selectBoxesState);
 
   const router = useRouter();
 
   if (!data) {
     router.push("/");
     return null;
-  }
-
-  if (isLoading)
-    return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
-  if (error) {
-    console.error("Error fetching boxes:", error);
-    return (
-      <div className=" pt-[200px] pb-[200px]">
-        Error fetching boxes. Please try again later.
-      </div>
-    );
   }
 
   return (
@@ -57,7 +46,7 @@ const BoxesMarket = () => {
             {!isFiltersOpen && (
               <button
                 type="button"
-                className="flex items-center justify-center gap-1 text-darkViolet md:text-basicBlack lg:hidden text-xl font-manrope font-medium"
+                className="flex items-center justify-center gap-1 text-darkViolet md:text-basicBlack xl:hidden text-xl font-manrope font-medium"
                 onClick={() => setIsFiltersOpen((prev) => !prev)}
               >
                 Фільтри
@@ -69,7 +58,7 @@ const BoxesMarket = () => {
               </button>
             )}
 
-            <div className=" flex gap-[26px] md:gap-[15px] justify-center md:flex-grow md:justify-end md:mr-20 text-base font-robotoFlex">
+            <div className=" flex gap-[26px] md:gap-[15px] justify-center md:flex-grow md:justify-end text-base font-robotoFlex">
               <button type="button">Скинути</button>
               <button type="button" className="flex items-center gap-[1px]">
                 Ціна
@@ -83,8 +72,12 @@ const BoxesMarket = () => {
             </div>
           </div>
         </div>
-
-        <div className="lg:flex">
+        <div
+          className="xl:flex
+        xl:gap-[64px]
+        xl:justify-between
+        "
+        >
           <BoxDesktopFilters />
           <BoxList boxes={data} section="shop" />
         </div>
