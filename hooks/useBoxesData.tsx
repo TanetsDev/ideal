@@ -7,6 +7,7 @@ const useBoxesData = () => {
   const dispatch = useDispatch();
   const { data, error, isLoading } = useGetBoxesQuery({
     filters: { types: "all" },
+  
   });
 
   useEffect(() => {

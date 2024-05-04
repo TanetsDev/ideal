@@ -24,9 +24,8 @@ const crmbs: IBreadCrumb[] = [
 const BoxesMarket = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
-  const { data } = useSelector(selectBoxesState);
-
   const router = useRouter();
+  const { data } = useSelector(selectBoxesState);
 
   if (!data) {
     router.push("/");

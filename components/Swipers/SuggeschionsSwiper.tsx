@@ -38,11 +38,11 @@ const SuggeschionsSwiper = () => {
         autoplay={{ delay: 3000 }}
         loop={true}
         breakpoints={{
-          640: {
+          768: {
             slidesPerView: 2,
             spaceBetween: 24,
           },
-          1000: {
+          1280: {
             slidesPerView: 5,
           },
         }}

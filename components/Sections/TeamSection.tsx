@@ -17,18 +17,18 @@ const TeamSection = () => {
             <Image
               src={teamPhoto}
               alt="Фото команди"
-              className="rounded h-[280px] md:h-[516px] xl:h-[630px] md:w-[592px] xl:w-[722px]"
+              className="rounded h-[280px] md:h-[516px] xl:h-[580px] md:w-[592px] xl:w-[660px]"
             />
           </div>
-          <div className="hidden absolute top-[200px] xl:px-0 -right-[320px] text-lg text-black font-robotoFlex xl:flex flex-col gap-5 items-end">
-            <p className="max-w-[525px]">
+          <div className="hidden absolute top-[200px]   -right-[235px] text-lg text-black font-robotoFlex xl:flex flex-col gap-5 items-end ">
+            <p className="max-w-[500px]">
               Наш колектив – це професіонали своєї справи, закохані у кулінарію
               та створення атмосфери затишку. Ми готові втілити ваші
               найсміливіші ідеї, роблячи кожну подію неповторною. Наша мета – не
               просто порадувати ваші смакові рецептори, а й створити враження,
               що залишиться у пам&apos;яті на довгі роки.
             </p>
-            <p className="max-w-[525px]">
+            <p className="max-w-[500px]">
               Кожен фуршетний бокс <span className=" font-julius">IDEAL</span> –
               це справжній витвір мистецтва. Ми дбайливо відбираємо кращі
               продукти, стежимо за їхньою свіжістю та якістю. Наші бокси стануть
