@@ -12,7 +12,7 @@ const SingIn = () => {
   const pathname = usePathname();
 
   return (
-    <section className=" pt-[120px] md:pt-[140px] xl:pt-[160px] pb-[50px] my__height ">
+    <section className=" pt-[120px] md:pt-[140px] xl:pt-[160px] pb-[50px]  ">
       <MainContainer className="  lg:gap-[27px]  justify-center  ">
         <div className="flex mb-[40px] text-2xl font-manrope text-basicBlack   justify-center mx-auto gap-[60px] md:text-base md:mb-[50px] lg:w-[400px] leading-9">
           <Link

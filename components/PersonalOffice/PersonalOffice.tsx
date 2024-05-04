@@ -15,7 +15,7 @@ const PersonalOffice = () => {
     setOpenList((prevListId) => (prevListId === listId ? null : listId));
   };
   return (
-    <section className=" pt-[114px]  pb-[70px] my__height">
+    <section className=" pt-[114px]  pb-[70px] ">
       <div
         className=" border-l  xl:border-[#ECE7E7] absolute inset-y-0  left-[370px] hidden xl:block   
     

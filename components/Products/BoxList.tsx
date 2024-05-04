@@ -9,10 +9,10 @@ const BoxList = ({
   section: "idealProposition" | "shop";
 }) => {
   const styles = {
-    // h-[1340px]  lg:w-[1296px]
+    // h-[1340px]
     idealProposition:
-      "flex flex-col md:flex-row  md:h-auto md:w-[680px] overflow-hidden gap-[28px] md:gap-[24px] mt-[28px] lg:mt-[46px] mb-[40px]",
-    shop: "flex flex-col gap-7 md:gap-6 lg:gap-[24px]  md:h-auto overflow-hidden md:flex-row md:flex-wrap md:justify-center",
+      "flex flex-col md:flex-row  md:h-auto md:w-[680px] overflow-hidden gap-[28px] md:gap-[24px] mt-[28px] xl:w-full xl:mt-[46px] mb-[40px]",
+    shop: "flex flex-col gap-7 md:gap-6 xl:gap-[24px]  md:h-auto overflow-hidden md:flex-row md:flex-wrap md:justify-center",
     // h-[1790px]
   };
 

@@ -10,9 +10,9 @@ import "swiper/css";
 
 const BoxCard = ({ box }: { box: IBox }) => {
   return (
-    <li key={box._id} className="flex justify-center ">
+    <li key={box._id} className="flex justify-center xl:h-[385px]">
       <div
-        className={`relative p-[9px] lg:p-2 pb-4 lg:pb-[14px] rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] lg:w-[306px] `}
+        className={`relative p-[9px] xl:p-2 pb-4 xl:pb-[14px] rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] xl:w-[306px] `}
       >
         {box.type !== "normal" && <Marker type={box.type} />}
         <Swiper
@@ -28,7 +28,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
                   <Image
                     src={imageUrl}
                     alt={`Зображення боксу ${index + 1}`}
-                    className={`h-[302px] md:h-[290px] lg:h-[270px] w-[325px] md:w-[310px] lg:w-[290px] rounded `}
+                    className={`h-[302px] md:h-[290px] xl:h-[270px] w-[325px] md:w-[310px] xl:w-[290px] rounded `}
                     width={200}
                     height={200}
                   />
@@ -41,7 +41,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
                 <Image
                   src={box.imageUrls}
                   alt="Зображення боксу"
-                  className={`h-[302px] md:h-[290px] lg:h-[270px] w-[325px] md:w-[310px] lg:w-[290px] rounded `}
+                  className={`h-[302px] md:h-[290px] xl:h-[270px] w-[325px] md:w-[310px] xl:w-[290px] rounded `}
                   width={200}
                   height={200}
                 />

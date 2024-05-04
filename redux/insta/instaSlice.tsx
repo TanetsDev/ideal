@@ -19,15 +19,9 @@ export const instaSlice = createSlice({
     setData: (state, action: PayloadAction<any>) => {
       state.data = action.payload;
     },
-    setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
   },
 });
 
-export const { setData, setError, setLoading } = instaSlice.actions;
+export const { setData } = instaSlice.actions;
 
 export default instaSlice.reducer;

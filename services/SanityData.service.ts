@@ -75,7 +75,7 @@ class SanityDataService {
     const gallery = await this.sanity.fetch(`*[_type == "insta"] {
       title,
       "imageUrls": images[].asset->url
-    }`);
+    }[0]`);
 
     return gallery.imageUrls;
   };

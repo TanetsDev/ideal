@@ -6,7 +6,7 @@ import ContactForm from "../Form/ContactForm";
 
 const Contact = () => {
   return (
-    <section className=" pt-[134px]  pb-[119px] md:pt-[148px]  md:pb-[70px] my__height ">
+    <section className=" pt-[134px]  pb-[119px] md:pt-[148px]  md:pb-[70px]  ">
       <h2 className=" text-center text-basicBlack font-manrope text-[26px] leading-[36px] pb-[28px] md:pb-[46px] font-normal">
         Контакти
       </h2>

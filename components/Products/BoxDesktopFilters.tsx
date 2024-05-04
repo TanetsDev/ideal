@@ -44,7 +44,7 @@ const BoxDesktopFilters = () => {
   };
 
   return (
-    <div className=" flex-col gap-[30px] hidden lg:flex">
+    <div className=" flex-col gap-[30px] hidden xl:flex">
       <div className="pt-[14px] pb-6 bg-white">
         <FiltersTitle>Тип боксу</FiltersTitle>
         <UnderlineGold />
