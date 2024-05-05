@@ -8,6 +8,12 @@ import { usePathname } from "next/navigation";
 import SingInForm from "../Form/SingInForm";
 import GoogleAuth from "../Google/GoogleAuth";
 
+// const handleTestClick = async () => {
+//   // add jwt token to request object
+//   const token = "token-------Here";
+//   const myHeaders = new Headers();
+//   myHeaders.append("authorization", `Bearer ${token}`);
+// };
 const SingIn = () => {
   const pathname = usePathname();
 
@@ -38,6 +44,7 @@ const SingIn = () => {
           Або за допомогою
         </p>
         <GoogleAuth />
+        {/* <button onClick={handleTestClick}>test</button> */}
       </MainContainer>
     </section>
   );

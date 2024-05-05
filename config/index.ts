@@ -21,5 +21,13 @@ const jwt = {
   jwtSecret: process.env.ENV_JWT_SECRET || "secret",
 };
 
+const API_ROUTES = {
+  USER: {
+    GET_ME: `/api/user`,
+    UPDATE: `/api/user`,
+    DELETE: `/api/user`,
+  },
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { sanity, google, telegram, jwt };
+export default { sanity, google, telegram, jwt, API_ROUTES };
