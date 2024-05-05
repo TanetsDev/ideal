@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Swiper as ReactSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { BoxMarkerType, IBoxCart } from "@/types/products.types";
+import { BoxMarkerType, IBoxCard } from "@/types/products.types";
 import Image from "next/image";
 import Title from "../Common/Title";
 import { uah } from "@/public/icons";
@@ -31,7 +31,7 @@ const BoxPreviewCard = () => {
     return null;
   }
 
-  const box = data.filter((e: IBoxCart) => e._id === params.id);
+  const box = data.filter((e: IBoxCard) => e._id === params.id);
 
   if (!box) {
     return <div>Box not found</div>;

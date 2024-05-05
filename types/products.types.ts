@@ -9,8 +9,8 @@ export interface IBox {
   type: BoxMarkerType;
 }
 
-// cart
-export interface IBoxCart {
+// card
+export interface IBoxCard {
   _id: string;
   title: string;
   price: number;

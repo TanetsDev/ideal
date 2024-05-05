@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useSignUpMutation } from "@/redux/auth/authApi";
 
 const RegistrationFormSchema = yup.object().shape({
   name: yup.string().required("Обов'язкове поле"),
@@ -67,6 +68,8 @@ const Registration = () => {
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
+  const [register, { isLoading }] = useSignUpMutation();
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -100,22 +103,28 @@ const Registration = () => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-
     const userData = {
       name: data.name,
       lastName: data.lastName,
       email: data.email,
       address: data.address,
       password: data.password,
-      phone: data.phone,
+      phone: parseInt(data.phone),
     };
-    const user = await fetch("/api/auth/signUp", {
-      method: "POST",
-      body: JSON.stringify(userData),
-    });
-    console.log("NEW USER", await user.json());
-    reset();
+
+    try {
+      const user = await register(userData);
+      if (user) {
+        console.log("NEW USER", user);
+      }
+      // reset();
+    } catch (error) {
+      console.log("Invalid login or password.");
+    }
+    // const user = await fetch("/api/auth/signUp", {
+    //   method: "POST",
+    //   body: JSON.stringify(userData),
+    // });
   };
 
   return (

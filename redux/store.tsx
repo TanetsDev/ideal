@@ -18,6 +18,8 @@ import { instaApi } from "./insta/instaApi";
 import instaSlice from "./insta/instaSlice";
 import { bannerAPi } from "./banner/bannerAPi";
 import bannerSlice from "./banner/bannerSlice";
+import persisteAuthReducer from "./auth/authSlice";
+import { authApi } from "./auth/authApi";
 
 const persistConfig = {
   key: "root",
@@ -26,9 +28,13 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  auth: persisteAuthReducer,
+
   banner: bannerSlice,
   boxes: boxesSlice,
   insta: instaSlice,
+  [authApi.reducerPath]: authApi.reducer,
+
   [boxesApi.reducerPath]: boxesApi.reducer,
   [bannerAPi.reducerPath]: bannerAPi.reducer,
   [instaApi.reducerPath]: instaApi.reducer,
@@ -43,7 +49,12 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(boxesApi.middleware, instaApi.middleware, bannerAPi.middleware),
+    }).concat(
+      boxesApi.middleware,
+      instaApi.middleware,
+      bannerAPi.middleware,
+      authApi.middleware
+    ),
 });
 
 export const persistor = persistStore(store);
