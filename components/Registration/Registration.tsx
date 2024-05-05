@@ -99,8 +99,22 @@ const Registration = () => {
     resolver: yupResolver(RegistrationFormSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+
+    const userData = {
+      name: data.name,
+      lastName: data.lastName,
+      email: data.email,
+      address: data.address,
+      password: data.password,
+      phone: data.phone,
+    };
+    const user = await fetch("/api/auth/signUp", {
+      method: "POST",
+      body: JSON.stringify(userData),
+    });
+    console.log("NEW USER", await user.json());
     reset();
   };
 

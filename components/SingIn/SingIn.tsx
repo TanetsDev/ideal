@@ -5,8 +5,8 @@ import Link from "next/link";
 import MainContainer from "../Containers/MainContainer";
 import { usePathname } from "next/navigation";
 
-// import { LocalizationProvider } from "@mui/x-date-pickers";
 import SingInForm from "../Form/SingInForm";
+import GoogleAuth from "../Google/GoogleAuth";
 
 const SingIn = () => {
   const pathname = usePathname();
@@ -34,9 +34,10 @@ const SingIn = () => {
           </Link>
         </div>
         <SingInForm />
-        <p className="max-w-[375px] mx-auto md:w-[350px] pt-[20px] text-sm leading-[16px]">
+        <p className="max-w-[375px] mx-auto md:w-[350px] pt-[20px] text-sm leading-[16px] text-center mb-5">
           Або за допомогою
         </p>
+        <GoogleAuth />
       </MainContainer>
     </section>
   );
