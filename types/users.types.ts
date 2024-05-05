@@ -1,7 +1,7 @@
 import { Users } from "@prisma/client";
 
 export type SignInDTO = {
-  phone: number | bigint;
+  phone: number;
   password: string;
 };
 
@@ -12,6 +12,12 @@ export interface SignUpDTO extends SignInDTO {
   address?: string;
 }
 
-export interface AuthUserDTO extends Users {
+export interface AuthUserDTO
+  extends Omit<Users, "createdAt" | "updatedAt" | "password"> {
   token: string;
 }
+
+export type OAuthDTO = {
+  email: string;
+  name?: string;
+};
