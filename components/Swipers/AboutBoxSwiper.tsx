@@ -24,7 +24,7 @@ const AboutBoxSwiper = () => {
       onSwiper={(swiper) => swiper}
       modules={[Navigation, Pagination, Autoplay]}
       navigation
-      pagination={{ clickable: true, bulletClass: "bg-white" }}
+      pagination={{ clickable: true }}
       autoplay={{ delay: 3000 }}
       loop={true}
       className="mt-[28px] md:mt-[46px] md:max-w-[700px]"

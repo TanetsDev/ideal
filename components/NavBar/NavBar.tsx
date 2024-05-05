@@ -12,37 +12,35 @@ const NavBar = ({
   return (
     <nav className=" flex flex-col xl:flex-row items-center justify-center gap-3 md:gap-5 xl:gap-10 text-lg md:text-[22px]  xl:text-base  font-manrope font-normal text-white  ">
       <Link
-        className={pathname === "/" ? "text-[#D6A968] underline" : ""}
+        className={pathname === "/" ? "text-[#D6A968] " : ""}
         href="/"
         onClick={() => setIsOpen(false)}
       >
         Головна
       </Link>
       <Link
-        className={pathname === "/boxes" ? "text-[#D6A968] underline" : ""}
+        className={pathname === "/boxes" ? "text-[#D6A968] " : ""}
         href="/boxes"
         onClick={() => setIsOpen(false)}
       >
         Boxes
       </Link>
       <Link
-        className={
-          pathname === "/shipment-payment" ? "text-[#D6A968] underline" : ""
-        }
+        className={pathname === "/shipment-payment" ? "text-[#D6A968] " : ""}
         href="/shipment-payment"
         onClick={() => setIsOpen(false)}
       >
         Доставка і оплата
       </Link>
       <Link
-        className={pathname === "/" ? "text-[#D6A968] underline" : ""}
-        href="/"
+        className={pathname === "/about" ? "text-[#D6A968] " : ""}
+        href="/about"
         onClick={() => setIsOpen(false)}
       >
         Про компанію
       </Link>
       <Link
-        className={pathname === "/contact" ? "text-[#D6A968] underline" : ""}
+        className={pathname === "/contact" ? "text-[#D6A968] " : ""}
         href="/contact"
         onClick={() => setIsOpen(false)}
       >

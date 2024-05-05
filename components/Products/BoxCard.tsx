@@ -16,7 +16,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
       >
         {box.type !== "normal" && <Marker type={box.type} />}
         <Swiper
-          spaceBetween={50}
+          spaceBetween={10}
           slidesPerView={1}
           loop={true}
           style={{ width: "300px" }}
@@ -24,7 +24,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
           {Array.isArray(box.imageUrls) ? (
             box.imageUrls.map((imageUrl, index) => (
               <SwiperSlide key={index}>
-                <Link key={index} href={"/boxes/123"} passHref>
+                <Link key={index} href={`/boxes/${box._id}`} passHref>
                   <Image
                     src={imageUrl}
                     alt={`Зображення боксу ${index + 1}`}
@@ -37,7 +37,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
             ))
           ) : (
             <SwiperSlide>
-              <Link href={"/boxes/123"} passHref>
+              <Link href={`/boxes/${box._id}`} passHref>
                 <Image
                   src={box.imageUrls}
                   alt="Зображення боксу"

@@ -14,25 +14,25 @@ const SuggestionsBox = ({
 }) => {
   return (
     <div
-      className={`relative p-[9px]  pb-4 lg:p-2 rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] lg:w-[240px]  `}
+      className={`relative p-[9px]  pb-4 xl:p-2 rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] xl:w-[240px]  `}
     >
       {box.type !== "normal" && <Marker type={box.type} />}
-      <Link href={"/boxes/123"}>
+      <Link href={`/boxes/${box._id}`}>
         <Image
           src={boxImg}
           alt="Зображення боксу"
-          className={`h-[302px] md:h-[290px] lg:h-[208px] w-[325px] md:w-[310px] lg:w-[224px] rounded `}
+          className={`h-[302px] md:h-[290px] xl:h-[208px] w-[325px] md:w-[310px] xl:w-[224px] rounded `}
         />
       </Link>
-      <h4 className={`text-center text-xl font-roboto mt-4 lg:mt-2`}>
+      <h4 className={`text-center text-xl font-roboto mt-4 xl:mt-2`}>
         {box.title
           ? box.title?.find((title) => title._key === "ukr")?.value || " "
           : " "}
       </h4>
       <div
-        className={`flex justify-between mt-5 pr-[21px] pl-1 w-full lg:mt-3 lg:p-0`}
+        className={`flex justify-between mt-5 pr-[21px] pl-1 w-full xl:mt-3 xl:p-0`}
       >
-        <span className="flex gap-1 items-center font-roboto text-[22px] lg:text-xl lg:items-baseline font-bold ">
+        <span className="flex gap-1 items-center font-roboto text-[22px] xl:text-xl xl:items-baseline font-bold ">
           <Image
             src={personIcon}
             alt="Іконка людини"
@@ -40,10 +40,10 @@ const SuggestionsBox = ({
           />
           {box.person}
         </span>
-        <div className="flex gap-2 items-center lg:ml-auto">
+        <div className="flex gap-2 items-center xl:ml-auto">
           <span
-            className={`font-manrope text-[22px] lg:text-xl font-medium flex items-baseline ${
-              isSuggestions ? "lg:text-base" : ""
+            className={`font-manrope text-[22px] xl:text-xl font-medium flex items-baseline ${
+              isSuggestions ? "xl:text-base" : ""
             }`}
           >
             {box.price}
@@ -86,7 +86,7 @@ const Marker = ({
   return (
     <span
       className={`absolute -left-[3px] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} ${
-        isSuggestions ? "lg:left-[2px]" : ""
+        isSuggestions ? "xl:left-[2px]" : ""
       }`}
     >
       {title}
