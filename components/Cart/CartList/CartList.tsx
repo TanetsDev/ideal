@@ -12,7 +12,7 @@ const CartList = ({ items, isPreview }: Props) => {
     <ul className={`flex flex-col gap-3 mt-7 `}>
       {items.map((item) => (
         <CartListItem
-          key={item.id}
+          key={item._id}
           item={item}
           amount={1}
           isPreview={isPreview}
