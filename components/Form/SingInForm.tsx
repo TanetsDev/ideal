@@ -63,8 +63,13 @@ const SingInForm = () => {
     resolver: yupResolver(EditFormSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    const userRes = await fetch("api/auth/signIn", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    console.log("USER", await userRes.json());
     reset();
   };
   return (

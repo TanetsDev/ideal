@@ -16,6 +16,7 @@ class AuthController {
           password: hash,
         },
       });
+      console.log("NEW USER", newUser);
 
       return { ...newUser, token: generateAccessToken(newUser.id) };
     } catch (error: any) {
@@ -45,7 +46,21 @@ class AuthController {
       throw new Error(error.message);
     }
   };
+
+  public signInOAuth = async (email: string): Promise<AuthUserDTO> => {
+    try {
+      const user = await prisma.users.findFirst({
+        where: {
+          email,
+        },
+      });
+      if (!user) throw new Error("User not found");
+      return { ...user, token: generateAccessToken(user.id) };
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
 }
 
-const controller = new AuthController();
-export default controller;
+const authController = new AuthController();
+export default authController;

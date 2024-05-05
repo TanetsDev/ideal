@@ -10,12 +10,18 @@ const GoogleAuth = () => {
   };
 
   return (
-    <GoogleLogin
-      onSuccess={authHandler}
-      onError={() => {
-        console.log("Login Failed");
-      }}
-    />
+    <div className=" w-[300px] mx-auto">
+      <GoogleLogin
+        onSuccess={authHandler}
+        onError={() => {
+          console.log("Login Failed");
+        }}
+        theme="outline"
+        text="signin_with"
+        shape="rectangular"
+        width={300}
+      />
+    </div>
   );
 };
 

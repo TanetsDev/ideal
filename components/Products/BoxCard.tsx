@@ -29,8 +29,8 @@ const BoxCard = ({ box }: { box: IBox }) => {
                     src={imageUrl}
                     alt={`Зображення боксу ${index + 1}`}
                     className={`h-[302px] md:h-[290px] xl:h-[270px] w-[325px] md:w-[310px] xl:w-[290px] rounded `}
-                    width={200}
-                    height={200}
+                    width={500}
+                    height={500}
                   />
                 </Link>
               </SwiperSlide>
@@ -42,8 +42,8 @@ const BoxCard = ({ box }: { box: IBox }) => {
                   src={box.imageUrls}
                   alt="Зображення боксу"
                   className={`h-[302px] md:h-[290px] xl:h-[270px] w-[325px] md:w-[310px] xl:w-[290px] rounded `}
-                  width={200}
-                  height={200}
+                  width={500}
+                  height={500}
                 />
               </Link>
             </SwiperSlide>

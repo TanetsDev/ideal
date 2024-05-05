@@ -10,7 +10,6 @@ export interface SignUpDTO extends SignInDTO {
   lastName: string;
   email: string;
   address?: string;
-  password: string;
 }
 
 export interface AuthUserDTO extends Users {

@@ -66,8 +66,8 @@ const BoxPreviewCard = () => {
               <SwiperSlide key={index}>
                 <Image
                   src={e}
-                  width={100}
-                  height={100}
+                  width={800}
+                  height={800}
                   alt="Зображення боксу"
                   className=" object-cover h-[330px] md:h-[572px]  xl:h-[455px] w-[340px] md:w-[592px] xl:w-[475px] rounded"
                 />
@@ -90,8 +90,8 @@ const BoxPreviewCard = () => {
               <SwiperSlide key={index}>
                 <Image
                   src={e}
-                  width={100}
-                  height={100}
+                  width={800}
+                  height={800}
                   alt="Зображення боксу"
                   className="object-cover h-[60px] md:h-[70px] w-full   rounded"
                 />
