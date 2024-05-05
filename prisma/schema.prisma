@@ -16,12 +16,12 @@ datasource db {
 
 model Users {           
     id                 Int                  @id @default(autoincrement())
-    name               String  
-    lastName           String
-    phone              BigInt               @unique
+    name               String               @default("Box user")
+    lastName           String?
+    phone              Int?                 @unique
     email              String               @unique
     address            String?
-    password           String 
+    password           String? 
     discount           Int                  @default(0)
     bonus              Int                  @default(0)
       

@@ -5,8 +5,20 @@ import { jwtDecode } from "jwt-decode";
 
 const GoogleAuth = () => {
   const authHandler = async (cred: any) => {
-    const decoded = jwtDecode(cred.credential);
-    console.log(decoded);
+    const decoded = jwtDecode<{ email: string; name?: string }>(
+      cred.credential
+    );
+
+    const data = {
+      email: decoded.email,
+      name: decoded.name,
+    };
+    const user = await fetch("api/auth/oAuth", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    console.log("USER from Oauth", await user.json());
   };
 
   return (
