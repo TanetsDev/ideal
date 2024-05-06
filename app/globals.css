@@ -13,16 +13,23 @@
   }
 }
 
-body {
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
-/* 
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .scrollbar-hidden::-webkit-scrollbar {
   width: 0 !important;
 }
 
 .scrollbar-hidden::-webkit-scrollbar-track {
   background: transparent;
-} */
+}
 
 .my__height {
   min-height: calc(100vh - 372px);
