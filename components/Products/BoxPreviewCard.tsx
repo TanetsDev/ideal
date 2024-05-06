@@ -51,7 +51,7 @@ const BoxPreviewCard = () => {
   return (
     <div className="w-[344px] md:w-[636px] xl:w-full mx-auto xl:flex gap-[31px] xl:mt-[86px]">
       <div className=" relative  mt-[36px] xl:mt-0  pb-[30px] md:p-[22px] rounded bg-cardBacsic  flex flex-col gap-[20px] md:gap-6  w-[344px] md:w-[636px] xl:w-[520px]  mb-5 xl:mb-0">
-        {box.type !== "normal" && <Marker type={box.type} />}
+        {/* {box.type !== "normal" && <Marker type={box.type} />} */}
         <Swiper
           loop={true}
           spaceBetween={10}
@@ -147,30 +147,30 @@ const BoxPreviewCard = () => {
 
 export default BoxPreviewCard;
 
-const Marker = ({ type }: { type: BoxMarkerType }) => {
-  let color: string;
-  let title: string;
-  switch (type) {
-    case "hit":
-      color = "bg-basicGreen";
-      title = "Хіт сезону";
-      break;
-    case "new":
-      color = "bg-darkBlue";
-      title = "Новинка";
-      break;
+// const Marker = ({ type }: { type: BoxMarkerType }) => {
+//   let color: string;
+//   let title: string;
+//   switch (type) {
+//     case "hit":
+//       color = "bg-basicGreen";
+//       title = "Хіт сезону";
+//       break;
+//     case "new":
+//       color = "bg-darkBlue";
+//       title = "Новинка";
+//       break;
 
-    default:
-      color = "bg-basicViolet";
-      title = "Бестселлер";
-      break;
-  }
+//     default:
+//       color = "bg-basicViolet";
+//       title = "Бестселлер";
+//       break;
+//   }
 
-  return (
-    <span
-      className={` absolute z-[10] -left-[2px] top-[22px] md:left-4 md:top-7 xl:top-9 w-[107px] xl:w-[107px] h-[27px] xl:h-[27px] rounded-[1px] flex justify-start items-center pl-[12px] text-sm font-manrope text-cardBacsic ${color} `}
-    >
-      {title}
-    </span>
-  );
-};
+//   return (
+//     <span
+//       className={` absolute z-[10] -left-[2px] top-[22px] md:left-4 md:top-7 xl:top-9 w-[107px] xl:w-[107px] h-[27px] xl:h-[27px] rounded-[1px] flex justify-start items-center pl-[12px] text-sm font-manrope text-cardBacsic ${color} `}
+//     >
+//       {title}
+//     </span>
+//   );
+// };
