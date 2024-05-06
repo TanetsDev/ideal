@@ -1,6 +1,10 @@
 import prisma from "@/config/prisma";
+import tokenCheck from "@/middlewares/tokenCheck";
+import ResponseService from "@/services/Response.servise";
 import TelegramBotService from "@/services/TelegramBot.service";
 import { IOrder, OrdersHistoryFilterPeriod } from "@/types/order.types";
+import { JsonValue } from "@prisma/client/runtime/library";
+import { NextRequest } from "next/server";
 
 class OrderController {
   constructor() {}
@@ -39,59 +43,92 @@ class OrderController {
     }
   };
 
-  public createOrderExternal = async (data: IOrder) => {
+  private createOrderHistory = async (data: IOrder) => {
+    return prisma.orders.create({
+      data: {
+        deliveryDate: data.date,
+        totalWeight: data.totalWeight,
+        deliveryPrice: data.deliveryPrice,
+        discount: data.discount,
+        totalPrice: data.totalPrice,
+        orderDetails: JSON.stringify(data.order),
+        userId: data.userId,
+      },
+    });
+  };
+
+  private parseDetails = (details: JsonValue) => {
+    return JSON.parse(details?.toString()!);
+  };
+
+  public createOrder = async (data: IOrder) => {
     try {
       const tgRes = await TelegramBotService.sendMessage(data, "order");
-      if (tgRes.ok) {
-        throw new Error("Something went wrong, please try again");
+      if (!tgRes.ok) {
+        return ResponseService.error(
+          400,
+          "Sending orders data error. Please try again"
+        );
       }
-      return tgRes;
+      const orderHistory = await this.createOrderHistory(data);
+      const parsedDetails = this.parseDetails(orderHistory.orderDetails);
+      return ResponseService.success(
+        { ...orderHistory, orderDetails: parsedDetails },
+        201
+      );
     } catch (error: any) {
-      throw new Error(error.message);
+      return ResponseService.error(400, error.message);
     }
   };
 
-  public createOrderExisted = async (data: IOrder) => {
+  public getOrdersHistory = async (req: NextRequest) => {
     try {
-      const tgRes = await TelegramBotService.sendMessage(data, "order");
-      if (tgRes.ok) {
-        throw new Error("Something went wrong, please try again");
-      }
-      const orderHistory = await prisma.orders.create({
-        data: {
-          deliveryDate: data.date,
-          totalWeight: data.totalWeight,
-          deliveryPrice: data.deliveryPrice,
-          discount: data.discount,
-          totalPrice: data.totalPrice,
-          orderDetails: JSON.stringify(data.order),
-          userId: data.userId!,
-        },
-      });
+      const userId = await tokenCheck(req);
+      if (typeof userId !== "number") return userId;
 
-      return orderHistory;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
+      const { searchParams } = new URL(req.url);
+      const limit = Number(searchParams.get("limit"));
+      const page = Number(searchParams.get("page"));
+      const filter = searchParams.get(
+        "filter"
+      ) as OrdersHistoryFilterPeriod | null;
 
-  public getOrdersHistory = async (
-    userId: number,
-    filters: OrdersHistoryFilterPeriod = "all"
-  ) => {
-    try {
+      const offset = limit * page;
+      const filters = filter || "all";
+
       const orders = await prisma.orders.findMany({
         where: {
           userId,
           createdAt: this.generateOrdersFilter(filters),
         },
+        take: limit,
+        skip: offset,
       });
-      return orders;
+
+      const parsedOrders = orders.map((order) => {
+        return {
+          ...order,
+          orderDetails: this.parseDetails(order.orderDetails),
+        };
+      });
+
+      const totalDocs = await prisma.orders.count({
+        where: {
+          userId,
+          createdAt: this.generateOrdersFilter(filters),
+        },
+      });
+      return ResponseService.success({
+        orders: parsedOrders,
+        totalDocs,
+        page,
+        limit,
+      });
     } catch (error: any) {
       throw new Error(error.message);
     }
   };
 }
 
-const controller = new OrderController();
-export default controller;
+const ordersController = new OrderController();
+export default ordersController;

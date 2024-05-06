@@ -27,6 +27,12 @@ const API_ROUTES = {
     UPDATE: `/api/user`,
     DELETE: `/api/user`,
   },
+  ORDERS: {
+    CREATE: `/api/orders`,
+    GET_ALL: `/api/orders`,
+    GET_BY_ID: `/api/orders/:id`,
+    GET_ALL_BY_USER: `/api/user-orders`,
+  },
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -5,10 +5,42 @@ import CartList from "@/components/Cart/CartList/CartList";
 import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
+// import { useCreateMutation, useGetByUserQuery } from "@/redux/orders/ordersApi";
+// import { IOrder } from "@/types/order.types";
 import React, { useState } from "react";
 
 const CartPage = () => {
   const [isNewActive, setIsNewActive] = useState<boolean>(true);
+  // const [register] = useCreateMutation();
+  // const { data } = useGetByUserQuery({ limit: 10, page: 0 });
+  // console.log("DATA ORDERS", data);
+
+  // const handleOrder = async () => {
+  //   const order: IOrder = {
+  //     name: "Ivan",
+  //     lastName: "Ivanov",
+  //     phone: 665556699,
+  //     deliveryMethod: "кур'єром",
+  //     city: "Kyiv",
+  //     address: "Golosiivo",
+  //     date: new Date(),
+  //     time: "18.45",
+  //     paymentMethod: "кур'єру",
+  //     order: [
+  //       { boxName: "Cool box", count: 2 },
+  //       { boxName: "Coolest box", count: 5 },
+  //     ],
+  //     deliveryPrice: 150,
+  //     discount: 0,
+  //     totalPrice: 2500,
+  //     totalWeight: 1250,
+  //     paymentrStatus: "fullfield",
+  //     userId: 42,
+  //   };
+
+  //   const orderHistory = await register(order);
+  //   console.log("ORDER HISTORY", orderHistory);
+  // };
 
   return (
     <MainSectionsBox className="mb-[50px] lg:px-[72px]">
@@ -65,6 +97,9 @@ const CartPage = () => {
           </MainContainer>
         </div>
       </div>
+      {/* <button type="button" onClick={handleOrder}>
+        CLICK Order
+      </button> */}
     </MainSectionsBox>
   );
 };

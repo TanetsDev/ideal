@@ -26,3 +26,10 @@ export interface IOrder extends IDeliveryInfo {
 }
 
 export type OrdersHistoryFilterPeriod = "all" | "mounth" | "halfYear" | "year";
+
+export interface IOrdersHistory {
+  limit: number;
+  page: number;
+  totalDocs: number;
+  orders: IOrder[];
+}
