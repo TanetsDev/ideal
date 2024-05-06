@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Swiper as ReactSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { BoxMarkerType, IBoxCard } from "@/types/products.types";
+import { IBoxCard } from "@/types/products.types";
 import Image from "next/image";
 import Title from "../Common/Title";
 import { uah } from "@/public/icons";

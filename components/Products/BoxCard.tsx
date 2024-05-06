@@ -1,7 +1,7 @@
 import { personIcon, uah } from "@/public/icons";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
-import { BoxMarkerType, IBox } from "@/types/products.types";
+import { IBox } from "@/types/products.types";
 import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -2,7 +2,7 @@ import { personIcon, uah } from "@/public/icons";
 // import { boxImg } from "@/public/images";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
-import { BoxMarkerType, IBox } from "@/types/products.types";
+import { IBox } from "@/types/products.types";
 import Link from "next/link";
 
 const SuggestionsBox = ({
