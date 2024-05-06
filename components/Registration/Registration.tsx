@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import MainContainer from "../Containers/MainContainer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import UnderlineGold from "../UnderlineGold/UnderlineGold";
 
 import GoldBtn from "../Buttons/GoldBtn";
@@ -15,6 +15,8 @@ import { useEffect, useRef, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSignUpMutation } from "@/redux/auth/authApi";
+import { useSelector } from "react-redux";
+import authSelector from "@/redux/auth/authSelector";
 
 const RegistrationFormSchema = yup.object().shape({
   name: yup.string().required("Обов'язкове поле"),
@@ -70,6 +72,14 @@ const Registration = () => {
 
   const [register, { isLoading }] = useSignUpMutation();
 
+  const router = useRouter();
+
+  const token = useSelector(authSelector.selectToken);
+
+  useEffect(() => {
+    token ? router.push("/") : "";
+  }, [token, router]);
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -109,7 +119,7 @@ const Registration = () => {
       email: data.email,
       address: data.address,
       password: data.password,
-      phone: parseInt(data.phone),
+      phone: Number(data.phone),
     };
 
     try {
@@ -117,14 +127,10 @@ const Registration = () => {
       if (user) {
         console.log("NEW USER", user);
       }
-      // reset();
+      reset();
     } catch (error) {
       console.log("Invalid login or password.");
     }
-    // const user = await fetch("/api/auth/signUp", {
-    //   method: "POST",
-    //   body: JSON.stringify(userData),
-    // });
   };
 
   return (
@@ -439,7 +445,7 @@ const Registration = () => {
             type="submit"
             className="mx-auto  md:w-[234px] "
           >
-            Зареєструватись
+            {isLoading ? "loading" : "Зареєструватись"}
           </GoldBtn>
         </form>
       </MainContainer>

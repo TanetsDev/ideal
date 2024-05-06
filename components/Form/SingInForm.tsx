@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import GoldBtn from "../Buttons/GoldBtn";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useSignInMutation } from "@/redux/auth/authApi";
 
 type Inputs = {
   phone: string;
@@ -38,6 +39,8 @@ const SingInForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<string | null>(null);
 
+  const [signIn, { isLoading }] = useSignInMutation();
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
@@ -65,12 +68,20 @@ const SingInForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
-    const userRes = await fetch("api/auth/signIn", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    console.log("USER", await userRes.json());
-    reset();
+    try {
+      const userRes = await signIn(data);
+      console.log("USER", await userRes);
+      reset();
+    } catch (error) {
+      console.log("Invalid phone or password.");
+    }
+
+    // const userRes = await fetch("api/auth/signIn", {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    // });
+    // console.log("USER", await userRes);
+    // // reset();
   };
   return (
     <>
@@ -171,7 +182,7 @@ const SingInForm = () => {
           type="submit"
           className="mx-auto  md:w-[234px] "
         >
-          Увійти
+          {isLoading ? "Loading" : "Увійти"}
         </GoldBtn>
       </form>
     </>

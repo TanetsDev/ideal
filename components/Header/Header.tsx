@@ -14,12 +14,17 @@ import {
 import MobNavBar from "../NavBar/MobNavBar";
 import { useState } from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import authSelector from "@/redux/auth/authSelector";
 
 const Header = () => {
   const pathname = usePathname();
+  const token = useSelector(authSelector.selectToken);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   if (pathname.includes("/studio")) return null;
+
+  // const router = useRouter();
 
   return (
     <header
@@ -70,25 +75,28 @@ const Header = () => {
                 height="50"
               />
             </Link>
-            <Link href={"/sign_in"}>
-              <Image
-                src={userIcon}
-                alt="Особистий кабінет"
-                className=" size-[26px] md:size-[30px]"
-                width="50"
-                height="50"
-              />
-            </Link>
 
-            {/* <Link href={"/personal_office"}>
-              <Image
-                src={userIcon}
-                alt="Особистий кабінет"
-                className=" size-[26px] md:size-[30px]"
-                width="50"
-                height="50"
-              />
-            </Link> */}
+            {token ? (
+              <Link href={"/personal_office"}>
+                <Image
+                  src={userIcon}
+                  alt="Особистий кабінет"
+                  className=" size-[26px] md:size-[30px]"
+                  width="50"
+                  height="50"
+                />
+              </Link>
+            ) : (
+              <Link href={"/sign_in"}>
+                <Image
+                  src={userIcon}
+                  alt="Особистий кабінет"
+                  className=" size-[26px] md:size-[30px]"
+                  width="50"
+                  height="50"
+                />
+              </Link>
+            )}
           </div>
         </div>
       </div>

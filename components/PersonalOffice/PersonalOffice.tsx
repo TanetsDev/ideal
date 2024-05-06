@@ -2,15 +2,49 @@
 
 import Image from "next/image";
 import MainContainer from "../Containers/MainContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditLoginForm from "../Form/EditLoginForm";
 import ListItem from "./ListItem";
 import PersonalDataForm from "../Form/PersonalDataForm";
 import MyOrders from "./MyOrders";
 import BonusAccount from "./BonusAccount";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import authSelector from "@/redux/auth/authSelector";
+import { clearToken } from "@/redux/auth/authSlice";
+// import { useDeleteUserMutation } from "@/redux/auth/authApi";
 
 const PersonalOffice = () => {
+  // const [deleteUser, { isLoading }] = useDeleteUserMutation();
+
   const [openList, setOpenList] = useState<number | null>(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const name = useSelector(authSelector.getName);
+  const lastName = useSelector(authSelector.getLastName);
+  const email = useSelector(authSelector.getEmail);
+  const token = useSelector(authSelector.selectToken);
+  const idUser = useSelector(authSelector.getid);
+
+  console.log(idUser);
+
+  useEffect(() => {
+    token ? "" : router.push("/sign_in");
+  }, [token, router]);
+
+  const handleDeleteUser = async () => {
+    // const deletedUser = await deleteUser();
+    // const deletedUser = await fetch("/api/user", {
+    //   // headers: myHeaders,
+    //   method: "DELETE",
+    // });
+    console.log("handleDeleteUser");
+  };
+
+  const handleLogout = () => {
+    dispatch(clearToken());
+  };
+
   const toggleList = (listId: number) => {
     setOpenList((prevListId) => (prevListId === listId ? null : listId));
   };
@@ -36,10 +70,11 @@ const PersonalOffice = () => {
               />
               <ul>
                 <li className="flex gap-[4px]  font-manrope text-basicBlack text-[20px]  leading-[19px] ">
-                  <h2>Олена</h2> <h2>Коваль</h2>
+                  <h2>{name ? name : "user"} </h2>{" "}
+                  <h2>{lastName ? lastName : "user"}</h2>
                 </li>
                 <li className="text-secondaryGrey text-[14px]  leading-[19px] pt-[4px]">
-                  <p>olena124_koval@gmail.com</p>
+                  <p>{email ? email : "user@gmail.com"}</p>
                 </li>
               </ul>
             </div>
@@ -83,21 +118,25 @@ const PersonalOffice = () => {
 
               <li className="pb-[10px]">
                 <div className="flex items-center justify-between font-manrope  ">
-                  <h3
+                  <button
+                    type="button"
                     className={`"text-[16px]  leading-[22px]  hover:text-darkViolet hover:cursor-pointer " `}
+                    onClick={handleLogout}
                   >
                     Вийти
-                  </h3>
+                  </button>
                 </div>
               </li>
 
               <li className="pt-[20px]">
                 <div className="flex items-center justify-between font-manrope  ">
-                  <h3
+                  <button
+                    type="button"
                     className={`"text-[14px] text-[#3F3F3F]  leading-[19px] hover:text-darkViolet hover:cursor-pointer " `}
+                    onClick={handleDeleteUser}
                   >
                     Видалити акаунт
-                  </h3>
+                  </button>
                 </div>
               </li>
             </ul>

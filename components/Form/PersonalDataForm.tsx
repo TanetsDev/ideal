@@ -10,6 +10,9 @@ import { useEffect, useRef, useState } from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useUpdateMutation } from "@/redux/auth/authApi";
+import { useSelector } from "react-redux";
+import authSelector from "@/redux/auth/authSelector";
 
 const PersonalDataFormSchema = yup.object().shape({
   name: yup.string().required("Обов'язкове поле"),
@@ -36,21 +39,28 @@ type Inputs = {
   address: string;
 };
 
-const defaultValues = {
-  name: "",
-  lastName: "",
-  phone: "",
-  email: "",
-  address: "",
-
-  rememberMe: false,
-};
-
 const PersonalDataForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<string | null>(null);
+  const [update, { isLoading }] = useUpdateMutation();
 
-  useState<boolean>(false);
+  const name = useSelector(authSelector.getName);
+  const lastName = useSelector(authSelector.getLastName);
+  const email = useSelector(authSelector.getEmail);
+
+  const address = useSelector(authSelector.getAddress);
+  const phone = useSelector(authSelector.getPhone);
+
+  const defaultValues = {
+    name: name,
+    lastName: lastName,
+    phone: phone,
+    email: email,
+    address: address,
+
+    rememberMe: false,
+  };
+  // useState<boolean>(false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -67,7 +77,7 @@ const PersonalDataForm = () => {
     formState: { errors },
     control,
     handleSubmit,
-    reset,
+    // reset,
     setValue,
     getValues,
   } = useForm<Inputs>({
@@ -75,9 +85,15 @@ const PersonalDataForm = () => {
     resolver: yupResolver(PersonalDataFormSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    reset();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log("Дані для оновлення:", data);
+    try {
+      await update(data);
+      console.log(`Дані оновлено`);
+      // reset();
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -272,11 +288,10 @@ const PersonalDataForm = () => {
 
         <GoldBtn
           blockName="EditForm"
-          handleClick={() => onSubmit}
+          handleClick={handleSubmit(onSubmit)}
           type="submit"
-          // className="mx-auto   "
         >
-          Зберегти
+          {isLoading ? "Loading" : " Зберегти"}
         </GoldBtn>
       </form>
     </>
