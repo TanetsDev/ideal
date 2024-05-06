@@ -50,7 +50,6 @@ const InstaSwiper = () => {
               width={306}
               alt="Фото з інстаграм"
               className="object-cover rounded h-[184px]  w-full xl:h-[281px]  xl:w-[306px]"
-              // w-[184px] => w-full
             />
           </SwiperSlide>
         );
