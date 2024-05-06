@@ -5,9 +5,8 @@ import { setData } from "@/redux/boxes/boxesSlice";
 
 const useBoxesData = () => {
   const dispatch = useDispatch();
-  const { data, error, isLoading } = useGetBoxesQuery({
+  const { data, error, isLoading, refetch } = useGetBoxesQuery({
     filters: { types: "all" },
-  
   });
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const useBoxesData = () => {
     }
   }, [data, error, dispatch]);
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, refetch };
 };
 
 export default useBoxesData;

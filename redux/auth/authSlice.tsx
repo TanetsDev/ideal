@@ -6,15 +6,17 @@ import { authApi } from "./authApi";
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["token"],
+  whitelist: ["token", "name", "lastName", "email", "address", "phone", "id"],
 };
 
 const initialState = {
-  user: {
-    name: null,
-    phone: null,
-    id: null,
-  },
+  name: null,
+  lastName: null,
+  email: null,
+  address: null,
+  phone: null,
+  id: null,
+
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
@@ -29,16 +31,76 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(
-      authApi.endpoints.signUp.matchFulfilled,
-      (state, { payload }) => {
-        state.user.phone = payload.user.phone;
-        state.user.name = payload.user.name;
-        state.user.id = payload.user.id;
-        state.token = payload.token;
-        state.isLoggedIn = true;
-      }
-    );
+    builder
+      .addMatcher(
+        authApi.endpoints.signUp.matchFulfilled,
+        (state, { payload }) => {
+          state.name = payload.name;
+          state.email = payload.email;
+          state.lastName = payload.lastName;
+          state.address = payload.address;
+          state.phone = payload.phone;
+          state.id = payload.id;
+          state.token = payload.token;
+          state.isLoggedIn = true;
+        }
+      )
+      .addMatcher(
+        authApi.endpoints.signIn.matchFulfilled,
+        (state, { payload }) => {
+          state.name = payload.name;
+          state.email = payload.email;
+          state.lastName = payload.lastName;
+          state.address = payload.address;
+          state.phone = payload.phone;
+          state.id = payload.id;
+          state.token = payload.token;
+          state.isLoggedIn = true;
+        }
+      )
+      .addMatcher(
+        (action) => action.type === "auth/clearToken",
+        (state) => {
+          state.name = null;
+          state.email = null;
+          state.lastName = null;
+          state.address = null;
+          state.phone = null;
+          state.id = null;
+          state.token = null;
+          state.isLoggedIn = false;
+        }
+      )
+      .addMatcher(authApi.endpoints.current.matchPending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addMatcher(
+        authApi.endpoints.current.matchFulfilled,
+        (state, { payload }) => {
+          state.name = payload.name;
+          state.email = payload.email;
+          state.lastName = payload.lastName;
+          state.address = payload.address;
+          state.phone = payload.phone;
+          state.id = payload.id;
+          state.token = payload.token;
+          state.isLoggedIn = true;
+          state.isRefreshing = false;
+        }
+      )
+      .addMatcher(authApi.endpoints.current.matchRejected, (state) => {
+        state.isRefreshing = false;
+      });
+    // .addMatcher(authApi.endpoints.deleteUser.matchFulfilled, (state) => {
+    //   state.name = null;
+    //   state.email = null;
+    //   state.lastName = null;
+    //   state.address = null;
+    //   state.phone = null;
+    //   state.id = null;
+    //   state.token = null;
+    //   state.isLoggedIn = false;
+    // });
   },
 });
 

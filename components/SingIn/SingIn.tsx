@@ -3,10 +3,13 @@
 import Link from "next/link";
 
 import MainContainer from "../Containers/MainContainer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import SingInForm from "../Form/SingInForm";
 import GoogleAuth from "../Google/GoogleAuth";
+import { useSelector } from "react-redux";
+import authSelector from "@/redux/auth/authSelector";
+import { useEffect } from "react";
 
 // const handleTestClick = async () => {
 //   // add jwt token to request object
@@ -16,6 +19,12 @@ import GoogleAuth from "../Google/GoogleAuth";
 // };
 const SingIn = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const token = useSelector(authSelector.selectToken);
+  useEffect(() => {
+    token ? router.push("/") : "";
+  }, [token, router]);
 
   return (
     <section className=" pt-[120px] md:pt-[140px] xl:pt-[160px] pb-[50px]  ">
