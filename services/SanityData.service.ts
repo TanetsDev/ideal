@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { IBoxFilters } from "@/types/filters.types";
-import { BannerDTO } from "@/types/sanityData.types";
+import { BannerDTO, BoxDTO } from "@/types/sanityData.types";
 import { NextRequest } from "next/server";
 
 class SanityDataService {
@@ -49,7 +49,14 @@ class SanityDataService {
     return query;
   };
 
-  public getBoxes = async (req: NextRequest) => {
+  public getBoxes = async (
+    req: NextRequest
+  ): Promise<{
+    boxes: BoxDTO[];
+    page: number;
+    limit: number;
+    totalDocs: number;
+  }> => {
     const { searchParams } = new URL(req.url);
     const limit = Number(searchParams.get("limit"));
     const page = Number(searchParams.get("page"));
@@ -57,7 +64,8 @@ class SanityDataService {
     const body = await req.json();
     const query = this.createQuery(body, limit, page);
     const boxes = await this.sanity.fetch(query);
-    return boxes;
+    const totalDocs = await this.sanity.fetch(`count(*[_type == "box"])`);
+    return { boxes, page, limit, totalDocs };
   };
 
   public getBanner = async (): Promise<BannerDTO> => {

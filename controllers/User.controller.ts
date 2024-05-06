@@ -1,52 +1,89 @@
-import { Prisma, Users } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import prisma from "@/config/prisma";
+import ResponseService from "@/services/Response.servise";
 
 class UserController {
   constructor() {}
+  private returnedFields = {
+    id: true,
+    name: true,
+    lastName: true,
+    phone: true,
+    email: true,
+    address: true,
+    discount: true,
+    bonus: true,
+  };
 
-  public getUserByPhone = async (phone: number | bigint) => {
+  public getUser = async (id: number) => {
     try {
       const user = await prisma.users.findFirst({
         where: {
-          phone,
+          id,
         },
+        select: this.returnedFields,
       });
-      return user;
+
+      if (!user) {
+        return ResponseService.error(404, "User not found");
+      }
+
+      return ResponseService.success(user);
     } catch (error: any) {
-      throw new Error(error.message);
+      return ResponseService.error(400, error.message);
     }
   };
 
-  public updateUser = async (
-    data: Prisma.UsersUpdateInput,
-    userId: number
-  ): Promise<Users> => {
+  public updateUser = async (data: Prisma.UsersUpdateInput, userId: number) => {
     try {
+      const user = await prisma.users.findFirst({
+        where: {
+          id: userId,
+        },
+        select: {
+          id: true,
+        },
+      });
+      if (!user) {
+        return ResponseService.error(404, "User not found");
+      }
+
       const updatedUser = await prisma.users.update({
         where: {
           id: userId,
         },
         data,
       });
-      return updatedUser;
+      return ResponseService.success(updatedUser);
     } catch (error: any) {
-      throw new Error(error.message);
+      return ResponseService.error(500, error.message);
     }
   };
 
   public deleteUser = async (userId: number) => {
     try {
+      const user = await prisma.users.findFirst({
+        where: {
+          id: userId,
+        },
+        select: this.returnedFields,
+      });
+
+      if (!user) {
+        return ResponseService.error(404, "User not found");
+      }
+
       const deletedUser = await prisma.users.delete({
         where: {
           id: userId,
         },
       });
-      return deletedUser;
+      return ResponseService.success(deletedUser);
     } catch (error: any) {
-      throw new Error(error.message);
+      return ResponseService.error(500, error.message);
     }
   };
 }
 
-const controller = new UserController();
-export default controller;
+const userController = new UserController();
+export default userController;

@@ -5,7 +5,6 @@ import CartList from "@/components/Cart/CartList/CartList";
 import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
-import { cartMock } from "@/mockData/mockCart";
 import React, { useState } from "react";
 
 const CartPage = () => {
@@ -39,7 +38,7 @@ const CartPage = () => {
         <div className="lg:w-full">
           <MainContainer className="max-w-[720px]  mx-auto lg:max-w-full lg:pl-0 lg:pr-0 lg:h-auto">
             <Title className=" lg:text-[22px]">Ваше замовлення</Title>
-            <CartList items={cartMock} isPreview={false} />
+            <CartList items={[]} isPreview={false} />
           </MainContainer>
           <MainContainer className=" mt-5  mx-auto  max-w-[720px] lg:pl-0 lg:pr-0 h-[700px]">
             <ul className="flex flex-col gap-2 font-manrope text-base text-basicBlack totalCartList">
