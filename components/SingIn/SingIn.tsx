@@ -11,6 +11,12 @@ import { useSelector } from "react-redux";
 import authSelector from "@/redux/auth/authSelector";
 import { useEffect } from "react";
 
+// const handleTestClick = async () => {
+//   // add jwt token to request object
+//   const token = "token-------Here";
+//   const myHeaders = new Headers();
+//   myHeaders.append("authorization", `Bearer ${token}`);
+// };
 const SingIn = () => {
   const pathname = usePathname();
   const router = useRouter();
@@ -47,6 +53,7 @@ const SingIn = () => {
           Або за допомогою
         </p>
         <GoogleAuth />
+        {/* <button onClick={handleTestClick}>test</button> */}
       </MainContainer>
     </section>
   );

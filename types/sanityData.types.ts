@@ -18,7 +18,7 @@ export interface BoxDTO {
     title: string;
     value: InterValue;
   };
-  dishes: {};
+  dishes: { title: string; value: InterValue }[];
 }
 
 type InterValue = {
