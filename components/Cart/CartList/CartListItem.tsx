@@ -22,12 +22,14 @@ const CartListItem = ({ item, isPreview, amount }: Props) => {
       />
       <div className="flex gap-4">
         <Image
-          src={item.imageUrl}
+          src={item.imageUrls[0]}
           alt="Фото бокса"
           className=" size-[120px] rounded"
         />
         <div className="flex flex-col gap-4 flex-grow">
-          <h3 className=" text-lg font-manrope font-semibold">{item.title}</h3>
+          <h3 className=" text-lg font-manrope font-semibold">
+            {item.title[0].value}
+          </h3>
           <div className="flex gap-[10px]">
             <Image src={minusIcon} alt="мінус" className=" size-4" />
             <span className="w-[40px] h-5 flex items-center justify-center border border-basicGrey rounded-[2px] font-manrope text-xl font-medium text-basicBlack">
