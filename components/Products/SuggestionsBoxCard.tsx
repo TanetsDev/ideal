@@ -4,14 +4,25 @@ import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
 import { IBox } from "@/types/products.types";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/cartSlice/cartSlice";
 
 const SuggestionsBox = ({
   box,
   isSuggestions,
+  openModal,
 }: {
   box: IBox;
   isSuggestions?: boolean;
+  openModal: () => void;
 }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(box));
+    openModal();
+  };
+
   return (
     <div
       className={`relative p-[9px]  pb-4 xl:p-2 rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] xl:w-[240px]  `}
@@ -51,7 +62,7 @@ const SuggestionsBox = ({
             {box.price}
             <Image src={uah} alt="Знак гривні" className=" size-[14px]" />
           </span>
-          <BoxBtn />
+          <BoxBtn handleAdd={handleAddToCart} />
         </div>
       </div>
     </div>

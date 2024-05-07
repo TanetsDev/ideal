@@ -13,9 +13,12 @@ import SuggestionsBox from "../Products/SuggestionsBoxCard";
 import { useSelector } from "react-redux";
 import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 import { useRouter } from "next/navigation";
+import CartModal from "../Cart/CartList/CartModal";
+import useModal from "@/hooks/useModal";
 
 const SuggeschionsSwiper = () => {
   const { data: boxes } = useSelector(selectBoxesState);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const router = useRouter();
 
@@ -26,6 +29,7 @@ const SuggeschionsSwiper = () => {
 
   return (
     <div className="w-[350px] md:w-[690px] lg:w-full mx-auto">
+      {isModalOpen && <CartModal closeModal={closeModal} />}
       <div className="flex gap-6 justify-end px-5 mb-5">
         <Image src={arrowLeft} alt="Стрілка вліво" width={18} height={18} />
         <Image src={arrowRight} alt="Стрілка вправо" width={18} height={18} />
@@ -50,7 +54,7 @@ const SuggeschionsSwiper = () => {
         {boxes.map((box: IBox) => {
           return (
             <SwiperSlide key={box._id}>
-              <SuggestionsBox box={box} />
+              <SuggestionsBox box={box} openModal={openModal} />
             </SwiperSlide>
           );
         })}

@@ -42,6 +42,7 @@ type Inputs = {
 const PersonalDataForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<string | null>(null);
+
   const [update, { isLoading }] = useUpdateMutation();
 
   const name = useSelector(authSelector.getName);
@@ -60,7 +61,6 @@ const PersonalDataForm = () => {
 
     rememberMe: false,
   };
-  // useState<boolean>(false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -86,10 +86,10 @@ const PersonalDataForm = () => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("Дані для оновлення:", data);
     try {
-      await update(data);
-      console.log(`Дані оновлено`);
+      const userUpdate = await update(data).unwrap;
+      console.log(`Дані оновлено`, userUpdate);
+
       // reset();
     } catch (error) {
       console.error("Login error:", error);

@@ -15,24 +15,23 @@ import {
 import { boxesApi } from "./boxes/boxesApi";
 import boxesSlice from "./boxes/boxesSlice";
 import { instaApi } from "./insta/instaApi";
-import instaSlice from "./insta/instaSlice";
+// import instaSlice from "./insta/instaSlice";
 import { bannerAPi } from "./banner/bannerAPi";
-import bannerSlice from "./banner/bannerSlice";
+// import bannerSlice from "./banner/bannerSlice";
 import persisteAuthReducer from "./auth/authSlice";
 import { authApi } from "./auth/authApi";
+import cartReducer from "./cartSlice/cartSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["boxes", "insta", "banner"],
+  whitelist: ["boxes", "cart"],
 };
 
 const rootReducer = combineReducers({
   auth: persisteAuthReducer,
-
-  banner: bannerSlice,
+  cart: cartReducer,
   boxes: boxesSlice,
-  insta: instaSlice,
   [authApi.reducerPath]: authApi.reducer,
 
   [boxesApi.reducerPath]: boxesApi.reducer,
