@@ -1,12 +1,15 @@
+import ordersController from "@/controllers/Order.controller";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    console.log("IN route", body);
-    const user = "await authController.signUp(body)";
+  const body = await req.json();
+  const order = await ordersController.createOrder(body);
+  return order;
+}
 
-    return NextResponse.json(user);
+export async function GET(req: NextRequest) {
+  try {
+    return ordersController.getOrdersHistory(req);
   } catch (error: any) {
     console.log(error.message);
     return NextResponse.error();

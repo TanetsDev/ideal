@@ -14,30 +14,40 @@ import {
 } from "redux-persist";
 import { boxesApi } from "./boxes/boxesApi";
 import boxesSlice from "./boxes/boxesSlice";
+
 import { instaApi } from "./insta/instaApi";
 import instaSlice from "./insta/instaSlice";
+
 import { bannerAPi } from "./banner/bannerAPi";
 import bannerSlice from "./banner/bannerSlice";
+
 import persisteAuthReducer from "./auth/authSlice";
 import { authApi } from "./auth/authApi";
+
+import persistedOrdersReducer from "./orders/ordersSlice";
+import { ordersApi } from "./orders/ordersApi";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["boxes", "insta", "banner"],
+  whitelist: ["boxes", "insta", "banner", "orders"],
 };
 
 const rootReducer = combineReducers({
   auth: persisteAuthReducer,
-
-  banner: bannerSlice,
-  boxes: boxesSlice,
-  insta: instaSlice,
   [authApi.reducerPath]: authApi.reducer,
 
+  banner: bannerSlice,
   [boxesApi.reducerPath]: boxesApi.reducer,
+
+  boxes: boxesSlice,
   [bannerAPi.reducerPath]: bannerAPi.reducer,
+
+  insta: instaSlice,
   [instaApi.reducerPath]: instaApi.reducer,
+
+  orders: persistedOrdersReducer,
+  [ordersApi.reducerPath]: ordersApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,7 +63,8 @@ const store = configureStore({
       boxesApi.middleware,
       instaApi.middleware,
       bannerAPi.middleware,
-      authApi.middleware
+      authApi.middleware,
+      ordersApi.middleware
     ),
 });
 

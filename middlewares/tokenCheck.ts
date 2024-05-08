@@ -1,10 +1,17 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
 import ResponseService from "../services/Response.servise";
 import config from "../config";
 
-const tokenCheck = async (req: NextRequest) => {
+const tokenCheck = async (
+  req: NextRequest
+): Promise<
+  | NextResponse<{
+      error: string;
+    }>
+  | number
+> => {
   try {
     const token = req.headers.get("authorization")?.split(" ")[1];
     if (!token) {
@@ -12,7 +19,7 @@ const tokenCheck = async (req: NextRequest) => {
     }
     const { userId } = jwt.verify(token, config.jwt.jwtSecret) as JwtPayload;
 
-    return userId;
+    return Number(userId);
   } catch (error: any) {
     return ResponseService.error(401, error.message);
   }

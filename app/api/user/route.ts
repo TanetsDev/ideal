@@ -6,6 +6,7 @@ import tokenCheck from "@/middlewares/tokenCheck";
 export async function GET(req: NextRequest) {
   try {
     const userId = await tokenCheck(req);
+    if (typeof userId !== "number") return userId;
 
     return await userController.getUser(userId);
   } catch (error: any) {
@@ -16,6 +17,8 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const userId = await tokenCheck(req);
+    if (typeof userId !== "number") return userId;
+
     const user = await userController.updateUser(await req.json(), userId);
     return ResponseService.success(user);
   } catch (error: any) {
@@ -26,6 +29,8 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const userId = await tokenCheck(req);
+    if (typeof userId !== "number") return userId;
+
     const user = await userController.deleteUser(userId);
     return ResponseService.success(user);
   } catch (error: any) {
