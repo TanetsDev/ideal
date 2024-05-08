@@ -16,6 +16,7 @@ import { boxesApi } from "./boxes/boxesApi";
 import boxesSlice from "./boxes/boxesSlice";
 
 import { instaApi } from "./insta/instaApi";
+
 import instaSlice from "./insta/instaSlice";
 
 import { bannerAPi } from "./banner/bannerAPi";
@@ -23,6 +24,7 @@ import bannerSlice from "./banner/bannerSlice";
 
 import persisteAuthReducer from "./auth/authSlice";
 import { authApi } from "./auth/authApi";
+import cartReducer from "./cartSlice/cartSlice";
 
 import persistedOrdersReducer from "./orders/ordersSlice";
 import { ordersApi } from "./orders/ordersApi";
@@ -34,6 +36,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  cart: cartReducer,
+
   auth: persisteAuthReducer,
   [authApi.reducerPath]: authApi.reducer,
 

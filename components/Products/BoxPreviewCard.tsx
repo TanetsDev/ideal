@@ -9,7 +9,7 @@ import Title from "../Common/Title";
 import { uah } from "@/public/icons";
 import MainGoldBtn from "../Buttons/MainGoldBtn";
 import { useParams, useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 
 import "swiper/css";
@@ -18,6 +18,9 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { addToCart } from "@/redux/cartSlice/cartSlice";
+import useModal from "@/hooks/useModal";
+import CartModal from "../Cart/CartList/CartModal";
 
 const BoxPreviewCard = () => {
   const params = useParams();
@@ -25,6 +28,9 @@ const BoxPreviewCard = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<ReactSwiper | null>(null);
 
   const { data } = useSelector(selectBoxesState);
+
+  const { isModalOpen, openModal, closeModal } = useModal();
+  const dispatch = useDispatch();
 
   if (!data) {
     router.push("/");
@@ -36,6 +42,11 @@ const BoxPreviewCard = () => {
   if (!box) {
     return <div>Box not found</div>;
   }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(box[0]));
+    openModal();
+  };
   const {
     dishCount,
     imageUrls,
@@ -50,6 +61,8 @@ const BoxPreviewCard = () => {
 
   return (
     <div className="w-[344px] md:w-[636px] xl:w-full mx-auto xl:flex gap-[31px] xl:mt-[86px]">
+      {isModalOpen && <CartModal closeModal={closeModal} />}
+
       <div className=" relative  mt-[36px] xl:mt-0  pb-[30px] md:p-[22px] rounded bg-cardBacsic  flex flex-col gap-[20px] md:gap-6  w-[344px] md:w-[636px] xl:w-[520px]  mb-5 xl:mb-0">
         {/* {box.type !== "normal" && <Marker type={box.type} />} */}
         <Swiper
@@ -137,7 +150,7 @@ const BoxPreviewCard = () => {
           <MainGoldBtn
             text="До кошика"
             blockName="boxDetails"
-            handleClick={() => console.log("click")}
+            handleClick={handleAddToCart}
           />
         </div>
       </div>

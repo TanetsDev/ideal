@@ -10,6 +10,7 @@ const useModal = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    console.log("close");
   };
 
   return { isModalOpen, openModal, closeModal };

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { fbIcon, goldLogo, instaIcon } from "@/public/icons";
 import MainGoldBtn from "../Buttons/MainGoldBtn";
 import { usePathname } from "next/navigation";
-import Backdrop from "../Modal/Backdrop";
+
 import useModal from "@/hooks/useModal";
 import ContactForm from "../Form/ContactForm";
 import Modal from "../Modal/Modal";
@@ -111,30 +111,28 @@ const Footer = () => {
           </div>
         </div>
         {isModalOpen && (
-          <Backdrop>
-            <Modal>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className=" cursor-pointer stroke-[#2E2E2E] w-[28px] h-[28px]  md:w-[40px] md:h-[40px]  absolute right-[17px] top-[17px]"
-                onClick={closeModal}
-                width="50"
-                height="50"
-              >
-                <path d="M6 18 18 6M6 6l12 12" />
-              </svg>
-              <div className="w-full flex flex-col items-center ">
-                <h2 className=" text-[24px] text-center leading-[33px] pb-[30px]">
-                  Зв`язатись
-                </h2>
-                <ContactForm />
-              </div>
-            </Modal>
+          <Modal>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className=" cursor-pointer stroke-[#2E2E2E] w-[28px] h-[28px]  md:w-[40px] md:h-[40px]  absolute right-[17px] top-[17px]"
+              onClick={closeModal}
+              width="50"
+              height="50"
+            >
+              <path d="M6 18 18 6M6 6l12 12" />
+            </svg>
+            <div className="w-full flex flex-col items-center ">
+              <h2 className=" text-[24px] text-center leading-[33px] pb-[30px]">
+                Зв`язатись
+              </h2>
+              <ContactForm />
+            </div>
             {/* <div className="bg-white  relative flex justify-center rounded px-[40px]"></div> */}
-          </Backdrop>
+          </Modal>
         )}
       </MainContainer>
     </footer>

@@ -7,9 +7,12 @@ import Title from "../Common/Title";
 import MainSectionsBox from "../Common/MainSectionsBox";
 import Link from "next/link";
 import useBoxesData from "@/hooks/useBoxesData";
+import { useSelector } from "react-redux";
+import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 
 const IdealProposition = () => {
   const { data, error, isLoading } = useBoxesData();
+  const { data: selectData } = useSelector(selectBoxesState);
 
   if (isLoading)
     return <div className=" pt-[200px] pb-[200px]">Loading...</div>;
@@ -25,7 +28,7 @@ const IdealProposition = () => {
     <MainSectionsBox>
       <MainContainer className="flex flex-col items-center">
         <Title className="text-center">Ідеальна пропозиція</Title>
-        <BoxList boxes={data} section="idealProposition" />
+        <BoxList boxes={selectData || data} section="idealProposition" />
         <Link href={"/boxes"}>
           <MainGoldBtn
             text={"Дивитись більше"}

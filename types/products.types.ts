@@ -7,6 +7,7 @@ export interface IBox {
   person: number;
   imageUrls: string | StaticImageData[];
   type: BoxMarkerType;
+  count: number;
 }
 
 // card
