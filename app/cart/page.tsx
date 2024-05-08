@@ -114,26 +114,6 @@ const CartPage = () => {
           </div>
         </>
       )}
-      <MainContainer className=" mt-5  mx-auto  max-w-[720px] lg:pl-0 lg:pr-0 h-[700px]">
-        <ul className="flex flex-col gap-2 font-manrope text-base text-basicBlack totalCartList">
-          <li key={1} className="flex justify-between">
-            <span>Загальна вага:</span>
-            <span>{1294} гр</span>
-          </li>
-          <li key={2} className="flex justify-between">
-            <span>Доставка:</span>
-            <span>{0} грн</span>
-          </li>
-          <li key={3} className="flex justify-between">
-            <span>Знижка:</span>
-            <span>{0} %</span>
-          </li>
-          <li key={4} className="flex justify-between text-lg font-semibold">
-            <span>Разом:</span>
-            <span>{4589} грн</span>
-          </li>
-        </ul>
-      </MainContainer>
 
       {/* <button type="button" onClick={handleOrder}>
         CLICK Order
