@@ -10,6 +10,8 @@ import {
   selectTotalPrice,
   selectTotalWeight,
 } from "@/redux/cartSlice/selectCart";
+// import { useCreateMutation, useGetByUserQuery } from "@/redux/orders/ordersApi";
+// import { IOrder } from "@/types/order.types";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -17,6 +19,36 @@ const CartPage = () => {
   const [isNewActive, setIsNewActive] = useState<boolean>(true);
   const totalPrice = useSelector(selectTotalPrice);
   const totalWeight = useSelector(selectTotalWeight);
+  // const [register] = useCreateMutation();
+  // const { data } = useGetByUserQuery({ limit: 10, page: 0 });
+  // console.log("DATA ORDERS", data);
+
+  // const handleOrder = async () => {
+  //   const order: IOrder = {
+  //     name: "Ivan",
+  //     lastName: "Ivanov",
+  //     phone: 665556699,
+  //     deliveryMethod: "кур'єром",
+  //     city: "Kyiv",
+  //     address: "Golosiivo",
+  //     date: new Date(),
+  //     time: "18.45",
+  //     paymentMethod: "кур'єру",
+  //     order: [
+  //       { boxName: "Cool box", count: 2 },
+  //       { boxName: "Coolest box", count: 5 },
+  //     ],
+  //     deliveryPrice: 150,
+  //     discount: 0,
+  //     totalPrice: 2500,
+  //     totalWeight: 1250,
+  //     paymentrStatus: "fullfield",
+  //     userId: 42,
+  //   };
+
+  //   const orderHistory = await register(order);
+  //   console.log("ORDER HISTORY", orderHistory);
+  // };
 
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
@@ -82,6 +114,30 @@ const CartPage = () => {
           </div>
         </>
       )}
+      <MainContainer className=" mt-5  mx-auto  max-w-[720px] lg:pl-0 lg:pr-0 h-[700px]">
+        <ul className="flex flex-col gap-2 font-manrope text-base text-basicBlack totalCartList">
+          <li key={1} className="flex justify-between">
+            <span>Загальна вага:</span>
+            <span>{1294} гр</span>
+          </li>
+          <li key={2} className="flex justify-between">
+            <span>Доставка:</span>
+            <span>{0} грн</span>
+          </li>
+          <li key={3} className="flex justify-between">
+            <span>Знижка:</span>
+            <span>{0} %</span>
+          </li>
+          <li key={4} className="flex justify-between text-lg font-semibold">
+            <span>Разом:</span>
+            <span>{4589} грн</span>
+          </li>
+        </ul>
+      </MainContainer>
+
+      {/* <button type="button" onClick={handleOrder}>
+        CLICK Order
+      </button> */}
     </MainSectionsBox>
   );
 };
