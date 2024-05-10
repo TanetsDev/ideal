@@ -10,50 +10,25 @@ import {
   selectTotalPrice,
   selectTotalWeight,
 } from "@/redux/cartSlice/selectCart";
-// import { useCreateMutation, useGetByUserQuery } from "@/redux/orders/ordersApi";
-// import { IOrder } from "@/types/order.types";
+import { useGetByUserQuery } from "@/redux/orders/ordersApi";
+
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const [isNewActive, setIsNewActive] = useState<boolean>(true);
-  const totalPrice = useSelector(selectTotalPrice);
+
   const totalWeight = useSelector(selectTotalWeight);
-  // const [register] = useCreateMutation();
-  // const { data } = useGetByUserQuery({ limit: 10, page: 0 });
-  // console.log("DATA ORDERS", data);
 
-  // const handleOrder = async () => {
-  //   const order: IOrder = {
-  //     name: "Ivan",
-  //     lastName: "Ivanov",
-  //     phone: 665556699,
-  //     deliveryMethod: "кур'єром",
-  //     city: "Kyiv",
-  //     address: "Golosiivo",
-  //     date: new Date(),
-  //     time: "18.45",
-  //     paymentMethod: "кур'єру",
-  //     order: [
-  //       { boxName: "Cool box", count: 2 },
-  //       { boxName: "Coolest box", count: 5 },
-  //     ],
-  //     deliveryPrice: 150,
-  //     discount: 0,
-  //     totalPrice: 2500,
-  //     totalWeight: 1250,
-  //     paymentrStatus: "fullfield",
-  //     userId: 42,
-  //   };
+  const totalPrice = useSelector(selectTotalPrice);
 
-  //   const orderHistory = await register(order);
-  //   console.log("ORDER HISTORY", orderHistory);
-  // };
+  const { data } = useGetByUserQuery({ limit: 10, page: 0 });
+  console.log("DATA ORDERS", data);
 
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
       {totalPrice === 0 ? (
-        <MainContainer className="pt-[50px]  md:pt-[60px]">
+        <MainContainer className="pt-[50px]  md:pt-[60px] flex flex-col items-center gap-[20px]">
           <Title className="text-center  ">Ви нічого не обрали</Title>
           <GoldLink href="/">До головної</GoldLink>
         </MainContainer>

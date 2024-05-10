@@ -11,7 +11,7 @@ const MobNavBar = ({
 }) => {
   return (
     <div
-      className={` h-[100vh] relative overflow-hidden border-t border-white lg:hidden ${
+      className={` h-[100vh] relative overflow-hidden border-t border-white xl:hidden ${
         isOpen ? "" : "hidden"
       }`}
     >

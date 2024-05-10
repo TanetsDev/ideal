@@ -1,13 +1,13 @@
 export interface IDeliveryInfo {
   name: string;
   lastName: string;
-  phone: number;
-  deliveryMethod: "кур'єром" | "самовивіз";
+  phone: string;
   city: string;
   address: string;
   date: Date;
   time: string;
-  paymentMethod: "кур'єру" | "онлайн";
+  deliveryMethod: string;
+  paymentMethod: string;
 }
 
 export type BoxOrderSlot = {

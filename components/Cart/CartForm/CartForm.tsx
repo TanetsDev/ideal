@@ -1,10 +1,13 @@
-import MainGoldBtn from "@/components/Buttons/MainGoldBtn";
+"use client";
+
 import UnderlineGold from "@/components/UnderlineGold/UnderlineGold";
 import { downSelect } from "@/public/icons";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useEffect, useRef, useState } from "react";
+
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+
 import CustomSelect from "./CustomSelect";
 import { DatePicker, MultiSectionDigitalClock } from "@mui/x-date-pickers";
 import { CiCalendarDate } from "react-icons/ci";
@@ -14,70 +17,183 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { IDeliveryInfo } from '@/types/order.types';
+import { IOrder } from "@/types/order.types";
 
+import { useCreateMutation } from "@/redux/orders/ordersApi";
+import { useSelector } from "react-redux";
+import {
+  selectCart,
+  selectTotalPrice,
+  selectTotalWeight,
+} from "@/redux/cartSlice/selectCart";
+import { ICartBox } from "@/types/products.types";
+import GoldBtn from "@/components/Buttons/GoldBtn";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const CartFormSchema = yup.object<IDeliveryInfo>().shape({
+  name: yup.string().required("Обов'язкове поле"),
+  lastName: yup.string().required("Обов'язкове поле"),
+  phone: yup
+    .string()
+    .required("Обов'язкове поле")
+    .matches(
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+      "Невірний формат номера"
+    ),
+  address: yup.string().required("Обов'язкове поле"),
+  city: yup.string().required("Обов'язкове поле"),
+  date: yup
+    .date()
+    // .min("Дата та час не можуть бути раніше поточного часу")
+    .required("Обов'язкове поле"),
+  time: yup.string().required("Обов'язкове поле"),
+  paymentMethod: yup
+    .string()
+    .oneOf(["Кур'єру", "Онлайн"])
+    .required("Обов'язкове поле"),
+  deliveryMethod: yup
+    .string()
+    .oneOf(["Кур'єром", "Самовивіз"])
+    .required("Обов'язкове поле"),
+});
+
+export interface IDeliveryInfo {
+  name: string;
+  lastName: string;
+  phone: string;
+  city: string;
+  address: string;
+  date: Date;
+  time: string;
+  deliveryMethod: "Кур'єром" | "Самовивіз";
+  paymentMethod: "Кур'єру" | "Онлайн";
+}
+
+const defaultCartForm: IDeliveryInfo = {
+  name: "",
+  lastName: "",
+  phone: "",
+  city: "Київ",
+  address: "",
+  date: new Date(),
+  time: "",
+  deliveryMethod: "Кур'єром" || "Самовивіз",
+  paymentMethod: "Кур'єру" || "Онлайн",
+};
 
 const CartForm = () => {
-  const [isNameActive, setIsNameActive] = useState<boolean>(false);
-  const [isLastNameActive, setIsLastNameActive] = useState<boolean>(false);
-  const [isPhoneActive, setIsPhoneActive] = useState<boolean>(false);
-  const [isAddressActive, setIsAddressActive] = useState<boolean>(false);
+  const totalPrice = useSelector(selectTotalPrice);
+  const totalWeight = useSelector(selectTotalWeight);
+  const cart = useSelector(selectCart);
+  const [registerOrder] = useCreateMutation();
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [isActive, setIsActive] = useState<string | null>(null);
   const [isDeliverySelectOpen, setIsDeliverySelectOpen] =
     useState<boolean>(false);
+
   const [isTimePickerOpen, setIsTimePickerOpen] = useState<boolean>(false);
   const [isPaymentSelectOpen, setIsPaymentSelectOpen] =
     useState<boolean>(false);
 
-  const [name, setName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [delivery, setDelivery] =
-    useState<IDeliveryInfo["deliveryMethod"]>("кур'єром");
-  const [address, setAddress] = useState<string>("");
-  const [date, setDate] = useState<Date>(dayjs().toDate());
-  const [time, setTime] = useState(
-    dayjs("Mon Apr 15 2024 10:00:01 GMT+0300 (Eastern European Summer Time)")
-  );
-  const [paymentMethod, setPaymentMethod] =
-    useState<IDeliveryInfo["paymentMethod"]>("кур'єру");
+  const [time, setTime] = useState(dayjs().add(2, "hour"));
 
   const ref = useOutsideClick(() => setIsTimePickerOpen(false));
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const handleInputClick = (value: string) => {
+    setIsActive(value);
+  };
+
   const {
-    register,
-    handleSubmit,
+    trigger,
     formState: { errors },
-  } = useForm<IDeliveryInfo>();
-  const onSubmit: SubmitHandler<IDeliveryInfo> = (data) => console.log(data);
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    getValues,
+    register,
+  } = useForm<IDeliveryInfo>({
+    defaultValues: defaultCartForm,
+
+    resolver: yupResolver(CartFormSchema),
+  });
+
+  const orderItems = cart.map((item: ICartBox) => ({
+    boxName: ` ${
+      item.title
+        ? item.title?.find((title) => title._key === "ukr")?.value || " "
+        : " "
+    }`,
+
+    count: item.count,
+  }));
+
+  const handleOrder: SubmitHandler<IDeliveryInfo> = async (data) => {
+    // console.log("YYYY-MM-DD", data.date);
+
+    const order: IOrder = {
+      ...data,
+      order: orderItems,
+      deliveryPrice: 150,
+      discount: 0,
+      totalPrice: totalPrice,
+      totalWeight: totalWeight,
+      paymentrStatus: "fullfield",
+      userId: 42,
+    };
+
+    if (order) {
+      const orderHistory = await registerOrder(order);
+      console.log("ORDER HISTORY", orderHistory);
+    }
+
+    reset();
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleOrder)}
         className="flex flex-col gap-[46px] cartForm text-sm font-robotoFlex max-w-[340px] mx-auto lg:w-[340px]"
       >
         <div
-          className="flex flex-col relative"
-          onFocus={() => setIsNameActive(true)}
-          onBlur={() => setIsNameActive(false)}
+          className="flex flex-col relative "
+          onClick={() => handleInputClick("name")}
+          ref={inputRef}
         >
           <label
             htmlFor="name"
             className={`formLabel transition-all ${
-              (isNameActive || name !== "") && "activeLabel"
+              isActive === "name" || getValues("name") !== ""
+                ? "activeLabel"
+                : ""
             }`}
           >
             Ім’я *
           </label>
-          <input
-            {...register("name", {
-              required: true,
-              onChange: (e) => setName(e.currentTarget.value),
-            })}
-            className="bg-transparent formInput"
+          <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <input
+                {...field}
+                className="bg-transparent formInput  "
+                onBlur={(e) => {
+                  setValue("name", e.target.value.trim());
+                  trigger("name");
+                }}
+              />
+            )}
           />
           {errors.name && (
             <span className="imputEfrror">{errors.name.message}</span>
@@ -87,23 +203,32 @@ const CartForm = () => {
 
         <div
           className="flex flex-col relative"
-          onFocus={() => setIsLastNameActive(true)}
-          onBlur={() => setIsLastNameActive(false)}
+          ref={inputRef}
+          onClick={() => handleInputClick("lastName")}
         >
           <label
             htmlFor="lastName"
             className={`formLabel transition-all ${
-              (isLastNameActive || lastName !== "") && "activeLabel"
+              isActive === "lastName" || getValues("lastName") !== ""
+                ? "activeLabel"
+                : ""
             }`}
           >
-            Приввище *
+            Прізвище *
           </label>
-          <input
-            {...register("lastName", {
-              required: true,
-              onChange: (e) => setLastName(e.currentTarget.value),
-            })}
-            className="bg-transparent formInput"
+          <Controller
+            control={control}
+            name="lastName"
+            render={({ field }) => (
+              <input
+                {...field}
+                className="bg-transparent formInput  "
+                onBlur={(e) => {
+                  setValue("lastName", e.target.value.trim());
+                  trigger("lastName");
+                }}
+              />
+            )}
           />
           {errors.lastName && (
             <span className="imputEfrror">{errors.lastName.message}</span>
@@ -113,28 +238,32 @@ const CartForm = () => {
 
         <div
           className="flex flex-col relative"
-          onFocus={() => setIsPhoneActive(true)}
-          onBlur={() => setIsPhoneActive(false)}
+          onClick={() => handleInputClick("phone")}
+          ref={inputRef}
         >
           <label
             htmlFor="phone"
             className={`formLabel transition-all ${
-              (isPhoneActive || phone !== "") && "activeLabel"
+              isActive === "phone" || getValues("phone") !== ""
+                ? "activeLabel"
+                : ""
             }`}
           >
             Телефон *
           </label>
-          <input
-            {...register("phone", {
-              required: "Обов'язкове поле",
-              onChange: (e) => setPhone(e.currentTarget.value),
-              pattern: {
-                value:
-                  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-                message: "Невірний формат номера",
-              },
-            })}
-            className="bg-transparent formInput"
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field }) => (
+              <input
+                {...field}
+                className="bg-transparent formInput  "
+                onBlur={(e) => {
+                  setValue("phone", e.target.value.trim());
+                  trigger("phone");
+                }}
+              />
+            )}
           />
           {errors.phone && (
             <span className="imputEfrror">{errors.phone.message}</span>
@@ -144,54 +273,80 @@ const CartForm = () => {
 
         <div
           className="flex flex-col relative"
-          onClick={(e: any) => {
-            if (e.target.localName !== "li") setIsDeliverySelectOpen((p) => !p);
+          onClick={() => {
+            handleInputClick("delivery");
+            setIsDeliverySelectOpen(!isDeliverySelectOpen);
           }}
         >
           <label htmlFor="deliveryMethod" className="activeLabel">
             Доставка *
           </label>
-          <input
-            {...register("deliveryMethod", {
-              required: true,
-            })}
-            className="bg-transparent formInput "
-            value={delivery}
+          <Controller
+            control={control}
+            name="deliveryMethod"
+            render={({ field }) => (
+              <div
+                className="flex flex-col relative"
+                onClick={() => handleInputClick("delivery")}
+              >
+                <input
+                  {...field}
+                  className="bg-transparent formInput "
+                  value={getValues("deliveryMethod")}
+                  readOnly
+                />
+                <Image
+                  src={downSelect}
+                  alt=""
+                  className="absolute right-0 bottom-[5px] size-[18px] "
+                />
+                <UnderlineGold />
+                {isDeliverySelectOpen && (
+                  <CustomSelect
+                    options={["Кур'єром", "Самовивіз"]}
+                    setIsopen={setIsDeliverySelectOpen}
+                    setValue={(value) => {
+                      setValue("deliveryMethod", value);
+                    }}
+                    currentValue={getValues("deliveryMethod")}
+                  />
+                )}
+              </div>
+            )}
           />
-          <Image
-            src={downSelect}
-            alt=""
-            className="absolute right-0 bottom-[5px] size-[18px] "
-          />
-
-          <UnderlineGold />
-          {isDeliverySelectOpen && (
-            <CustomSelect
-              options={["Кур'єром", "Самовивіз"]}
-              setIsopen={setIsDeliverySelectOpen}
-              setValue={setDelivery}
-              currentValue={delivery}
-            />
+          {errors.deliveryMethod && (
+            <span className="imputEfrror">{errors.deliveryMethod.message}</span>
           )}
         </div>
 
-        <div className="flex flex-col relative">
-          <label htmlFor="city" className={`activeLabel`}>
+        <div
+          className="flex flex-col relative"
+          onClick={() => handleInputClick("city")}
+          ref={inputRef}
+        >
+          <label
+            htmlFor="city"
+            className={`formLabel transition-all ${
+              isActive === "city" || getValues("city") !== ""
+                ? "activeLabel"
+                : ""
+            }`}
+          >
             Місто *
           </label>
-          <input
-            {...register("city", {
-              required: true,
-              onChange: (e) => setCity(e.currentTarget.value),
-              onBlur: (e) => {
-                if (city.trim() === "") {
-                  setCity("Київ");
-                  e.currentTarget.value = "Київ";
-                }
-              },
-            })}
-            className="bg-transparent formInput "
-            defaultValue={"Київ"}
+          <Controller
+            control={control}
+            name="city"
+            render={({ field }) => (
+              <input
+                {...field}
+                className="bg-transparent formInput"
+                onBlur={(e) => {
+                  field.onChange(e.target.value.trim());
+                  trigger("city");
+                }}
+              />
+            )}
           />
           {errors.city && (
             <span className="imputEfrror">{errors.city.message}</span>
@@ -201,24 +356,32 @@ const CartForm = () => {
 
         <div
           className="flex flex-col relative"
-          onFocus={() => setIsAddressActive(true)}
-          onBlur={() => setIsAddressActive(false)}
+          onClick={() => handleInputClick("address")}
+          ref={inputRef}
         >
           <label
             htmlFor="address"
             className={`formLabel transition-all ${
-              (isAddressActive || address !== "") && "activeLabel"
+              isActive === "address" || getValues("address") !== ""
+                ? "activeLabel"
+                : ""
             }`}
           >
             Адреса *
           </label>
-          <input
-            id="address"
-            {...register("address", {
-              required: "Обов'язкове поле",
-              onChange: (e) => setAddress(e.currentTarget.value),
-            })}
-            className="bg-transparent formInput "
+          <Controller
+            control={control}
+            name="address"
+            render={({ field }) => (
+              <input
+                {...field}
+                className="bg-transparent formInput  "
+                onBlur={(e) => {
+                  setValue("address", e.target.value.trim());
+                  trigger("address");
+                }}
+              />
+            )}
           />
           {errors.address && (
             <span className="imputEfrror">{errors.address.message}</span>
@@ -226,32 +389,54 @@ const CartForm = () => {
           <UnderlineGold />
         </div>
 
-        <div className="relative">
-          <label className="activeLabel">Дата *</label>
-          <input
-            {...register("date", {})}
-            className="formInput bg-inherit w-full"
-            value={dayjs(date).format("DD.MM.YYYY")}
-          />
-          <DatePicker
-            sx={{
-              opacity: 0,
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-            }}
-            onChange={(v) => setDate(dayjs(v).toDate())}
-          />
-          <CiCalendarDate className="absolute right-0 bottom-[5px]" size={25} />
+        <Controller
+          control={control}
+          name="date"
+          render={({ field }) => (
+            <div className="relative">
+              <label className="activeLabel">Дата *</label>
+              <input
+                {...field}
+                className="formInput bg-inherit w-full"
+                value={dayjs(field.value).format("YYYY-MM-DD")}
+                // onChange={(e) => {
 
-          <UnderlineGold />
-        </div>
+                //   const selectedDate = dayjs(e.target.value, "YYYY-MM-DD");
+                //   console.log("toDate", selectedDate.toDate());
+                //   field.onChange(selectedDate.toDate());
+
+                //   trigger("date");
+                // }}
+              />
+              <DatePicker
+                sx={{
+                  opacity: 0,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  zIndex: 10,
+                }}
+                // тут потрібно прописати часовий пояс
+                onChange={(v) => field.onChange(dayjs(v).toDate())}
+                minDate={dayjs(new Date())}
+              />
+              <CiCalendarDate
+                className="absolute cursor-pointer right-2 bottom-[5px]"
+                size={25}
+              />
+              {errors.date && (
+                <span className="imputEfrror">{errors.date.message}</span>
+              )}
+              <UnderlineGold />
+            </div>
+          )}
+        />
 
         <div className=" bg-cardGrey px-[10px] py-2">
           <p>
             Мінімальний час замовлення за 2 години. Видача замовлень на ранок
-            оформлюються з вечора.{" "}
+            оформлюються з вечора.
             <Link href={"/shipment-payment"} className=" text-darkBlue">
               Детальніше
             </Link>
@@ -270,7 +455,7 @@ const CartForm = () => {
               required: true,
             })}
             className="formInput bg-inherit"
-            value={time.format("HH.mm")}
+            value={time.format("HH:mm")}
           />
           {isTimePickerOpen && (
             <MultiSectionDigitalClock
@@ -282,6 +467,7 @@ const CartForm = () => {
                 width: "120px",
                 borderRadius: "4px",
                 padding: "4px",
+                zIndex: 10,
               }}
               onChange={(v, ss) => {
                 if (ss === "finish") setIsTimePickerOpen(false);
@@ -300,38 +486,52 @@ const CartForm = () => {
           />
           <UnderlineGold />
         </div>
+
         <div
           className="flex flex-col relative"
-          onClick={(e: any) => {
-            if (e.target.localName !== "li") setIsPaymentSelectOpen((p) => !p);
+          onClick={() => {
+            handleInputClick("paymentMethod");
+            setIsPaymentSelectOpen(!isPaymentSelectOpen);
           }}
         >
           <label className="activeLabel">Оплата *</label>
-          <input
-            {...register("paymentMethod", {
-              required: true,
-            })}
-            className="bg-transparent formInput "
-            value={paymentMethod}
+          <Controller
+            control={control}
+            name="paymentMethod"
+            render={({ field }) => (
+              <div className="flex flex-col relative">
+                <input
+                  {...field}
+                  className="bg-transparent formInput "
+                  value={getValues("paymentMethod")}
+                  readOnly
+                />
+                <Image
+                  src={downSelect}
+                  alt=""
+                  className="absolute right-0 bottom-[5px] size-[18px] "
+                />
+                <UnderlineGold />
+                {isPaymentSelectOpen && (
+                  <CustomSelect
+                    options={["Кур'єру", "Онлайн"]}
+                    setIsopen={setIsPaymentSelectOpen}
+                    setValue={(value) => {
+                      setValue("paymentMethod", value);
+                    }}
+                    currentValue={getValues("paymentMethod")}
+                  />
+                )}
+              </div>
+            )}
           />
-          <Image
-            src={downSelect}
-            alt=""
-            className="absolute right-0 bottom-[5px] size-[18px] "
-          />
-          <UnderlineGold />
-          {isPaymentSelectOpen && (
-            <CustomSelect
-              options={["кур'єру", "онлайн"]}
-              setIsopen={setIsPaymentSelectOpen}
-              setValue={setPaymentMethod}
-              currentValue={paymentMethod}
-            />
+          {errors.paymentMethod && (
+            <span className="imputEfrror">{errors.paymentMethod.message}</span>
           )}
         </div>
-        <MainGoldBtn blockName="CartModal" handleClick={() => null}>
-          <input type="submit" value="Оформити замовлення" />
-        </MainGoldBtn>
+        <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
+          Оформити замовлення
+        </GoldBtn>
       </form>
     </LocalizationProvider>
   );
