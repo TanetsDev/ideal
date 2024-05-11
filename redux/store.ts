@@ -32,7 +32,7 @@ import { ordersApi } from "./orders/ordersApi";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["boxes", "insta", "banner", "orders"],
+  whitelist: ["boxes", "insta", "banner", "orders", "cart"],
 };
 
 const rootReducer = combineReducers({

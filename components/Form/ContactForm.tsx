@@ -44,8 +44,6 @@ const ContactForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<string | null>(null);
 
-  useState<boolean>(false);
-
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();

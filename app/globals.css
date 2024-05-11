@@ -147,8 +147,9 @@ input[data-autocompleted] {
 .imputEfrror {
   position: absolute;
   right: 0;
-  bottom: -24px;
+  bottom: -20px;
   color: red;
+  font-size: 12px;
 }
 
 .userStatusActive {
