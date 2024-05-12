@@ -6,8 +6,8 @@ export interface IDeliveryInfo {
   address: string;
   date: Date;
   time: string;
-  deliveryMethod: string;
-  paymentMethod: string;
+  deliveryMethod: "Кур'єром" | "Самовивіз";
+  paymentMethod: "Кур'єру" | "Онлайн";
 }
 
 export type BoxOrderSlot = {

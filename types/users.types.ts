@@ -12,8 +12,8 @@ export interface SignUpDTO extends SignInDTO {
   address?: string;
 }
 
-export interface AuthUserDTO
-  extends Omit<Users, "createdAt" | "updatedAt" | "password"> {
+export interface AuthUserDTO {
+  user: Omit<Users, "createdAt" | "updatedAt" | "password">;
   token: string;
 }
 

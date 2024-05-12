@@ -54,6 +54,14 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["auth"],
     }),
+    oAuth: builder.mutation({
+      query: (data) => ({
+        url: "/auth/oAuth",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["auth"],
+    }),
     // deleteUser: builder.mutation({
     //   query: () => ({
     //     url: "/user",
@@ -68,5 +76,6 @@ export const {
   useSignUpMutation,
   useSignInMutation,
   useUpdateMutation,
+  useOAuthMutation,
   // useDeleteUserMutation,
 } = authApi;

@@ -35,5 +35,12 @@ const API_ROUTES = {
   },
 };
 
+const bonuses = {
+  bonusRate: 0.05,
+  pickupDiscount: 10,
+  more10k: 5,
+  welcomeDiscount: 10,
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { sanity, google, telegram, jwt, API_ROUTES };
+export default { sanity, google, telegram, jwt, API_ROUTES, bonuses };

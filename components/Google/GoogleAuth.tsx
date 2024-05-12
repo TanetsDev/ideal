@@ -1,9 +1,11 @@
 "use client";
 
+import { useOAuthMutation } from "@/redux/auth/authApi";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
 const GoogleAuth = () => {
+  const [register] = useOAuthMutation();
   const authHandler = async (cred: any) => {
     const decoded = jwtDecode<{ email: string; name?: string }>(
       cred.credential
@@ -13,12 +15,7 @@ const GoogleAuth = () => {
       email: decoded.email,
       name: decoded.name,
     };
-    const user = await fetch("api/auth/oAuth", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    console.log("USER from Oauth", await user.json());
+    await register(data);
   };
 
   return (

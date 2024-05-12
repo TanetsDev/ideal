@@ -1,14 +1,15 @@
-const getName = (state: any) => state.auth.name;
+import { RootState } from "../store";
 
-const getLastName = (state: any) => state.auth.lastName;
-const getEmail = (state: any) => state.auth.email;
+const getName = (state: any) => state.auth.user?.name;
+const getLastName = (state: any) => state.auth.user?.lastName;
+const getEmail = (state: any) => state.auth.user?.email;
+const getAddress = (state: any) => state.auth.user?.address;
+const getPhone = (state: any) => state.auth.user?.phone;
 
-const getAddress = (state: any) => state.auth.address;
-
-const getPhone = (state: any) => state.auth.phone;
-
-const getid = (state: any) => state.auth.id;
+const getid = (state: any) => state.auth.user?.id;
 const selectToken = (state: any) => state.auth.token;
+
+const getUser = (state: RootState) => state.auth.user;
 
 const authSelector = {
   selectToken,
@@ -18,5 +19,6 @@ const authSelector = {
   getAddress,
   getid,
   getPhone,
+  getUser,
 };
 export default authSelector;

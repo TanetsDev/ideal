@@ -3,6 +3,7 @@ import tokenCheck from "@/middlewares/tokenCheck";
 import ResponseService from "@/services/Response.servise";
 import TelegramBotService from "@/services/TelegramBot.service";
 import { IOrder, OrdersHistoryFilterPeriod } from "@/types/order.types";
+import { bonusCounter } from "@/utils/bonusDiscountCounter";
 import { JsonValue } from "@prisma/client/runtime/library";
 import { NextRequest } from "next/server";
 
@@ -44,9 +45,19 @@ class OrderController {
   };
 
   private createOrderHistory = async (data: IOrder) => {
+    const date = new Date(data.date);
+    // Parse the time string
+    const timeParts = data.time.split(":");
+    const hours = parseInt(timeParts[0]);
+    const minutes = parseInt(timeParts[1]);
+
+    // Set the time to the date object
+    date.setUTCHours(hours);
+    date.setUTCMinutes(minutes);
+
     return prisma.orders.create({
       data: {
-        deliveryDate: data.date,
+        deliveryDate: date,
         totalWeight: data.totalWeight,
         deliveryPrice: data.deliveryPrice,
         discount: data.discount,
@@ -72,6 +83,26 @@ class OrderController {
       }
       const orderHistory = await this.createOrderHistory(data);
       const parsedDetails = this.parseDetails(orderHistory.orderDetails);
+
+      if (data.userId) {
+        const userOrders = await prisma.orders.count({
+          where: {
+            userId: data.userId,
+          },
+        });
+
+        await prisma.users.update({
+          where: {
+            id: data.userId,
+          },
+          data: {
+            bonus: {
+              increment: bonusCounter(data.totalPrice),
+            },
+            isWelcomeDiscountAvalible: userOrders < 2,
+          },
+        });
+      }
       return ResponseService.success(
         { ...orderHistory, orderDetails: parsedDetails },
         201
