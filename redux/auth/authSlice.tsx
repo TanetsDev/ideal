@@ -3,6 +3,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import { authApi } from "./authApi";
 import { Users } from "@prisma/client";
+import toasterService from "@/services/Toaster.service";
 
 export interface IAuthState {
   user: Omit<Users, "createdAt" | "updatedAt" | "password"> | null;
@@ -78,6 +79,7 @@ const authSlice = createSlice({
         (state, { payload }) => {
           state.user = payload.user;
           state.token = payload.token;
+          toasterService.sucsess("Вітаємо! Вхід Успішно виконаний");
         }
       );
     // .addMatcher(authApi.endpoints.deleteUser.matchFulfilled, (state) => {

@@ -1,6 +1,6 @@
 import prisma from "@/config/prisma";
 import tokenCheck from "@/middlewares/tokenCheck";
-import ResponseService from "@/services/Response.servise";
+import ResponseService from "@/services/Response.service";
 import TelegramBotService from "@/services/TelegramBot.service";
 import { IOrder, OrdersHistoryFilterPeriod } from "@/types/order.types";
 import { bonusCounter } from "@/utils/bonusDiscountCounter";

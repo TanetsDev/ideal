@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-import ResponseService from "../services/Response.servise";
+import ResponseService from "../services/Response.service";
 import config from "../config";
 
 const tokenCheck = async (

@@ -11,6 +11,8 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import config from "@/config";
 import ReduxProvider from "@/redux/ReduxProvider/ReduxProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const manrope = Manrope({
   subsets: ["cyrillic"],
@@ -51,6 +53,8 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId={config.google.CLIENT_ID}>
           <ReduxProvider>
             <Header />
+            <ToastContainer />
+
             <main className="my__height">{children}</main>
             <Footer />
           </ReduxProvider>

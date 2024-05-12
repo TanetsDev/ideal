@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import userController from "@/controllers/User.controller";
-import ResponseService from "@/services/Response.servise";
+import ResponseService from "@/services/Response.service";
 import tokenCheck from "@/middlewares/tokenCheck";
 
 export async function GET(req: NextRequest) {

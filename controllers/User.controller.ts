@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import prisma from "@/config/prisma";
-import ResponseService from "@/services/Response.servise";
+import ResponseService from "@/services/Response.service";
 
 class UserController {
   constructor() {}
