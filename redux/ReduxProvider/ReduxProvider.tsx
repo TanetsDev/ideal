@@ -12,7 +12,7 @@ type ReduxProviderProps = {
 const ReduxProvider: React.FC<ReduxProviderProps> = ({ children }) => {
   return (
     <Provider store={store}>
-      <PersistGate loading={<div>Loding....</div>} persistor={persistor}>
+      <PersistGate loading={<div>Loader...</div>} persistor={persistor}>
         {children}
       </PersistGate>
     </Provider>

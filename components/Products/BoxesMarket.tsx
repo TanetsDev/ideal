@@ -34,6 +34,7 @@ const BoxesMarket = () => {
 
   return (
     <MainSectionsBox className=" pt-[64px] pb-[50px]">
+      
       <MainContainer className="flex flex-col justify-center">
         <BreadCrumbs crumps={crumbs} />
         <div className="flex flex-col gap-[28px] md:gap-0 mb-6 md:mb-[20px] mt-[36px] md:mt-[22px]">

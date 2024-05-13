@@ -55,7 +55,8 @@ const BoxPreviewCard = () => {
     // name,
     personCount,
     weight,
-    // title,
+    title,
+    dishes,
   } = box[0];
   console.log(box);
 
@@ -115,20 +116,19 @@ const BoxPreviewCard = () => {
 
       <div className="xl:max-w-[636px]">
         <Title className="text-left" isMain={true}>
-          {box.title}
+          {title
+            ? title?.find(({ _key }: { _key: string }) => _key === "ukr")
+                ?.value || " "
+            : " "}
         </Title>
         <h3 className="text-left text-base font-semibold font-manrope mt-6 text-basicBlack">
           Наповнення боксу
         </h3>
         <p className="mt-[12px] text-sm md:text-base font-robotoFlex text-basicBlack xl:max-w-[526px] flex flex-col gap-[6px]">
-          <span>
-            Сендвіч з соковитою качкою, карамелізованою грушею та сиром
-            Філадельфія.
-          </span>
-          <span> З телятиною, соусом венігрет, шпинатом та сиром</span>
-          <span>З куркою, соусом айолі, салат ромен і сиром</span>
-          <span> З рваною свининою та салатом коул слоу</span>
-          <span>Можна обрати ті начинки які подобаються саме вам</span>
+          {dishes &&
+            dishes.map((dish: { title: string }, index: number) => (
+              <span key={index}>{dish.title}</span>
+            ))}
         </p>
 
         <div className="md:flex items-center justify-between md:mt-8 xl:mt-11">

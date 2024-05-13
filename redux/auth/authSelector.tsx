@@ -1,13 +1,13 @@
 import { RootState } from "../store";
 
-const getName = (state: any) => state.auth.user?.name;
-const getLastName = (state: any) => state.auth.user?.lastName;
-const getEmail = (state: any) => state.auth.user?.email;
-const getAddress = (state: any) => state.auth.user?.address;
-const getPhone = (state: any) => state.auth.user?.phone;
+const getName = (state: RootState) => state.auth.user?.name;
+const getLastName = (state: RootState) => state.auth.user?.lastName;
+const getEmail = (state: RootState) => state.auth.user?.email;
+const getAddress = (state: RootState) => state.auth.user?.address;
+const getPhone = (state: RootState) => state.auth.user?.phone;
 
-const getid = (state: any) => state.auth.user?.id;
-const selectToken = (state: any) => state.auth.token;
+const getid = (state: RootState) => state.auth.user?.id;
+const selectToken = (state: RootState) => state.auth.token;
 
 const getUser = (state: RootState) => state.auth.user;
 

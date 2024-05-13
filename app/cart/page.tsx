@@ -6,6 +6,7 @@ import CartList from "@/components/Cart/CartList/CartList";
 import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
+import SingInForm from "@/components/Form/SingInForm";
 import authSelector from "@/redux/auth/authSelector";
 import {
   selectTotalPrice,
@@ -16,12 +17,14 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const CartPage = () => {
+
   const user = useSelector(authSelector.getUser);
   const [isNewActive, setIsNewActive] = useState<boolean>(!user);
-
+  const token = useSelector(authSelector.selectToken);
   const totalWeight = useSelector(selectTotalWeight);
   const totalPrice = useSelector(selectTotalPrice);
-  console.log("User", user);
+
+  const [deliveryMethod, setDeliveryMethod] = useState("Кур'єром");
 
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
@@ -53,7 +56,13 @@ const CartPage = () => {
                   Зареєстрований покупець
                 </span>
               </div>
-              <CartForm />
+              {isNewActive ? (
+                <CartForm setDelivery={setDeliveryMethod} />
+              ) : token ? (
+                <CartForm setDelivery={setDeliveryMethod} />
+              ) : (
+                <SingInForm />
+              )}
             </MainContainer>
             <div className="xl:w-full">
               <MainContainer className="max-w-[720px]  mx-auto xl:max-w-full xl:pl-0 xl:pr-0 xl:h-auto">
@@ -68,7 +77,8 @@ const CartPage = () => {
                   </li>
                   <li key={2} className="flex justify-between">
                     <span>Доставка:</span>
-                    <span>{0} грн</span>
+
+                    <span>{deliveryMethod === "Кур'єром" ? 150 : 0} грн</span>
                   </li>
                   <li key={3} className="flex justify-between">
                     <span>Знижка:</span>
@@ -79,7 +89,10 @@ const CartPage = () => {
                     className="flex justify-between text-lg font-semibold"
                   >
                     <span>Разом:</span>
-                    <span>{totalPrice} грн</span>
+                    <span>
+                      {totalPrice}
+                      грн
+                    </span>
                   </li>
                 </ul>
               </MainContainer>

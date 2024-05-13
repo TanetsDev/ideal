@@ -75,13 +75,6 @@ const SingInForm = () => {
     } catch (error) {
       console.log("Invalid phone or password.");
     }
-
-    // const userRes = await fetch("api/auth/signIn", {
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    // });
-    // console.log("USER", await userRes);
-    // // reset();
   };
   return (
     <>

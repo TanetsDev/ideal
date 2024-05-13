@@ -61,7 +61,11 @@ const CartFormSchema = yup.object<IDeliveryInfo>().shape({
     .required("Обов'язкове поле"),
 });
 
-const CartForm = () => {
+const CartForm = ({
+  setDelivery,
+}: {
+  setDelivery: (deliveryMethod: string) => void;
+}) => {
   const totalPrice = useSelector(selectTotalPrice);
   const totalWeight = useSelector(selectTotalWeight);
   const cart = useSelector(selectCart);
@@ -82,6 +86,10 @@ const CartForm = () => {
   const ref = useOutsideClick(() => setIsTimePickerOpen(false));
 
   const user = useSelector(authSelector.getUser);
+
+  const handlePayOnline = () => {
+    console.log("оплата онлайн ");
+  };
 
   useEffect(() => {
     if (inputRef.current) {
@@ -131,9 +139,8 @@ const CartForm = () => {
   }));
 
   const handleOrder: SubmitHandler<IDeliveryInfo> = async (data) => {
-
     const discount = discountCounter(user, totalPrice, data);
- 
+
     const order: IOrder = {
       ...data,
       order: orderItems,
@@ -300,6 +307,7 @@ const CartForm = () => {
                     setIsopen={setIsDeliverySelectOpen}
                     setValue={(value) => {
                       setValue("deliveryMethod", value);
+                      setDelivery(value);
                     }}
                     currentValue={getValues("deliveryMethod")}
                   />
@@ -502,6 +510,7 @@ const CartForm = () => {
                     setIsopen={setIsPaymentSelectOpen}
                     setValue={(value) => {
                       setValue("paymentMethod", value);
+                      // handlePaymentMethodSelect(value);
                     }}
                     currentValue={getValues("paymentMethod")}
                   />
@@ -513,9 +522,22 @@ const CartForm = () => {
             <span className="imputEfrror">{errors.paymentMethod.message}</span>
           )}
         </div>
-        <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
+
+        {getValues("paymentMethod") === "Онлайн" ? (
+          <button
+            className="text-[#4b4c4b] text-[30px]"
+            onClick={handlePayOnline}
+          >
+            LIQPAY
+          </button>
+        ) : (
+          <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
+            Оформити замовлення
+          </GoldBtn>
+        )}
+        {/* <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
           Оформити замовлення
-        </GoldBtn>
+        </GoldBtn> */}
       </form>
     </LocalizationProvider>
   );
