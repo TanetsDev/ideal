@@ -6,31 +6,29 @@ import CartList from "@/components/Cart/CartList/CartList";
 import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
+import authSelector from "@/redux/auth/authSelector";
 import {
   selectTotalPrice,
   selectTotalWeight,
 } from "@/redux/cartSlice/selectCart";
-import { useGetByUserQuery } from "@/redux/orders/ordersApi";
 
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const CartPage = () => {
-  const [isNewActive, setIsNewActive] = useState<boolean>(true);
+  const user = useSelector(authSelector.getUser);
+  const [isNewActive, setIsNewActive] = useState<boolean>(!user);
 
   const totalWeight = useSelector(selectTotalWeight);
-
   const totalPrice = useSelector(selectTotalPrice);
-
-  const { data } = useGetByUserQuery({ limit: 10, page: 0 });
-  console.log("DATA ORDERS", data);
+  console.log("User", user);
 
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
       {totalPrice === 0 ? (
         <MainContainer className="pt-[50px]  md:pt-[60px] flex flex-col items-center gap-[20px]">
           <Title className="text-center  ">Ви нічого не обрали</Title>
-          <GoldLink href="/">До головної</GoldLink>
+          <GoldLink href="/boxes">До покупок</GoldLink>
         </MainContainer>
       ) : (
         <>
@@ -89,10 +87,6 @@ const CartPage = () => {
           </div>
         </>
       )}
-
-      {/* <button type="button" onClick={handleOrder}>
-        CLICK Order
-      </button> */}
     </MainSectionsBox>
   );
 };

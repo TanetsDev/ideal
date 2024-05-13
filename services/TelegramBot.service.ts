@@ -1,6 +1,7 @@
 import config from "@/config";
 import { BoxOrderSlot, IOrder } from "@/types/order.types";
 import { IContactsMessageInfo } from "@/types/telegram.types";
+import dayjs from "dayjs";
 
 class TelegramBotService {
   constructor() {}
@@ -11,7 +12,7 @@ class TelegramBotService {
   private getOrderForMessage = (order: BoxOrderSlot[]) => {
     const orderStr: string[] = [];
     order.forEach((o) => {
-      orderStr.push(`${o.boxName}: ${o.count} \n `);
+      orderStr.push(`%0A${o.boxName}: ${o.count}`);
     });
     return orderStr.join(" ");
   };
@@ -35,25 +36,30 @@ class TelegramBotService {
     } = data;
 
     return `Вітаю! Ви отримали замовлення з сайту! 
-    Замовник: ${name} ${lastName}, 
-    Телефон: ${phone}, 
-    адреса доставки: ${city}, ${address}. 
-    Дата доставки: ${date}, час доставки: ${time}. 
-    Спосіб доставки: ${deliveryMethod},
-    Спосіб оплати: ${paymentMethod},
-    Статус оплати: ${paymentrStatus},
-    Замовлення: ${this.getOrderForMessage(order)}
-
-    Ціна доставки: ${deliveryPrice},
-    Знижка: ${discount}
-    Загальна вартість: ${totalPrice}`;
+    %0AЗамовник: ${name} ${lastName}, 
+    %0AТелефон: ${phone}, 
+    %0AAдреса доставки: ${city}, ${address}. 
+    %0AДата доставки: ${dayjs(date).format(
+      "DD-MM-YYYY"
+    )}, час доставки: ${time}. 
+    %0AСпосіб доставки: ${deliveryMethod},
+    %0AСпосіб оплати: ${paymentMethod},
+    %0AСтатус оплати: ${paymentrStatus},
+    %0AЗамовлення: ${this.getOrderForMessage(order)}
+    %0A
+    %0AЦіна доставки: ${deliveryPrice},
+    %0AЗнижка: ${discount}
+    %0AЗагальна вартість: ${totalPrice}`;
   };
 
   private getContactMessageText = (data: IContactsMessageInfo) => {
-    return `Вітаю! Ви отримали звернення з сайту! Ім'я: ${
-      data.name
-    }, Телефон: ${data.phone}, ${
-      data.comment ? `, Повідомлення: ${data.comment}` : ""
+    return `Вітаю! Ви отримали звернення з сайту! 
+    %0AІм'я: ${data.name}, 
+    %0AТелефон: ${data.phone}, ${
+      data.comment
+        ? `, 
+      %0AПовідомлення: ${data.comment}`
+        : ""
     }`;
   };
 

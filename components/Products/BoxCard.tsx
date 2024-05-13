@@ -1,7 +1,7 @@
 import { personIcon, uah } from "@/public/icons";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
-import { BoxMarkerType, IBox } from "@/types/products.types";
+import { IBox } from "@/types/products.types";
 import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -28,7 +28,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
       <div
         className={`relative p-[9px] xl:p-2 pb-4 xl:pb-[14px] rounded bg-cardBacsic text-basicBlack flex flex-col items-center w-[340px] md:w-[328px] xl:w-[306px] `}
       >
-        {box.type !== "normal" && <Marker type={box.type} />}
+        {/* {box.type !== "normal" && <Marker type={box.type} />} */}
         <Swiper
           spaceBetween={10}
           slidesPerView={1}
@@ -96,30 +96,30 @@ const BoxCard = ({ box }: { box: IBox }) => {
 
 export default BoxCard;
 
-const Marker = ({ type }: { type: BoxMarkerType }) => {
-  let color: string;
-  let title: string;
-  switch (type) {
-    case "hit":
-      color = "bg-basicGreen";
-      title = "Хіт сезону";
-      break;
-    case "new":
-      color = "bg-darkBlue";
-      title = "Новинка";
-      break;
+// const Marker = ({ type }: { type: BoxMarkerType }) => {
+//   let color: string;
+//   let title: string;
+//   switch (type) {
+//     case "hit":
+//       color = "bg-basicGreen";
+//       title = "Хіт сезону";
+//       break;
+//     case "new":
+//       color = "bg-darkBlue";
+//       title = "Новинка";
+//       break;
 
-    default:
-      color = "bg-basicViolet";
-      title = "Бестселлер";
-      break;
-  }
+//     default:
+//       color = "bg-basicViolet";
+//       title = "Бестселлер";
+//       break;
+//   }
 
-  return (
-    <span
-      className={`absolute left-[3px] z-[2] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} `}
-    >
-      {title}
-    </span>
-  );
-};
+//   return (
+//     <span
+//       className={`absolute left-[3px] z-[2] top-[22px]  rounded-[1px] flex justify-start items-center px-[6px] py-[2px]  text-[10px] font-manrope text-cardBacsic ${color} `}
+//     >
+//       {title}
+//     </span>
+//   );
+// };

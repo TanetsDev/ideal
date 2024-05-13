@@ -24,6 +24,7 @@ model Users {
     password           String? 
     discount           Int                  @default(0)
     bonus              Int                  @default(0)
+    isWelcomeDiscountAvalible Boolean       @default(true) 
       
     createdAt          DateTime             @default(now())
     updatedAt          DateTime             @updatedAt

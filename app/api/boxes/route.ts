@@ -1,4 +1,4 @@
-import ResponseService from "@/services/Response.servise";
+import ResponseService from "@/services/Response.service";
 import sanityDataService from "@/services/SanityData.service";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -17,7 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { IOrder } from "@/types/order.types";
+import { IDeliveryInfo, IOrder } from "@/types/order.types";
 
 import { useCreateMutation } from "@/redux/orders/ordersApi";
 import { useSelector } from "react-redux";
@@ -31,6 +31,8 @@ import GoldBtn from "@/components/Buttons/GoldBtn";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import authSelector from "@/redux/auth/authSelector";
+import { discountCounter } from "@/utils/bonusDiscountCounter";
 
 const CartFormSchema = yup.object<IDeliveryInfo>().shape({
   name: yup.string().required("Обов'язкове поле"),
@@ -59,30 +61,6 @@ const CartFormSchema = yup.object<IDeliveryInfo>().shape({
     .required("Обов'язкове поле"),
 });
 
-export interface IDeliveryInfo {
-  name: string;
-  lastName: string;
-  phone: string;
-  city: string;
-  address: string;
-  date: Date;
-  time: string;
-  deliveryMethod: "Кур'єром" | "Самовивіз";
-  paymentMethod: "Кур'єру" | "Онлайн";
-}
-
-const defaultCartForm: IDeliveryInfo = {
-  name: "",
-  lastName: "",
-  phone: "",
-  city: "Київ",
-  address: "",
-  date: new Date(),
-  time: "",
-  deliveryMethod: "Кур'єром" || "Самовивіз",
-  paymentMethod: "Кур'єру" || "Онлайн",
-};
-
 const CartForm = () => {
   const totalPrice = useSelector(selectTotalPrice);
   const totalWeight = useSelector(selectTotalWeight);
@@ -103,6 +81,8 @@ const CartForm = () => {
 
   const ref = useOutsideClick(() => setIsTimePickerOpen(false));
 
+  const user = useSelector(authSelector.getUser);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -111,6 +91,18 @@ const CartForm = () => {
 
   const handleInputClick = (value: string) => {
     setIsActive(value);
+  };
+
+  const defaultCartForm: IDeliveryInfo = {
+    name: user?.name ?? "",
+    lastName: user?.lastName ?? "",
+    phone: user?.phone ? "0" + user?.phone.toString() : "",
+    city: "Київ",
+    address: user?.address ?? "",
+    date: new Date(),
+    time: "",
+    deliveryMethod: "Кур'єром",
+    paymentMethod: "Кур'єру",
   };
 
   const {
@@ -139,17 +131,18 @@ const CartForm = () => {
   }));
 
   const handleOrder: SubmitHandler<IDeliveryInfo> = async (data) => {
-    // console.log("YYYY-MM-DD", data.date);
 
+    const discount = discountCounter(user, totalPrice, data);
+ 
     const order: IOrder = {
       ...data,
       order: orderItems,
-      deliveryPrice: 150,
-      discount: 0,
-      totalPrice: totalPrice,
+      deliveryPrice: data.deliveryMethod === "Кур'єром" ? 150 : 0,
+      discount,
+      totalPrice: totalPrice - discount,
       totalWeight: totalWeight,
-      paymentrStatus: "fullfield",
-      userId: 42,
+      paymentrStatus: data.paymentMethod === "Онлайн" ? "fullfield" : "pending",
+      userId: user?.id,
     };
 
     if (order) {
@@ -398,15 +391,7 @@ const CartForm = () => {
               <input
                 {...field}
                 className="formInput bg-inherit w-full"
-                value={dayjs(field.value).format("YYYY-MM-DD")}
-                // onChange={(e) => {
-
-                //   const selectedDate = dayjs(e.target.value, "YYYY-MM-DD");
-                //   console.log("toDate", selectedDate.toDate());
-                //   field.onChange(selectedDate.toDate());
-
-                //   trigger("date");
-                // }}
+                value={dayjs(field.value).format("DD-MM-YYYY")}
               />
               <DatePicker
                 sx={{
@@ -417,7 +402,6 @@ const CartForm = () => {
                   right: 0,
                   zIndex: 10,
                 }}
-                // тут потрібно прописати часовий пояс
                 onChange={(v) => field.onChange(dayjs(v).toDate())}
                 minDate={dayjs(new Date())}
               />

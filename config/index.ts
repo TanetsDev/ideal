@@ -5,8 +5,8 @@ const sanity = {
 };
 
 const google = {
-  CLIENT_ID: process.env.GOOGLE_CLIENT_ID || "",
-  CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+  CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+  CLIENT_SECRET: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
   API_KEY: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "",
 };
 
@@ -35,5 +35,12 @@ const API_ROUTES = {
   },
 };
 
+const bonuses = {
+  bonusRate: 0.05,
+  pickupDiscount: 10,
+  more10k: 5,
+  welcomeDiscount: 10,
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { sanity, google, telegram, jwt, API_ROUTES };
+export default { sanity, google, telegram, jwt, API_ROUTES, bonuses };

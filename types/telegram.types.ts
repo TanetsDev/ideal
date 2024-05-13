@@ -1,6 +1,6 @@
 export interface IContactsMessageInfo {
   name: string;
   lastName: string;
-  phone: number;
+  phone: string;
   comment?: string;
 }

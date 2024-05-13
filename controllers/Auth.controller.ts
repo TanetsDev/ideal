@@ -20,6 +20,7 @@ class AuthController {
     address: true,
     discount: true,
     bonus: true,
+    isWelcomeDiscountAvalible: true,
   };
 
   public signUp = async (data: SignUpDTO): Promise<AuthUserDTO> => {
@@ -35,7 +36,7 @@ class AuthController {
         select: this.returnedFields,
       });
 
-      return { ...newUser, token: generateAccessToken(newUser.id) };
+      return { user: newUser, token: generateAccessToken(newUser.id) };
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -46,31 +47,21 @@ class AuthController {
     phone,
   }: SignInDTO): Promise<AuthUserDTO> => {
     try {
-      const userRes = await prisma.users.findFirst({
+      const user = await prisma.users.findFirst({
         where: {
           phone: Number(phone),
         },
         select: { ...this.returnedFields, password: true },
       });
-      if (!userRes) throw new Error("User not found");
+      if (!user) throw new Error("User not found");
 
-      const isPasswordValid = await bcrypt.compare(password, userRes.password!);
+      const isPasswordValid = await bcrypt.compare(password, user.password!);
 
       if (!isPasswordValid) {
         throw new Error("Invalid password");
       }
-      const user = {
-        id: userRes.id,
-        name: userRes.name,
-        lastName: userRes.lastName,
-        phone: userRes.phone,
-        email: userRes.email,
-        address: userRes.address,
-        discount: userRes.discount,
-        bonus: userRes.bonus,
-      };
 
-      return { ...user, token: generateAccessToken(user.id) };
+      return { user, token: generateAccessToken(user.id) };
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -88,16 +79,18 @@ class AuthController {
         select: this.returnedFields,
       });
       if (!user) {
+        const fullName = name?.split(" ")!;
         const newUser = await prisma.users.create({
           data: {
             email,
-            name,
+            name: fullName[0],
+            lastName: fullName[1],
           },
           select: this.returnedFields,
         });
-        return { ...newUser, token: generateAccessToken(newUser.id) };
+        return { user: newUser, token: generateAccessToken(newUser.id) };
       }
-      return { ...user, token: generateAccessToken(user.id) };
+      return { user, token: generateAccessToken(user.id) };
     } catch (error: any) {
       throw new Error(error.message);
     }
