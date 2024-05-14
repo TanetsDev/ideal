@@ -8,13 +8,18 @@ export const bonusCounter = (sum: number): number => {
   return sum * rate;
 };
 
-export const discountCounter = (
-  user: Omit<Users, "createdAt" | "updatedAt" | "password"> | null,
-  totalPrice: number,
-  data: IDeliveryInfo
-): number => {
+interface IDiscountArgs extends Partial<Pick<IDeliveryInfo, "deliveryMethod">> {
+  user: Omit<Users, "createdAt" | "updatedAt" | "password"> | null;
+  totalPrice: number;
+}
+
+export const discountCounter = ({
+  deliveryMethod,
+  user,
+  totalPrice,
+}: IDiscountArgs): number => {
   const deliveryDiscount =
-    data.deliveryMethod === "Самовивіз" ? config.bonuses.pickupDiscount : 0;
+    deliveryMethod === "Самовивіз" ? config.bonuses.pickupDiscount : 0;
 
   const personalDiscount = user?.discount ?? 0;
 
