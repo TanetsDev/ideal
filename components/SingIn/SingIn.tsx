@@ -23,7 +23,7 @@ const SingIn = () => {
 
   const token = useSelector(authSelector.selectToken);
   useEffect(() => {
-    token ? router.push("/") : "";
+    token ? router.push("/personal_office") : "";
   }, [token, router]);
 
   return (

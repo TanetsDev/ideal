@@ -1,5 +1,5 @@
 // import { boxImg } from "@/public/images";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper as ReactSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -21,6 +21,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { addToCart } from "@/redux/cartSlice/cartSlice";
 import useModal from "@/hooks/useModal";
 import CartModal from "../Cart/CartList/CartModal";
+import GoldLink from "../Buttons/GoldLink";
 
 const BoxPreviewCard = () => {
   const params = useParams();
@@ -32,21 +33,31 @@ const BoxPreviewCard = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
 
-  if (!data) {
-    router.push("/");
+  useEffect(() => {
+    if (!data || data.length === 0) {
+      router.push("/");
+    }
+  }, [data, router]);
+
+  if (!data || data.length === 0) {
     return null;
   }
 
   const box = data.filter((e: IBoxCard) => e._id === params.id);
 
-  if (!box) {
-    return <div>Box not found</div>;
+  if (box.length === 0) {
+    return (
+      <div>
+        Щось пішло не так ..
+        <GoldLink href="/boxes">До Ідеальних боксів</GoldLink>
+      </div>
+    );
   }
-
   const handleAddToCart = () => {
     dispatch(addToCart(box[0]));
     openModal();
   };
+
   const {
     dishCount,
     imageUrls,
@@ -55,9 +66,14 @@ const BoxPreviewCard = () => {
     // name,
     personCount,
     weight,
-    // title,
+    title,
+    dishes,
   } = box[0];
-  console.log(box);
+  // console.log(box);
+  const titleValue = title
+    ? title.find(({ _key }: { _key: string }) => _key === "ukr")?.value || " "
+    : " ";
+  console.log("Title value:", titleValue);
 
   return (
     <div className="w-[344px] md:w-[636px] xl:w-full mx-auto xl:flex gap-[31px] xl:mt-[86px]">
@@ -115,20 +131,16 @@ const BoxPreviewCard = () => {
 
       <div className="xl:max-w-[636px]">
         <Title className="text-left" isMain={true}>
-          {box.title}
+          {titleValue}
         </Title>
         <h3 className="text-left text-base font-semibold font-manrope mt-6 text-basicBlack">
           Наповнення боксу
         </h3>
         <p className="mt-[12px] text-sm md:text-base font-robotoFlex text-basicBlack xl:max-w-[526px] flex flex-col gap-[6px]">
-          <span>
-            Сендвіч з соковитою качкою, карамелізованою грушею та сиром
-            Філадельфія.
-          </span>
-          <span> З телятиною, соусом венігрет, шпинатом та сиром</span>
-          <span>З куркою, соусом айолі, салат ромен і сиром</span>
-          <span> З рваною свининою та салатом коул слоу</span>
-          <span>Можна обрати ті начинки які подобаються саме вам</span>
+          {dishes &&
+            dishes.map((dish: { title: string }, index: number) => (
+              <span key={index}>{dish.title}</span>
+            ))}
         </p>
 
         <div className="md:flex items-center justify-between md:mt-8 xl:mt-11">

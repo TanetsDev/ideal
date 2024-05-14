@@ -5,9 +5,9 @@ import NavBar from "../NavBar/NavBar";
 import LangSwitcher from "../LangSwitcher/LangSwitcher";
 import Image from "next/image";
 import {
-  bucketIcon,
+  // bucketIcon,
   headerWhiteLogo,
-  userIcon,
+  // userIcon,
   burgerIcon,
   goldLogo,
 } from "@/public/icons";
@@ -16,6 +16,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import authSelector from "@/redux/auth/authSelector";
+
+import { CiShoppingBasket } from "react-icons/ci";
+import { BiUser } from "react-icons/bi";
 
 const Header = () => {
   const pathname = usePathname();
@@ -58,43 +61,66 @@ const Header = () => {
             height="30"
           />
         )}
-        <div className=" flex gap-[72px]">
-          <div className=" hidden xl:block">
+        <div className=" flex gap-[72px] ">
+          <div className=" hidden xl:flex items-center">
             <NavBar setIsOpen={setIsOpen} />
           </div>
-          <div className="flex gap-[14px] md:gap-4 xl:gap-[18px]">
+          <div className="flex gap-[14px] md:gap-4 xl:gap-[18px] items-center">
             <span className=" hidden xl:inline">
               <LangSwitcher />
             </span>
-            <Link href={"/cart"}>
-              <Image
+            <Link
+              href={"/cart"}
+              className={
+                pathname === "/cart" ? "text-[#D6A968]  " : "text-[#FFFFFF]"
+              }
+              onClick={() => setIsOpen(false)}
+            >
+              {/* <Image
                 src={bucketIcon}
                 alt="іконка корзини"
                 className=" size-[26px] md:size-[30px]"
                 width="50"
                 height="50"
-              />
+              /> */}
+              <CiShoppingBasket className=" hover:text-[#D6A968] stroke-[0.6px] size-[26px] md:size-[30px]" />
             </Link>
 
             {token ? (
-              <Link href={"/personal_office"}>
-                <Image
+              <Link
+                href={"/personal_office"}
+                className={
+                  pathname === "/personal_office"
+                    ? "text-[#D6A968] "
+                    : "text-[#FFFFFF]"
+                }
+                onClick={() => setIsOpen(false)}
+              >
+                {/* <Image
                   src={userIcon}
                   alt="Особистий кабінет"
                   className=" size-[26px] md:size-[30px]"
                   width="50"
                   height="50"
-                />
+                /> */}
+                <BiUser className=" hover:text-[#D6A968] size-[26px] md:size-[30px]" />
               </Link>
             ) : (
-              <Link href={"/sign_in"}>
-                <Image
+              <Link
+                href={"/sign_in"}
+                className={
+                  pathname === "/sign_in" ? "text-[#D6A968] " : "text-[#FFFFFF]"
+                }
+                onClick={() => setIsOpen(false)}
+              >
+                {/* <Image
                   src={userIcon}
                   alt="Особистий кабінет"
                   className=" size-[26px] md:size-[30px]"
                   width="50"
                   height="50"
-                />
+                /> */}
+                <BiUser className="hover:text-[#D6A968]  size-[26px] md:size-[30px]" />
               </Link>
             )}
           </div>

@@ -61,7 +61,12 @@ const CartFormSchema = yup.object<IDeliveryInfo>().shape({
     .required("Обов'язкове поле"),
 });
 
-const CartForm = () => {
+type CartFormProps = {
+  setDelivery: (deliveryMethod: string) => void;
+  onOrderSuccess: () => void;
+};
+
+const CartForm: React.FC<CartFormProps> = ({ setDelivery, onOrderSuccess }) => {
   const totalPrice = useSelector(selectTotalPrice);
   const totalWeight = useSelector(selectTotalWeight);
   const cart = useSelector(selectCart);
@@ -83,6 +88,10 @@ const CartForm = () => {
 
   const user = useSelector(authSelector.getUser);
 
+  const handlePayOnline = () => {
+    console.log("оплата онлайн ");
+  };
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -100,7 +109,7 @@ const CartForm = () => {
     city: "Київ",
     address: user?.address ?? "",
     date: new Date(),
-    time: "",
+    time: time.format("HH:mm"),
     deliveryMethod: "Кур'єром",
     paymentMethod: "Кур'єру",
   };
@@ -110,7 +119,7 @@ const CartForm = () => {
     formState: { errors },
     control,
     handleSubmit,
-    reset,
+    // reset,
     setValue,
     getValues,
     register,
@@ -131,9 +140,8 @@ const CartForm = () => {
   }));
 
   const handleOrder: SubmitHandler<IDeliveryInfo> = async (data) => {
-
     const discount = discountCounter(user, totalPrice, data);
- 
+
     const order: IOrder = {
       ...data,
       order: orderItems,
@@ -148,9 +156,8 @@ const CartForm = () => {
     if (order) {
       const orderHistory = await registerOrder(order);
       console.log("ORDER HISTORY", orderHistory);
+      onOrderSuccess();
     }
-
-    reset();
   };
 
   return (
@@ -300,6 +307,7 @@ const CartForm = () => {
                     setIsopen={setIsDeliverySelectOpen}
                     setValue={(value) => {
                       setValue("deliveryMethod", value);
+                      setDelivery(value);
                     }}
                     currentValue={getValues("deliveryMethod")}
                   />
@@ -468,6 +476,9 @@ const CartForm = () => {
             size={20}
             className="absolute right-0 bottom-[5px]"
           />
+          {errors.time && (
+            <span className="imputEfrror">{errors.time.message}</span>
+          )}
           <UnderlineGold />
         </div>
 
@@ -502,6 +513,7 @@ const CartForm = () => {
                     setIsopen={setIsPaymentSelectOpen}
                     setValue={(value) => {
                       setValue("paymentMethod", value);
+                      // handlePaymentMethodSelect(value);
                     }}
                     currentValue={getValues("paymentMethod")}
                   />
@@ -513,9 +525,22 @@ const CartForm = () => {
             <span className="imputEfrror">{errors.paymentMethod.message}</span>
           )}
         </div>
-        <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
+
+        {getValues("paymentMethod") === "Онлайн" ? (
+          <button
+            className="text-[#4b4c4b] text-[30px]"
+            onClick={handlePayOnline}
+          >
+            LIQPAY
+          </button>
+        ) : (
+          <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
+            Оформити замовлення
+          </GoldBtn>
+        )}
+        {/* <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
           Оформити замовлення
-        </GoldBtn>
+        </GoldBtn> */}
       </form>
     </LocalizationProvider>
   );

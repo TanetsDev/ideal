@@ -13,7 +13,7 @@ import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 import { IBreadCrumb } from "@/types/market.types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const crmbs: IBreadCrumb[] = [
@@ -27,8 +27,13 @@ const BoxesMarket = () => {
   const router = useRouter();
   const { data } = useSelector(selectBoxesState);
 
-  if (!data) {
-    router.push("/");
+  useEffect(() => {
+    if (!data || data.length === 0) {
+      router.push("/");
+    }
+  }, [data, router]);
+
+  if (!data || data.length === 0) {
     return null;
   }
 
