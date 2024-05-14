@@ -1,5 +1,5 @@
 // import { boxImg } from "@/public/images";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper as ReactSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -21,6 +21,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { addToCart } from "@/redux/cartSlice/cartSlice";
 import useModal from "@/hooks/useModal";
 import CartModal from "../Cart/CartList/CartModal";
+import GoldLink from "../Buttons/GoldLink";
 
 const BoxPreviewCard = () => {
   const params = useParams();
@@ -32,21 +33,31 @@ const BoxPreviewCard = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
 
-  if (!data) {
-    router.push("/");
+  useEffect(() => {
+    if (!data || data.length === 0) {
+      router.push("/");
+    }
+  }, [data, router]);
+
+  if (!data || data.length === 0) {
     return null;
   }
 
   const box = data.filter((e: IBoxCard) => e._id === params.id);
 
-  if (!box) {
-    return <div>Box not found</div>;
+  if (box.length === 0) {
+    return (
+      <div>
+        Щось пішло не так ..
+        <GoldLink href="/boxes">До Ідеальних боксів</GoldLink>
+      </div>
+    );
   }
-
   const handleAddToCart = () => {
     dispatch(addToCart(box[0]));
     openModal();
   };
+
   const {
     dishCount,
     imageUrls,
@@ -58,7 +69,11 @@ const BoxPreviewCard = () => {
     title,
     dishes,
   } = box[0];
-  console.log(box);
+  // console.log(box);
+  const titleValue = title
+    ? title.find(({ _key }: { _key: string }) => _key === "ukr")?.value || " "
+    : " ";
+  console.log("Title value:", titleValue);
 
   return (
     <div className="w-[344px] md:w-[636px] xl:w-full mx-auto xl:flex gap-[31px] xl:mt-[86px]">
@@ -116,10 +131,7 @@ const BoxPreviewCard = () => {
 
       <div className="xl:max-w-[636px]">
         <Title className="text-left" isMain={true}>
-          {title
-            ? title?.find(({ _key }: { _key: string }) => _key === "ukr")
-                ?.value || " "
-            : " "}
+          {titleValue}
         </Title>
         <h3 className="text-left text-base font-semibold font-manrope mt-6 text-basicBlack">
           Наповнення боксу

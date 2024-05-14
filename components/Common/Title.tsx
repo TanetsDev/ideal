@@ -12,7 +12,7 @@ const Title = ({
   if (isMain) {
     return (
       <h1
-        className={` text-basicBlack text-[26px] md:text-[30px] lg:text-[40px] font-manrope ${className}`}
+        className={` text-basicBlack font-manrope text-[26px] md:text-[30px] lg:text-[40px]  ${className}`}
       >
         {children}
       </h1>

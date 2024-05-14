@@ -1,4 +1,4 @@
-"use client"; // <===== REQUIRED
+"use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -15,6 +15,7 @@ import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 import { useRouter } from "next/navigation";
 import CartModal from "../Cart/CartList/CartModal";
 import useModal from "@/hooks/useModal";
+import { useEffect } from "react";
 
 const SuggeschionsSwiper = () => {
   const { data: boxes } = useSelector(selectBoxesState);
@@ -22,8 +23,13 @@ const SuggeschionsSwiper = () => {
 
   const router = useRouter();
 
-  if (!boxes) {
-    router.push("/");
+  useEffect(() => {
+    if (!boxes || boxes.length === 0) {
+      router.push("/");
+    }
+  }, [boxes, router]);
+
+  if (!boxes || boxes.length === 0) {
     return null;
   }
 
