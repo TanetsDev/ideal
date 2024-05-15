@@ -10,18 +10,15 @@ import GoogleAuth from "../Google/GoogleAuth";
 import { useSelector } from "react-redux";
 import authSelector from "@/redux/auth/authSelector";
 import { useEffect } from "react";
+import Loader from "../Loaders/Loader";
 
-// const handleTestClick = async () => {
-//   // add jwt token to request object
-//   const token = "token-------Here";
-//   const myHeaders = new Headers();
-//   myHeaders.append("authorization", `Bearer ${token}`);
-// };
 const SingIn = () => {
   const pathname = usePathname();
   const router = useRouter();
 
   const token = useSelector(authSelector.selectToken);
+  const isLoading = useSelector(authSelector.selectIsLoading);
+
   useEffect(() => {
     token ? router.push("/personal_office") : "";
   }, [token, router]);
@@ -53,8 +50,8 @@ const SingIn = () => {
           Або за допомогою
         </p>
         <GoogleAuth />
-        {/* <button onClick={handleTestClick}>test</button> */}
       </MainContainer>
+      {isLoading && <Loader type="global" size={100} />}
     </section>
   );
 };

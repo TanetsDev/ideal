@@ -200,7 +200,7 @@ const ContactForm = () => {
                 render={({ field }) => (
                   <textarea
                     {...field}
-                    className="bg-transparent formInput max-h-[122px]  min-h-[122px] "
+                    className="bg-transparent formInput max-h-[122px]  min-h-[122px] resize-none"
                     onBlur={(e) => {
                       setValue("comment", e.target.value.trim());
                       trigger("comment");

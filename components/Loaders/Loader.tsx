@@ -1,16 +1,33 @@
 import { Triangle } from "react-loader-spinner";
+import Backdrop from "../Modal/Backdrop";
 
-const Loader = ({ isVisible, size }: { isVisible: boolean; size: number }) => {
+const Loader = ({ size, type }: { size: number; type: "global" | "local" }) => {
+  if (type === "local") {
+    return (
+      <Triangle
+        visible={true}
+        height={size}
+        width={size}
+        color="#E5A14B"
+        ariaLabel="triangle-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />
+    );
+  }
+
   return (
-    <Triangle
-      visible={isVisible}
-      height={size}
-      width={size}
-      color="#E5A14B"
-      ariaLabel="triangle-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-    />
+    <Backdrop>
+      <Triangle
+        visible={true}
+        height={size}
+        width={size}
+        color="#E5A14B"
+        ariaLabel="triangle-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />
+    </Backdrop>
   );
 };
 

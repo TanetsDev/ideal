@@ -6,10 +6,12 @@ import { ordersApi } from "./ordersApi";
 
 interface OrdersState {
   data: IOrdersHistory | null;
+  isLoading: boolean;
 }
 
 const initialState: OrdersState = {
   data: null,
+  isLoading: false,
 };
 
 const ordersPersistConfig = {
@@ -24,16 +26,24 @@ const ordersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addMatcher(ordersApi.endpoints.create.matchPending, (state) => {
+        state.isLoading = true;
+      })
       .addMatcher(
         ordersApi.endpoints.create.matchFulfilled,
         (state, { payload }) => {
           state.data = payload;
+          state.isLoading = false;
         }
       )
+      .addMatcher(ordersApi.endpoints.getByUser.matchPending, (state) => {
+        state.isLoading = true;
+      })
       .addMatcher(
         ordersApi.endpoints.getByUser.matchFulfilled,
         (state, { payload }) => {
           state.data = payload;
+          state.isLoading = false;
         }
       );
   },

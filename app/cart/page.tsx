@@ -8,35 +8,39 @@ import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
 import SingInForm from "@/components/Form/SingInForm";
+import Loader from "@/components/Loaders/Loader";
 import authSelector from "@/redux/auth/authSelector";
 import {
   selectTotalPrice,
   selectTotalWeight,
 } from "@/redux/cartSlice/selectCart";
+import { selectIsLoading } from "@/redux/orders/ordersSelectors";
+import { IDeliveryInfo } from "@/types/order.types";
+import { discountCounter } from "@/utils/bonusDiscountCounter";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const user = useSelector(authSelector.getUser);
-  const [isNewActive, setIsNewActive] = useState<boolean>(!user);
+  const isLoading = useSelector(selectIsLoading);
   const token = useSelector(authSelector.selectToken);
+
+  const [isNewActive, setIsNewActive] = useState<boolean>(!user);
+
   const totalWeight = useSelector(selectTotalWeight);
   const totalPrice = useSelector(selectTotalPrice);
 
-  const [deliveryMethod, setDeliveryMethod] = useState("Кур'єром");
-
   const [orderSubmitted, setOrderSubmitted] = useState(false); // new state
 
-  useEffect(() => {
-    setDeliveryMethod("Кур'єром");
-  }, [isNewActive]);
+  const [formValues, setFormValues] = useState<IDeliveryInfo | null>(null);
 
   const handleOrderSubmission = () => {
     setOrderSubmitted(true);
   };
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
+      {isLoading && <Loader size={100} type={"global"} />}
       {orderSubmitted ? (
         <OrderSubmitted />
       ) : (
@@ -70,9 +74,15 @@ const CartPage = () => {
                     </span>
                   </div>
                   {isNewActive ? (
-                    <CartForm setDelivery={setDeliveryMethod} onOrderSuccess={handleOrderSubmission} />
+                    <CartForm
+                      setFormValues={setFormValues}
+                      onOrderSuccess={handleOrderSubmission}
+                    />
                   ) : token ? (
-                    <CartForm setDelivery={setDeliveryMethod} onOrderSuccess={handleOrderSubmission} />
+                    <CartForm
+                      setFormValues={setFormValues}
+                      onOrderSuccess={handleOrderSubmission}
+                    />
                   ) : (
                     <SingInForm />
                   )}
@@ -92,12 +102,19 @@ const CartPage = () => {
                         <span>Доставка:</span>
 
                         <span>
-                          {deliveryMethod === "Кур'єром" ? 150 : 0} грн
+                          {formValues?.deliveryMethod === "Кур'єром" ? 150 : 0}{" "}
+                          грн
                         </span>
                       </li>
                       <li key={3} className="flex justify-between">
                         <span>Знижка:</span>
-                        <span>{0} %</span>
+                        <span>
+                          {discountCounter({
+                            user,
+                            totalPrice,
+                            deliveryMethod: formValues?.deliveryMethod,
+                          })}
+                        </span>
                       </li>
                       <li
                         key={4}
@@ -105,7 +122,12 @@ const CartPage = () => {
                       >
                         <span>Разом:</span>
                         <span>
-                          {totalPrice}
+                          {totalPrice -
+                            discountCounter({
+                              user,
+                              totalPrice,
+                              deliveryMethod: formValues?.deliveryMethod,
+                            })}
                           грн
                         </span>
                       </li>

@@ -4,7 +4,7 @@ import UnderlineGold from "@/components/UnderlineGold/UnderlineGold";
 import { downSelect } from "@/public/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, useEffect, useRef, useState } from "react";
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
@@ -62,11 +62,14 @@ const CartFormSchema = yup.object<IDeliveryInfo>().shape({
 });
 
 type CartFormProps = {
-  setDelivery: (deliveryMethod: string) => void;
+  setFormValues: Dispatch<React.SetStateAction<null | IDeliveryInfo>>;
   onOrderSuccess: () => void;
 };
 
-const CartForm: React.FC<CartFormProps> = ({ setDelivery, onOrderSuccess }) => {
+const CartForm: React.FC<CartFormProps> = ({
+  setFormValues,
+  onOrderSuccess,
+}) => {
   const totalPrice = useSelector(selectTotalPrice);
   const totalWeight = useSelector(selectTotalWeight);
   const cart = useSelector(selectCart);
@@ -123,6 +126,7 @@ const CartForm: React.FC<CartFormProps> = ({ setDelivery, onOrderSuccess }) => {
     setValue,
     getValues,
     register,
+    watch,
   } = useForm<IDeliveryInfo>({
     defaultValues: defaultCartForm,
 
@@ -140,7 +144,11 @@ const CartForm: React.FC<CartFormProps> = ({ setDelivery, onOrderSuccess }) => {
   }));
 
   const handleOrder: SubmitHandler<IDeliveryInfo> = async (data) => {
-    const discount = discountCounter(user, totalPrice, data);
+    const discount = discountCounter({
+      user,
+      totalPrice,
+      deliveryMethod: data.deliveryMethod,
+    });
 
     const order: IOrder = {
       ...data,
@@ -159,6 +167,13 @@ const CartForm: React.FC<CartFormProps> = ({ setDelivery, onOrderSuccess }) => {
       onOrderSuccess();
     }
   };
+
+  useEffect(() => {
+    const subscription = watch((value) =>
+      setFormValues(value as IDeliveryInfo)
+    );
+    return () => subscription.unsubscribe();
+  }, [setFormValues, watch]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -307,7 +322,6 @@ const CartForm: React.FC<CartFormProps> = ({ setDelivery, onOrderSuccess }) => {
                     setIsopen={setIsDeliverySelectOpen}
                     setValue={(value) => {
                       setValue("deliveryMethod", value);
-                      setDelivery(value);
                     }}
                     currentValue={getValues("deliveryMethod")}
                   />

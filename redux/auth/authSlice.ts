@@ -10,6 +10,7 @@ export interface IAuthState {
   token: string | null;
   isLoggedIn: boolean;
   isRefreshing: boolean;
+  isLoading: boolean;
 }
 
 const authPersistConfig = {
@@ -23,6 +24,7 @@ const initialState: IAuthState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  isLoading: false,
 };
 
 const authSlice = createSlice({
@@ -32,23 +34,34 @@ const authSlice = createSlice({
     clearToken: (state) => {
       state.token = null;
     },
+    setIsloading: (state, { payload }) => {
+      state.isLoading = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
+      .addMatcher(authApi.endpoints.signUp.matchPending, (state) => {
+        state.isLoading = true;
+      })
       .addMatcher(
         authApi.endpoints.signUp.matchFulfilled,
         (state, { payload }) => {
           state.user = payload.user;
           state.token = payload.token;
           state.isLoggedIn = true;
+          state.isLoading = false;
         }
       )
+      .addMatcher(authApi.endpoints.signIn.matchPending, (state) => {
+        state.isLoading = true;
+      })
       .addMatcher(
         authApi.endpoints.signIn.matchFulfilled,
         (state, { payload }) => {
           state.user = payload.user;
           state.token = payload.token;
           state.isLoggedIn = true;
+          state.isLoading = false;
         }
       )
       .addMatcher(
@@ -74,12 +87,16 @@ const authSlice = createSlice({
       .addMatcher(authApi.endpoints.current.matchRejected, (state) => {
         state.isRefreshing = false;
       })
+      .addMatcher(authApi.endpoints.oAuth.matchPending, (state) => {
+        state.isLoading = true;
+      })
       .addMatcher(
         authApi.endpoints.oAuth.matchFulfilled,
         (state, { payload }) => {
           state.user = payload.user;
           state.token = payload.token;
           toasterService.sucsess("Вітаємо! Вхід Успішно виконаний");
+          state.isLoading = false;
         }
       );
     // .addMatcher(authApi.endpoints.deleteUser.matchFulfilled, (state) => {

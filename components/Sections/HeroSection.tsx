@@ -6,6 +6,7 @@ import React from "react";
 import MainContainer from "../Containers/MainContainer";
 import Image from "next/image";
 import { useGetBannerQuery } from "@/redux/banner/bannerAPi";
+import Loader from "../Loaders/Loader";
 
 interface BannerData {
   name: string;
@@ -15,13 +16,20 @@ interface BannerData {
 }
 
 const HeroSection = () => {
-  const { data, error } = useGetBannerQuery({});
+  const { data, error, isLoading } = useGetBannerQuery({});
 
   if (error) {
     console.error("Error fetching boxes:", error);
     return (
       <div className=" pt-[200px] pb-[200px]">
         Error fetching boxes. Please try again later.
+      </div>
+    );
+  }
+  if (isLoading) {
+    return (
+      <div className=" h-screen flex items-center justify-center">
+        <Loader type="global" size={100} />
       </div>
     );
   }
@@ -122,7 +130,6 @@ const HeroSection = () => {
           </section>
         </>
       )}
-      {/* imageUrl name text -3 title -3 */}
     </>
   );
 };
