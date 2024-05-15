@@ -8,6 +8,7 @@ import MainSectionsBox from "@/components/Common/MainSectionsBox";
 import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
 import SingInForm from "@/components/Form/SingInForm";
+import GoogleAuth from "@/components/Google/GoogleAuth";
 import Loader from "@/components/Loaders/Loader";
 import authSelector from "@/redux/auth/authSelector";
 import {
@@ -31,13 +32,15 @@ const CartPage = () => {
   const totalWeight = useSelector(selectTotalWeight);
   const totalPrice = useSelector(selectTotalPrice);
 
-  const [orderSubmitted, setOrderSubmitted] = useState(false); // new state
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
 
   const [formValues, setFormValues] = useState<IDeliveryInfo | null>(null);
 
   const handleOrderSubmission = () => {
     setOrderSubmitted(true);
   };
+  console.log(user);
+
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
       {isLoading && <Loader size={100} type={"global"} />}
@@ -84,7 +87,13 @@ const CartPage = () => {
                       onOrderSuccess={handleOrderSubmission}
                     />
                   ) : (
-                    <SingInForm />
+                    <>
+                      <SingInForm />
+                      <p className="max-w-[375px] mx-auto md:w-[350px] pt-[20px] text-sm leading-[16px] text-center mb-5">
+                        Або за допомогою
+                      </p>
+                      <GoogleAuth />
+                    </>
                   )}
                 </MainContainer>
                 <div className="xl:w-full">
@@ -92,7 +101,8 @@ const CartPage = () => {
                     <Title className=" xl:text-[22px]">Ваше замовлення</Title>
                     <CartList isPreview={false} />
                   </MainContainer>
-                  <MainContainer className=" mt-5  mx-auto  max-w-[720px] xl:pl-0 xl:pr-0 h-[700px]">
+                  {/* h-[700px] */}
+                  <MainContainer className=" mt-5  mx-auto  max-w-[720px] xl:pl-0 xl:pr-0 ">
                     <ul className="flex flex-col gap-2 font-manrope text-base text-basicBlack totalCartList">
                       <li key={1} className="flex justify-between">
                         <span>Загальна вага:</span>
