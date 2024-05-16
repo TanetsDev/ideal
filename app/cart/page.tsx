@@ -9,13 +9,13 @@ import Title from "@/components/Common/Title";
 import MainContainer from "@/components/Containers/MainContainer";
 import SingInForm from "@/components/Form/SingInForm";
 import GoogleAuth from "@/components/Google/GoogleAuth";
-import Loader from "@/components/Loaders/Loader";
+// import Loader from "@/components/Loaders/Loader";
 import authSelector from "@/redux/auth/authSelector";
 import {
   selectTotalPrice,
   selectTotalWeight,
 } from "@/redux/cartSlice/selectCart";
-import { selectIsLoading } from "@/redux/orders/ordersSelectors";
+// import { selectIsLoading } from "@/redux/orders/ordersSelectors";
 import { IDeliveryInfo } from "@/types/order.types";
 import { discountCounter } from "@/utils/bonusDiscountCounter";
 
@@ -24,7 +24,7 @@ import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const user = useSelector(authSelector.getUser);
-  const isLoading = useSelector(selectIsLoading);
+  // const isLoading = useSelector(selectIsLoading);
   const token = useSelector(authSelector.selectToken);
 
   const [isNewActive, setIsNewActive] = useState<boolean>(!user);
@@ -39,11 +39,10 @@ const CartPage = () => {
   const handleOrderSubmission = () => {
     setOrderSubmitted(true);
   };
-  console.log(user);
 
   return (
     <MainSectionsBox className="mb-[50px] xl:px-[72px]">
-      {isLoading && <Loader size={100} type={"global"} />}
+      {/* {isLoading && <Loader size={100} type={"global"} />} */}
       {orderSubmitted ? (
         <OrderSubmitted />
       ) : (

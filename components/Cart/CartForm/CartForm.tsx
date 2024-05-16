@@ -20,7 +20,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { IDeliveryInfo, IOrder } from "@/types/order.types";
 
 import { useCreateMutation } from "@/redux/orders/ordersApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectCart,
   selectTotalPrice,
@@ -33,6 +33,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import authSelector from "@/redux/auth/authSelector";
 import { discountCounter } from "@/utils/bonusDiscountCounter";
+import { clearCart } from "@/redux/cartSlice/cartSlice";
 
 const CartFormSchema = yup.object<IDeliveryInfo>().shape({
   name: yup.string().required("Обов'язкове поле"),
@@ -73,6 +74,8 @@ const CartForm: React.FC<CartFormProps> = ({
   const totalPrice = useSelector(selectTotalPrice);
   const totalWeight = useSelector(selectTotalWeight);
   const cart = useSelector(selectCart);
+  const dispatch = useDispatch();
+
   const [registerOrder] = useCreateMutation();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -171,6 +174,7 @@ const CartForm: React.FC<CartFormProps> = ({
       const orderHistory = await registerOrder(order);
       console.log("ORDER HISTORY", orderHistory);
       onOrderSuccess();
+      dispatch(clearCart());
     }
   };
 
@@ -558,9 +562,6 @@ const CartForm: React.FC<CartFormProps> = ({
             Оформити замовлення
           </GoldBtn>
         )}
-        {/* <GoldBtn blockName="CartModal" handleClick={() => null} type="submit">
-          Оформити замовлення
-        </GoldBtn> */}
       </form>
     </LocalizationProvider>
   );
