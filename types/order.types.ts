@@ -12,6 +12,9 @@ export interface IDeliveryInfo {
 
 export type BoxOrderSlot = {
   boxName: string;
+  photoUrl: string;
+  weight: number;
+  price: number;
   count: number;
 };
 

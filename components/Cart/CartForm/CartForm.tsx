@@ -150,6 +150,9 @@ const CartForm: React.FC<CartFormProps> = ({
     }`,
 
     count: item.count,
+    imageUrl: item.imageUrls[0],
+    weight: item.weight,
+    price: item.price,
   }));
 
   const handleOrder: SubmitHandler<IDeliveryInfo> = async (data) => {
