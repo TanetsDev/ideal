@@ -24,9 +24,6 @@ const PersonalOffice = () => {
   const lastName = useSelector(authSelector.getLastName);
   const email = useSelector(authSelector.getEmail);
   const token = useSelector(authSelector.selectToken);
-  const idUser = useSelector(authSelector.getid);
-
-  console.log(idUser);
 
   useEffect(() => {
     token ? "" : router.push("/sign_in");
@@ -65,8 +62,8 @@ const PersonalOffice = () => {
                 src="/images/avatar.png"
                 alt="Особистий кабінет"
                 className=" size-[50px] md:size-[50px] "
-                width="50"
-                height="50"
+                width="150"
+                height="150"
               />
               <ul>
                 <li className="flex gap-[4px]  font-manrope text-basicBlack text-[20px]  leading-[19px] ">

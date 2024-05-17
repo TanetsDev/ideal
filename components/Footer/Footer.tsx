@@ -111,7 +111,7 @@ const Footer = () => {
           </div>
         </div>
         {isModalOpen && (
-          <Modal>
+          <Modal className="py-[28px] px-[12px] md:pt-[40px] md:pb-[57px] md:px-[40px] max-w-[468px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

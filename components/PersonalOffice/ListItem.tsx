@@ -47,8 +47,6 @@ const ListItem: React.FC<ListItemProps> = ({
         >
           <path d="m19.5 8.25-7.5 7.5-7.5-7.5" />
         </svg>
-
-        // <IoIosArrowDown className="fill-[#141414]  xl:hidden" />
       )}
     </div>
 

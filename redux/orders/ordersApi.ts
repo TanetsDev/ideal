@@ -26,5 +26,4 @@ export const ordersApi = createApi({
     }),
   }),
 });
-
 export const { useCreateMutation, useGetByUserQuery } = ordersApi;
