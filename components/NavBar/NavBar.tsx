@@ -46,17 +46,6 @@ const NavBar = ({
       </Link>
       <Link
         className={`${
-          pathname === "/about"
-            ? " text-[#D6A968]  pb-[1px] border-b-[1px] border-[#D6A968] "
-            : ""
-        }  } hover:text-[#D6A968]`}
-        href="/about"
-        onClick={() => setIsOpen(false)}
-      >
-        Про компанію
-      </Link>
-      <Link
-        className={`${
           pathname === "/contact"
             ? " text-[#D6A968]  pb-[1px] border-b-[1px] border-[#D6A968] "
             : ""

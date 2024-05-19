@@ -50,7 +50,7 @@ const Footer = () => {
             </li>
             <li className="hidden lg:block lg:mt-[16px]">
               <div className=" hidden lg:flex gap-3">
-                <a href="https://www.facebook.com/?locale=uk_UA">
+                <a href="https://www.facebook.com/?locale=uk_UA" target="blank">
                   <Image
                     src={fbIcon}
                     alt="Логотип Facebook"
@@ -59,7 +59,7 @@ const Footer = () => {
                     height="50"
                   />
                 </a>
-                <a href="https://www.instagram.com/">
+                <a href="https://www.instagram.com/" target="blank">
                   <Image
                     src={instaIcon}
                     alt="Логотип Instagram"
@@ -111,7 +111,10 @@ const Footer = () => {
           </div>
         </div>
         {isModalOpen && (
-          <Modal className="py-[28px] px-[12px] md:pt-[40px] md:pb-[57px] md:px-[40px] max-w-[468px]">
+          <Modal
+            className="py-[28px] px-[12px] md:pt-[40px] md:pb-[57px] md:px-[40px] max-w-[468px]"
+            onClose={closeModal}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -129,9 +132,8 @@ const Footer = () => {
               <h2 className=" text-[24px] text-center leading-[33px] pb-[30px]">
                 Зв`язатись
               </h2>
-              <ContactForm />
+              <ContactForm onClose={closeModal} />
             </div>
-            {/* <div className="bg-white  relative flex justify-center rounded px-[40px]"></div> */}
           </Modal>
         )}
       </MainContainer>

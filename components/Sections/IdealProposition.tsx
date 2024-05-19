@@ -1,19 +1,18 @@
 "use client";
 
 import MainContainer from "../Containers/MainContainer";
-import BoxList from "../Products/BoxList";
+// import BoxList from "../Products/BoxList";
 import MainGoldBtn from "../Buttons/MainGoldBtn";
 import Title from "../Common/Title";
 import MainSectionsBox from "../Common/MainSectionsBox";
 import Link from "next/link";
 import useBoxesData from "@/hooks/useBoxesData";
-import { useSelector } from "react-redux";
-import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 import Loader from "../Loaders/Loader";
+import IdealPropositionSwiper from "../Swipers/IdealPropositionSwiper";
 
 const IdealProposition = () => {
+  //TO DO create SSR fetching
   const { data, error, isLoading } = useBoxesData();
-  const { data: selectData } = useSelector(selectBoxesState);
 
   if (isLoading)
     return (
@@ -21,6 +20,8 @@ const IdealProposition = () => {
         <Loader type="local" size={100} />
       </div>
     );
+
+  // ?? *** doing sonething with this !!!
   if (error) {
     console.error("Error fetching boxes:", error);
     return (
@@ -30,11 +31,12 @@ const IdealProposition = () => {
     );
   }
   return (
-    <MainSectionsBox>
-      <MainContainer className="flex flex-col items-center">
+    <MainSectionsBox className="lg:max-w-full">
+      <MainContainer className="flex flex-col items-center lg:max-w-full">
         <Title className="text-center">Ідеальна пропозиція</Title>
-        <BoxList boxes={selectData || data} section="idealProposition" />
-        <Link href={"/boxes"}>
+        {/* <BoxList boxes={selectData || data} section="idealProposition" /> */}
+        <IdealPropositionSwiper boxes={data} />
+        <Link href={"/boxes"} className=" mt-[40px]">
           <MainGoldBtn
             text={"Дивитись більше"}
             handleClick={() => null}

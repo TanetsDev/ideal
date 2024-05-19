@@ -6,7 +6,7 @@ export interface IBox {
   price: number;
   person: number;
   imageUrls: string | StaticImageData[];
-  type: BoxMarkerType;
+  type: string;
   count: number;
 }
 
@@ -17,11 +17,9 @@ export interface IBoxCard {
   price: number;
   person: number;
   imageUrls: string | StaticImageData[];
-  type: BoxMarkerType;
+  type: string;
 }
 //
-
-export type BoxMarkerType = "new" | "hit" | "top" | "normal";
 
 export interface ICartBox extends Omit<IBox, "type"> {
   weight: number;

@@ -30,8 +30,6 @@ const API_ROUTES = {
   ORDERS: {
     CREATE: `/api/orders`,
     GET_ALL: `/api/orders`,
-    GET_BY_ID: `/api/orders/:id`,
-    GET_ALL_BY_USER: `/api/user-orders`,
   },
 };
 

@@ -55,6 +55,7 @@ class TelegramBotService {
   private getContactMessageText = (data: IContactsMessageInfo) => {
     return `Вітаю! Ви отримали звернення з сайту! 
     %0AІм'я: ${data.name}, 
+    %0AПрізвище: ${data.lastName}, 
     %0AТелефон: ${data.phone}, ${
       data.comment
         ? `, 

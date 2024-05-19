@@ -3,18 +3,29 @@ import GoldLink from "../Buttons/GoldLink";
 
 const NotFound = () => {
   return (
-    <section
-      className="pt-[63px] flex absolute bottom-0 top-0 left-0  min-h-full w-full  bg-[#605F5F];
-"
-    >
+    <section className="absolute pt-[63px] flex  bottom-0 top-0 left-0  min-h-full w-full  bg-[#605F5F] ">
       <Image
-        src="/rol.jpg"
+        src="/404_desktop.jpg"
         alt="Box"
-        className=" w-full min-h-full "
-        width="200"
-        height="300"
+        className=" w-full min-h-full max-w-[1440px] mr-auto hidden xl:block"
+        width={1450}
+        height={965}
       />
-      <div className=" absolute max-w-[386px] md:max-w-[684px] w-2/3 md:w-1/2 right-0 bottom-0 top-0  px-[20px] text-[#FFFFFF] bg-[#1F1F1F] flex flex-col justify-center ">
+      <Image
+        src="/404_tablet.jpg"
+        alt="Box"
+        className=" w-full min-h-full max-w-[740px] mr-auto hidden md:block xl:hidden"
+        width={750}
+        height={1200}
+      />
+      <Image
+        src="/404_Mob.jpg"
+        alt="Box"
+        className=" w-full min-h-full max-w-[375px] mr-auto md:hidden"
+        width={400}
+        height={900}
+      />
+      <div className="absolute   max-w-[386px] md:max-w-[684px] w-2/3 md:w-1/2 right-0 bottom-0 top-0  px-[20px] text-[#FFFFFF] bg-[#1F1F1F] flex flex-col justify-center ">
         <div className="flex gap-[15px] justify-center text-center  font-manrope pb-[20px] md:pb-[28px] text-[100px]  leading-[80px] md:text-[140px] md:leading-[120px] xl:text-[200px] xl:leading-[150px]">
           <p>
             <span>4</span>

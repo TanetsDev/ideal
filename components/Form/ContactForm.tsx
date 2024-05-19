@@ -6,10 +6,13 @@ import GoldBtn from "../Buttons/GoldBtn";
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-import { useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import TelegramBotService from "@/services/TelegramBot.service";
+import Loader from "../Loaders/Loader";
+import toasterService from "@/services/Toaster.service";
 
 const ContactFormSchema = yup.object().shape({
   name: yup.string().required("Обов'язкове поле"),
@@ -40,9 +43,14 @@ const defaultValues = {
   rememberMe: false,
 };
 
-const ContactForm = () => {
+type Props = {
+  onClose: () => void;
+};
+
+const ContactForm: FC<Props> = ({ onClose }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -67,9 +75,18 @@ const ContactForm = () => {
     resolver: yupResolver(ContactFormSchema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsLoading(true);
+    const response = await TelegramBotService.sendMessage(data, "contacts");
+    setIsLoading(false);
     reset();
+
+    if (response.ok) {
+      toasterService.sucsess("Повідомлення успішно відправлено!");
+    } else {
+      toasterService.error("Сталася помилка, спробуйте ще");
+    }
+    onClose();
   };
 
   return (
@@ -77,6 +94,7 @@ const ContactForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-[46px] cartForm text-sm font-robotoFlex max-w-[375px]  w-full  xl:w-full xl:max-w-[830px]"
     >
+      {isLoading && <Loader size={100} type="global" />}
       <div
         className="flex flex-col relative "
         onClick={() => handleInputClick("name")}

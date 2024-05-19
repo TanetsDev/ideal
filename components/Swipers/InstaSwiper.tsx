@@ -31,18 +31,21 @@ const InstaSwiper = () => {
 
   return (
     <Swiper
-      spaceBetween={10}
-      slidesPerView={2}
+      spaceBetween={4}
+      slidesPerView={4}
       onSwiper={(swiper) => swiper}
       modules={[Autoplay]}
       autoplay={{ delay: 3000 }}
       loop={true}
       breakpoints={{
         640: {
-          slidesPerView: 4,
+          slidesPerView: 8,
         },
         1280: {
-          slidesPerView: 5,
+          slidesPerView: 7,
+        },
+        1600: {
+          slidesPerView: 8,
         },
       }}
     >
@@ -52,9 +55,9 @@ const InstaSwiper = () => {
             <Image
               src={img}
               height={281}
-              width={306}
+              width={308}
               alt="Фото з інстаграм"
-              className="object-cover rounded h-[184px]  w-full xl:h-[281px]  xl:w-[306px]"
+              className="object-cover rounded h-[184px]  w-[184px] xl:h-[281px] xl:w-[308px]"
             />
           </SwiperSlide>
         );

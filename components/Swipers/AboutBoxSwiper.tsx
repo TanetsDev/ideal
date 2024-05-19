@@ -1,12 +1,14 @@
 "use client"; // <===== REQUIRED
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+
 import Image from "next/image";
 import {
   about1,
@@ -22,10 +24,11 @@ const AboutBoxSwiper = () => {
       spaceBetween={0}
       slidesPerView={1}
       onSwiper={(swiper) => swiper}
-      modules={[Navigation, Pagination, Autoplay]}
+      effect={"fade"}
+      modules={[Navigation, Pagination, Autoplay, EffectFade]}
       navigation
       pagination={{ clickable: true }}
-      autoplay={{ delay: 3000 }}
+      autoplay={{ delay: 4000 }}
       loop={true}
       className="mt-[28px] md:mt-[46px] md:max-w-[700px]"
     >

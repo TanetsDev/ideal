@@ -17,7 +17,7 @@ const TeamSection = () => {
             <Image
               src={teamPhoto}
               alt="Фото команди"
-              className="rounded h-[280px] md:h-[516px] xl:h-[580px] md:w-[592px] xl:w-[660px]"
+              className="rounded h-[280px] md:h-[516px] xl:h-[580px] max-w-[400px] md:max-w-full md:w-[592px] xl:w-[660px]"
             />
           </div>
           <div className="hidden absolute top-[200px]   -right-[235px] text-lg text-black font-robotoFlex xl:flex flex-col gap-5 items-end ">
