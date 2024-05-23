@@ -44,7 +44,7 @@ const defaultValues = {
 };
 
 type Props = {
-  onClose: () => void;
+  onClose?: () => void;
 };
 
 const ContactForm: FC<Props> = ({ onClose }) => {
@@ -86,7 +86,7 @@ const ContactForm: FC<Props> = ({ onClose }) => {
     } else {
       toasterService.error("Сталася помилка, спробуйте ще");
     }
-    onClose();
+    onClose && onClose();
   };
 
   return (

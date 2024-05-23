@@ -17,7 +17,10 @@ const CartModal = ({ closeModal }: { closeModal: () => void }) => {
   return (
     <>
       {cart.length > 0 && (
-        <Modal className="py-[16px] md:py-[24px] max-w-[517px]  md:max-w-[1123px]">
+        <Modal
+          className="py-[16px] md:py-[24px] max-w-[517px]  md:max-w-[1123px]"
+          onClose={closeModal}
+        >
           <div className=" ">
             <h2 className=" text-xl text-basicBlack font-manrope pl-3 mb-4 xl:px-[40px]">
               Кошик

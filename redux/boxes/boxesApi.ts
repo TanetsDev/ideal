@@ -12,7 +12,10 @@ export const boxesApi = createApi({
         body: filters,
       }),
     }),
+    getBoxTypes: builder.query({
+      query: () => "/box-types",
+    }),
   }),
 });
 
-export const { useGetBoxesQuery } = boxesApi;
+export const { useGetBoxesQuery, useGetBoxTypesQuery } = boxesApi;

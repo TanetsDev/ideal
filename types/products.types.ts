@@ -1,14 +1,5 @@
 import { StaticImageData } from "next/image";
-
-export interface IBox {
-  _id: string;
-  title: { _key: string; value: string }[];
-  price: number;
-  person: number;
-  imageUrls: string | StaticImageData[];
-  type: string;
-  count: number;
-}
+import { BoxDTO } from "./sanityData.types";
 
 // card
 export interface IBoxCard {
@@ -21,6 +12,7 @@ export interface IBoxCard {
 }
 //
 
-export interface ICartBox extends Omit<IBox, "type"> {
+export interface ICartBox extends Omit<BoxDTO, "type"> {
   weight: number;
+  count: number;
 }

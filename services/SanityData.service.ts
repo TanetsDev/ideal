@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { IBoxFilters } from "@/types/filters.types";
-import { BannerDTO, BoxDTO } from "@/types/sanityData.types";
+import { BannerDTO, BoxDTO, BoxTypes } from "@/types/sanityData.types";
 import { NextRequest } from "next/server";
 
 class SanityDataService {
@@ -30,7 +30,10 @@ class SanityDataService {
     const query: string = `*[_type == "box" ${typesFilter}${priceRangeFilter}${personsFilter}][${start}...${end}]${priceOrder}{
       _id,
       name,
-      title,
+      title[]{
+        _key,
+        value
+      },
       dishCount,
       personCount,
       weight,
@@ -38,11 +41,17 @@ class SanityDataService {
       "imageUrls": images[].asset->url,
       extraType->{
         title,
-        value
+        value[]{
+          _key,
+          value
+        }
       },
       dishes[]->{
         title,
-        value
+        value[]{
+          _key,
+          value
+        }
       }
     }`;
 
@@ -86,6 +95,20 @@ class SanityDataService {
     }[0]`);
 
     return gallery.imageUrls;
+  };
+
+  public getBoxTypes = async (): Promise<BoxTypes> => {
+    const boxTypes = await this.sanity.fetch(
+      `*[_type == "boxTypes"]{
+      _id,
+      value[]{
+        _key,
+        value
+      }
+    }`
+    );
+
+    return boxTypes;
   };
 }
 

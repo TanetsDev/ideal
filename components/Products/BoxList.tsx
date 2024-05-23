@@ -1,11 +1,11 @@
-import { IBox } from "@/types/products.types";
 import BoxCard from "./BoxCard";
+import { BoxDTO } from "@/types/sanityData.types";
 
 const BoxList = ({
   boxes,
   section,
 }: {
-  boxes: IBox[];
+  boxes: BoxDTO[];
   section: "idealProposition" | "shop";
 }) => {
   const styles = {

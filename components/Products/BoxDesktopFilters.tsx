@@ -1,46 +1,29 @@
-import React, { useState } from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import UnderlineGold from "../UnderlineGold/UnderlineGold";
 import Image from "next/image";
 import { checkBox, checkBoxChecked } from "@/public/icons";
 import FiltersTitle from "../Common/FiltersTitle";
 import RangeInput from "../RangeInput/RangeInput";
-const filters: string[] = [
-  "Антіпасті",
-  "Фуршет бокс",
-  "Кава-брейк бокс",
-  "Барбекю бокс",
-  "Десерт бокс",
-  "Коктейль бокс",
-];
+import { BoxTypes } from "@/types/sanityData.types";
 
-const BoxDesktopFilters = () => {
-  const [isAntipastiChecked, setAntipastiIsChecked] = useState<boolean>(false);
-  const [isFurChecked, setFurIsChecked] = useState<boolean>(false);
-  const [isCoffChecked, setCoffIsChecked] = useState<boolean>(false);
-  const [isBbqChecked, setBbqIsChecked] = useState<boolean>(false);
-  const [isCandChecked, setCandIsChecked] = useState<boolean>(false);
-  const [isCoctChecked, setCoctIsChecked] = useState<boolean>(false);
-
-  const checkers = [
-    isAntipastiChecked,
-    isFurChecked,
-    isCoffChecked,
-    isBbqChecked,
-    isCandChecked,
-    isCoctChecked,
-  ];
-
-  const toggleCheck = (i: number) => {
-    const setters = [
-      setAntipastiIsChecked,
-      setFurIsChecked,
-      setCoffIsChecked,
-      setBbqIsChecked,
-      setCandIsChecked,
-      setCoctIsChecked,
-    ];
-
-    setters[i]((prev) => !prev);
+type Props = {
+  types: BoxTypes[] | null;
+  isCleaned: boolean;
+  checkedFilters: string[];
+  setCheckedFilters: Dispatch<SetStateAction<string[]>>;
+};
+const BoxDesktopFilters: FC<Props> = ({
+  types,
+  isCleaned,
+  checkedFilters,
+  setCheckedFilters,
+}) => {
+  const toggleCheck = (id: string, type: "add" | "del") => {
+    if (type === "add") {
+      setCheckedFilters((prev) => [...prev, id]);
+    } else {
+      setCheckedFilters((prev) => [...prev.filter((val) => val !== id)]);
+    }
   };
 
   return (
@@ -49,41 +32,42 @@ const BoxDesktopFilters = () => {
         <FiltersTitle>Тип боксу</FiltersTitle>
         <UnderlineGold />
         <ul className="flex flex-col px-[24px] gap-[10px] mt-[24px] text-base font-manrope">
-          {filters.map((f, i) => (
-            <li
-              key={i}
-              className=" flex items-center gap-[8px] text-basicBlack"
-            >
-              {!checkers[i] ? (
-                <Image
-                  src={checkBox}
-                  alt="чекбокс"
-                  onClick={() => toggleCheck(i)}
-                  className=" size-[22px]"
-                />
-              ) : (
-                <Image
-                  src={checkBoxChecked}
-                  alt="чекбокс"
-                  onClick={() => toggleCheck(i)}
-                  className=" size-[22px]"
-                />
-              )}
-              <span>{f}</span>
-            </li>
-          ))}
+          {types &&
+            types.map((type) => (
+              <li
+                key={type._id}
+                className=" flex items-center gap-[8px] text-basicBlack"
+              >
+                {!checkedFilters.includes(type._id) ? (
+                  <Image
+                    src={checkBox}
+                    alt="чекбокс"
+                    onClick={() => toggleCheck(type._id, "add")}
+                    className=" size-[22px]"
+                  />
+                ) : (
+                  <Image
+                    src={checkBoxChecked}
+                    alt="чекбокс"
+                    onClick={() => toggleCheck(type._id, "del")}
+                    className=" size-[22px]"
+                  />
+                )}
+                <span>{type.value[0].value}</span>
+              </li>
+            ))}
         </ul>
       </div>
       <div className="pt-[14px] pb-6 bg-white">
         <FiltersTitle>Ціна</FiltersTitle>
         <UnderlineGold isGrey />
 
-        <RangeInput from="1" to="100" />
+        <RangeInput from="1" to="100" isClean={isCleaned} />
       </div>
       <div className=" pt-[14px] pb-6 bg-white">
         <FiltersTitle>Персон</FiltersTitle>
         <UnderlineGold isGrey={true} />
-        <RangeInput from="1" to="8" />
+        <RangeInput from="1" to="8" isClean={isCleaned} />
       </div>
     </div>
   );

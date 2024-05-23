@@ -8,7 +8,10 @@ import BoxDesktopFilters from "@/components/Products/BoxDesktopFilters";
 import BoxFilters from "@/components/Products/BoxFilters";
 import BoxList from "@/components/Products/BoxList";
 import { arrDown, arrUp, filterIcon } from "@/public/icons";
-import { selectBoxesState } from "@/redux/boxes/boxesSelector";
+import {
+  selectBoxTypesData,
+  selectBoxesState,
+} from "@/redux/boxes/boxesSelector";
 
 import { IBreadCrumb } from "@/types/market.types";
 import Image from "next/image";
@@ -24,8 +27,13 @@ const crmbs: IBreadCrumb[] = [
 const BoxesMarket = () => {
   const [crumbs] = useState<IBreadCrumb[]>(crmbs);
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false);
+  const [isCleaned, setIsCleaned] = useState<boolean>(false);
+
+  const [checkedFilters, setCheckedFilters] = useState<string[]>([]);
+
   const router = useRouter();
   const { data } = useSelector(selectBoxesState);
+  const { types } = useSelector(selectBoxTypesData);
 
   useEffect(() => {
     if (!data || data.length === 0) {
@@ -45,7 +53,14 @@ const BoxesMarket = () => {
           <Title isMain className="text-center ">
             Ідеальні бокси
           </Title>
-          {isFiltersOpen && <BoxFilters setIsFiltersOpen={setIsFiltersOpen} />}
+          {isFiltersOpen && (
+            <BoxFilters
+              setIsFiltersOpen={setIsFiltersOpen}
+              types={types}
+              checkedFilters={checkedFilters}
+              setCheckedFilters={setCheckedFilters}
+            />
+          )}
           <div className="flex flex-col md:flex-row md:justify-center md:mt-[46px] gap-[24px]">
             {!isFiltersOpen && (
               <button
@@ -63,7 +78,15 @@ const BoxesMarket = () => {
             )}
 
             <div className=" flex gap-[26px] md:gap-[15px] justify-center md:flex-grow md:justify-end text-base font-robotoFlex">
-              <button type="button">Скинути</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCleaned(true);
+                  setCheckedFilters([]);
+                }}
+              >
+                Скинути
+              </button>
               <button type="button" className="flex items-center gap-[1px]">
                 Ціна
                 <Image src={arrDown} alt="Стрілка вниз" height={14} />
@@ -82,7 +105,12 @@ const BoxesMarket = () => {
         xl:justify-between
         "
         >
-          <BoxDesktopFilters />
+          <BoxDesktopFilters
+            types={types}
+            isCleaned={isCleaned}
+            checkedFilters={checkedFilters}
+            setCheckedFilters={setCheckedFilters}
+          />
           <BoxList boxes={data} section="shop" />
         </div>
       </MainContainer>

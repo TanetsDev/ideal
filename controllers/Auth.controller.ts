@@ -30,7 +30,6 @@ class AuthController {
       const newUser = await prisma.users.create({
         data: {
           ...data,
-          phone: Number(data.phone),
           password: hash,
         },
         select: this.returnedFields,
@@ -49,7 +48,7 @@ class AuthController {
     try {
       const user = await prisma.users.findFirst({
         where: {
-          phone: Number(phone),
+          phone,
         },
         select: { ...this.returnedFields, password: true },
       });

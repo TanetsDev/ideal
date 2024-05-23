@@ -1,4 +1,3 @@
-import { BoxMarkerType } from "@/types/products.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { StaticImageData } from "next/image";
 
@@ -6,9 +5,9 @@ export interface AddToCartPayload {
   _id: string;
   title: { _key: string; value: string }[] | string;
   price: number;
-  person: number;
-  imageUrls: string | StaticImageData[];
-  type: BoxMarkerType;
+  personCount: number;
+  imageUrls: string[] | StaticImageData[];
+
   count: number;
 }
 export interface ICartBoxWeight extends Omit<AddToCartPayload, "type"> {

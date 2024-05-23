@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Swiper as ReactSwiper } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { IBoxCard } from "@/types/products.types";
 import Image from "next/image";
 import Title from "../Common/Title";
 import { uah } from "@/public/icons";
@@ -22,6 +21,7 @@ import { addToCart } from "@/redux/cartSlice/cartSlice";
 import useModal from "@/hooks/useModal";
 import CartModal from "../Cart/CartList/CartModal";
 import GoldLink from "../Buttons/GoldLink";
+import { BoxDTO } from "@/types/sanityData.types";
 
 const BoxPreviewCard = () => {
   const params = useParams();
@@ -43,7 +43,7 @@ const BoxPreviewCard = () => {
     return null;
   }
 
-  const box = data.filter((e: IBoxCard) => e._id === params.id);
+  const box = data.filter((e: BoxDTO) => e._id === params.id);
 
   if (box.length === 0) {
     return (
@@ -54,7 +54,7 @@ const BoxPreviewCard = () => {
     );
   }
   const handleAddToCart = () => {
-    dispatch(addToCart(box[0]));
+    dispatch(addToCart({ ...box[0], count: 1 }));
     openModal();
   };
 
@@ -91,7 +91,7 @@ const BoxPreviewCard = () => {
           style={{ width: "100%" }}
         >
           {imageUrls &&
-            imageUrls?.map((e: string, index: number) => (
+            imageUrls?.map((e, index) => (
               <SwiperSlide key={index}>
                 <Image
                   src={e}
@@ -115,7 +115,7 @@ const BoxPreviewCard = () => {
           style={{ width: "100%" }}
         >
           {imageUrls &&
-            imageUrls?.map((e: string, index: number) => (
+            imageUrls?.map((e, index) => (
               <SwiperSlide key={index}>
                 <Image
                   src={e}

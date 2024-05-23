@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export interface BannerDTO {
   name: string;
   title: string;
@@ -8,12 +10,12 @@ export interface BannerDTO {
 export interface BoxDTO {
   _id: string;
   name: string;
-  title: InterValue[];
+  title: InterValue;
   dishCount: number;
   personCount: number;
   weight: number;
   price: number;
-  imageUrls: string[];
+  imageUrls: string[] | StaticImageData[];
   extraType: {
     title: string;
     value: InterValue;
@@ -24,5 +26,9 @@ export interface BoxDTO {
 type InterValue = {
   value: string;
   _key: "en" | "ukr" | "ru";
-  _type: string;
+}[];
+
+export type BoxTypes = {
+  _id: string;
+  value: InterValue;
 };

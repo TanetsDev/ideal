@@ -2,24 +2,24 @@ import { personIcon, uah } from "@/public/icons";
 // import { boxImg } from "@/public/images";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
-import { IBox } from "@/types/products.types";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/cartSlice/cartSlice";
+import { BoxDTO } from "@/types/sanityData.types";
 
 const SuggestionsBox = ({
   box,
   isSuggestions,
   openModal,
 }: {
-  box: IBox;
+  box: BoxDTO;
   isSuggestions?: boolean;
   openModal: () => void;
 }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart(box));
+    dispatch(addToCart({ ...box, count: 1 }));
     openModal();
   };
 
@@ -51,7 +51,7 @@ const SuggestionsBox = ({
             alt="Іконка людини"
             className=" h-[26px] w-[10px]"
           />
-          {box.person}
+          {box.personCount}
         </span>
         <div className="flex gap-2 items-center xl:ml-auto">
           <span

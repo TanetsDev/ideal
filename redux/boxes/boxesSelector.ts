@@ -8,3 +8,9 @@ export const selectBoxesState = createSelector(
 
   (data) => ({ data })
 );
+
+export const selectBoxTypes = (state: RootState) => state.boxes.types;
+
+export const selectBoxTypesData = createSelector(selectBoxTypes, (types) => ({
+  types,
+}));

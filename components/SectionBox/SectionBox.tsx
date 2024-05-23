@@ -7,7 +7,7 @@ import BoxPreviewCard from "@/components/Products/BoxPreviewCard";
 import SuggeschionsSwiper from "@/components/Swipers/SuggeschionsSwiper";
 import { selectBoxesState } from "@/redux/boxes/boxesSelector";
 import { IBreadCrumb } from "@/types/market.types";
-import { IBoxCard } from "@/types/products.types";
+import { BoxDTO } from "@/types/sanityData.types";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const SectionBox = () => {
       router.push("/");
     } else if (params.id) {
       const boxId = params.id;
-      const box = data.find((e: IBoxCard) => e._id === params.id);
+      const box = data.find((e: BoxDTO) => e._id === params.id);
       const boxTitle =
         box?.title?.find(({ _key }: { _key: string }) => _key === "ukr")
           ?.value || " ";

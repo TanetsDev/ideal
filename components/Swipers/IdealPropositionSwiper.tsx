@@ -9,11 +9,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { IBox } from "@/types/products.types";
 import BoxCard from "../Products/BoxCard";
+import { BoxDTO } from "@/types/sanityData.types";
 
 type Props = {
-  boxes: IBox[];
+  boxes: BoxDTO[];
 };
 
 const IdealPropositionSwiper: FC<Props> = ({ boxes }) => {
@@ -46,7 +46,7 @@ const IdealPropositionSwiper: FC<Props> = ({ boxes }) => {
           },
         }}
       >
-        {boxes.map((box: IBox) => {
+        {boxes.map((box) => {
           return (
             <SwiperSlide key={box._id}>
               <BoxCard key={box._id} box={box} />

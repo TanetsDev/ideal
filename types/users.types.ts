@@ -1,7 +1,7 @@
 import { Users } from "@prisma/client";
 
 export type SignInDTO = {
-  phone: number;
+  phone: string;
   password: string;
 };
 

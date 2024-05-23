@@ -53,13 +53,11 @@ const PersonalDataForm = () => {
   const phone = useSelector(authSelector.getPhone);
 
   const defaultValues = {
-    name: name,
-    lastName: lastName,
-    phone: phone,
-    email: email,
-    address: address,
-
-    rememberMe: false,
+    name: name || "",
+    lastName: lastName || "",
+    phone: phone || "",
+    email: email || "",
+    address: address || "",
   };
 
   useEffect(() => {

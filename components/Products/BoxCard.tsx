@@ -1,7 +1,6 @@
 import { personIcon, uah } from "@/public/icons";
 import Image from "next/image";
 import BoxBtn from "../Buttons/BoxBtn";
-import { IBox } from "@/types/products.types";
 import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,13 +11,14 @@ import { addToCart } from "@/redux/cartSlice/cartSlice";
 
 import useModal from "@/hooks/useModal";
 import CartModal from "../Cart/CartList/CartModal";
+import { BoxDTO } from "@/types/sanityData.types";
 
-const BoxCard = ({ box }: { box: IBox }) => {
+const BoxCard = ({ box }: { box: BoxDTO }) => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart(box));
+    dispatch(addToCart({ ...box, count: 1 }));
     openModal();
   };
 
@@ -77,7 +77,7 @@ const BoxCard = ({ box }: { box: IBox }) => {
               width={200}
               height={200}
             />
-            {box.person}
+            {box.personCount}
           </span>
           <div className="flex gap-2 items-center">
             <span

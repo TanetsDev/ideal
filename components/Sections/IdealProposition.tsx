@@ -9,10 +9,22 @@ import Link from "next/link";
 import useBoxesData from "@/hooks/useBoxesData";
 import Loader from "../Loaders/Loader";
 import IdealPropositionSwiper from "../Swipers/IdealPropositionSwiper";
+import { useEffect } from "react";
+import { useGetBoxTypesQuery } from "@/redux/boxes/boxesApi";
+import { useDispatch } from "react-redux";
+import { setTypes } from "@/redux/boxes/boxesSlice";
 
 const IdealProposition = () => {
   //TO DO create SSR fetching
   const { data, error, isLoading } = useBoxesData();
+  const { data: types } = useGetBoxTypesQuery({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      dispatch(setTypes(types));
+    })();
+  }, [dispatch, types]);
 
   if (isLoading)
     return (

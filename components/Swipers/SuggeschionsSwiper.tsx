@@ -6,7 +6,6 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { IBox } from "@/types/products.types";
 import Image from "next/image";
 import { arrowLeft, arrowRight } from "@/public/icons";
 import SuggestionsBox from "../Products/SuggestionsBoxCard";
@@ -57,7 +56,7 @@ const SuggeschionsSwiper = () => {
           },
         }}
       >
-        {boxes.map((box: IBox) => {
+        {boxes.map((box) => {
           return (
             <SwiperSlide key={box._id}>
               <SuggestionsBox box={box} openModal={openModal} />
